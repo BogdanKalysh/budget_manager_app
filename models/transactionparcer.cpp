@@ -9,3 +9,13 @@ Transaction TransactionParcer<T>::parce(QJsonObject json)
 
     return Transaction(amount, date, description);
 }
+
+template<typename T>
+QVector<Transaction> TransactionParcer<T>::parceVector(QJsonArray jsonArray)
+{
+    QVector<Transaction> transactions;
+    foreach(QJsonValue json, jsonArray)
+        transactions.append(this->parce(json));
+
+    return transactions;
+}

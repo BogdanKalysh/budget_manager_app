@@ -9,6 +9,7 @@ class TransactionParcer: IJsonParcer<T>
 {
 public:
     virtual Transaction parce(QJsonObject json);
+    virtual QVector<Transaction> parceVector(QJsonArray jsonArray);
 };
 
 #endif // TRANSACTIONPARCER_H

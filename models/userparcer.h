@@ -9,6 +9,7 @@ class UserParcer: IJsonParcer<T>
 {
 public:
     virtual User parce(QJsonObject json);
+    virtual QVector<User> parceVector(QJsonArray jsonArray);
 };
 
 #endif // USERPARCER_H

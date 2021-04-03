@@ -9,3 +9,13 @@ User UserParcer<T>::parce(QJsonObject json)
 
     return User(name, email, password);
 }
+
+template<typename T>
+QVector<User> UserParcer<T>::parceVector(QJsonArray jsonArray)
+{
+    QVector<User> users;
+    foreach(QJsonValue json, jsonArray)
+        users.append(this->parce(json));
+
+    return users;
+}

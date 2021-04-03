@@ -1,5 +1,4 @@
 #include "categoryparcer.h"
-#include <QJsonArray>
 
 template<typename T>
 Category CategoryParcer<T>::parce(QJsonObject json)
@@ -11,4 +10,14 @@ Category CategoryParcer<T>::parce(QJsonObject json)
     QColor color(jRGB[0].toInt(), jRGB[1].toInt(), jRGB[2].toInt());
 
     return Category(name, type, color);
+}
+
+template<typename T>
+QVector<Category> CategoryParcer<T>::parceVector(QJsonArray jsonArray)
+{
+    QVector<Category> categories;
+    foreach(QJsonValue json, jsonArray)
+        categories.append(this->parce(json));
+
+    return categories;
 }
