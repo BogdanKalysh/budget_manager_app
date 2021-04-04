@@ -1,16 +1,19 @@
 #ifndef TRANSACTION_H
 #define TRANSACTION_H
+
 #include <QDate>
 #include <QString>
+#include "category.h"
 
 class Transaction
 {
     int amount;
     QDate date;
     QString description;
-    // TODO: add field "category"; but for now it is`t clear of what type it should be (Category or QString)
+    Category category;
+
 public:
-    Transaction(int amount, QDate date, QString description);
+    Transaction(int amount, QDate date, QString description, Category category);
 
     int getAmount();
     QDate getDate();
@@ -19,6 +22,7 @@ public:
     QString setAmount(int amount);
     QString setDate(QDate date);
     QString setDescription(QString description);
+    QString setCategory(Category category);
 };
 
 #endif // TRANSACTION_H

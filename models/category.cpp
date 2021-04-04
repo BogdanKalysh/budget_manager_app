@@ -1,10 +1,24 @@
 #include "category.h"
 
+Category::Category()
+{
+    this->name = QString();
+    this->type = QString();
+    this->color = QColor();
+}
+
 Category::Category(QString name, QString type, QColor color)
 {
     this->setName(name);
     this->setType(type);
     this->setColor(color);
+}
+
+Category::Category(const Category &other)
+{
+    this->name = other.name;
+    this->type = other.type;
+    this->color = other.color;
 }
 
 QString Category::getName()
@@ -42,6 +56,3 @@ QString Category::setColor(QColor color)
     this->color = color;
     return "Success";
 }
-
-
-

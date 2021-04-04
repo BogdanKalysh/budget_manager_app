@@ -1,10 +1,11 @@
 #include "transaction.h"
 
-Transaction::Transaction(int amount, QDate date, QString description)
+Transaction::Transaction(int amount, QDate date, QString description, Category category)
 {
     this->setAmount(amount);
     this->setDate(date);
     this->setDescription(description);
+    this->setCategory(category);
 }
 
 int Transaction::getAmount()
@@ -40,5 +41,12 @@ QString Transaction::setDescription(QString description)
 {
     // TODO: Validation logic
     this->description = description;
+    return "Success";
+}
+
+QString Transaction::setCategory(Category category)
+{
+    // TODO: Validation logic
+    this->category = category;
     return "Success";
 }

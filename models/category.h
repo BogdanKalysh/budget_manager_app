@@ -9,7 +9,9 @@ class Category
     QString type;
     QColor color;
 public:
+    Category();
     Category(QString name, QString type, QColor color);
+    Category (const Category &other);
 
     QString getName();
     QString getType();

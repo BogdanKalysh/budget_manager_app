@@ -1,4 +1,6 @@
 #include "transactionparcer.h"
+#include "categoryparcer.h"
+
 
 template<typename T>
 Transaction TransactionParcer<T>::parce(QJsonObject json)
@@ -7,7 +9,10 @@ Transaction TransactionParcer<T>::parce(QJsonObject json)
     QDate date = json.value("date").toVariant().toDate();
     QString description = json.value("description").toString();
 
-    return Transaction(amount, date, description);
+    CategoryParcer<Category> parcer;
+    Category category = parcer.parce(json.value("category").toObject());
+
+    return Transaction(amount, date, description, category);
 }
 
 template<typename T>
