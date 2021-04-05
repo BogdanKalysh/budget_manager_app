@@ -7,22 +7,28 @@
 
 class Transaction
 {
+    int id;
     int amount;
     QDate date;
     QString description;
-    Category category;
-
+    //Category category;
+    int categoryId;
 public:
-    Transaction(int amount, QDate date, QString description, Category category);
+    //Transaction(int amount, QDate date, QString description, Category category);
+    Transaction(int id, int amount, QDate date, QString description, int categoryId);
 
+    int getId();
     int getAmount();
+    int getCategoryId();
     QDate getDate();
     QString getDescription();
 
+    QString setId(int id);
     QString setAmount(int amount);
     QString setDate(QDate date);
     QString setDescription(QString description);
-    QString setCategory(Category category);
+    QString setCategoryId(int categoryId);
+    //QString setCategory(Category category);
 };
 
 #endif // TRANSACTION_H

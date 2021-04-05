@@ -5,18 +5,21 @@
 
 class Category
 {
+    int id;
     QString name;
     QString type;
     QColor color;
 public:
     Category();
-    Category(QString name, QString type, QColor color);
+    Category(int id, QString name, QString type, QColor color);
     Category (const Category &other);
 
+    int getId();
     QString getName();
     QString getType();
     QColor getColor();
 
+    QString setId(int id);
     QString setName(QString name);
     QString setType(QString type);
     QString setColor(QColor color);

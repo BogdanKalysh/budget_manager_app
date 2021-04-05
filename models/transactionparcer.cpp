@@ -5,14 +5,15 @@
 template<typename T>
 Transaction TransactionParcer<T>::parce(QJsonObject json)
 {
+    int id = json.value("id").toInt();
     int amount = json.value("amount").toInt();
     QDate date = json.value("date").toVariant().toDate();
     QString description = json.value("description").toString();
+    int categoryId = json.value("categoryId").toInt();
+//    CategoryParcer<Category> parcer;
+//    Category category = parcer.parce(json.value("category").toObject());
 
-    CategoryParcer<Category> parcer;
-    Category category = parcer.parce(json.value("category").toObject());
-
-    return Transaction(amount, date, description, category);
+    return Transaction(id, amount, date, description, categoryId);
 }
 
 template<typename T>

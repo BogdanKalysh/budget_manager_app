@@ -3,11 +3,12 @@
 template<typename T>
 User UserParcer<T>::parce(QJsonObject json)
 {
+    int id = json.value("id").toInt();
     QString name = json.value("name").toString();
     QString email = json.value("email").toString();
     QString password = json.value("password").toString();
 
-    return User(name, email, password);
+    return User(id, name, email, password);
 }
 
 template<typename T>

@@ -1,10 +1,16 @@
 #include "user.h"
 
-User:: User(QString name, QString email, QString password)
+User:: User(int id, QString name, QString email, QString password)
 {
+    this->setId(id);
     this->setName(name);
     this->setEmail(email);
     this->setPassword(password);
+}
+
+int User::getId()
+{
+    return this->id;
 }
 
 QString User::getName()
@@ -20,6 +26,13 @@ QString User::getPassword()
 QString User::getEmail()
 {
     return this->email;
+}
+
+QString User::setId(int id)
+{
+    // TODO: Int validation logic
+    this->id = id;
+    return "Success";
 }
 
 QString User::setName(QString name)

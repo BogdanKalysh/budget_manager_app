@@ -5,15 +5,18 @@
 
 class User
 {
+    int id;
     QString name;
     QString password;
     QString email;
 public:
-    User(QString name, QString email, QString password);
+    User(int id, QString name, QString email, QString password);
+    int getId();
     QString getName();
     QString getPassword();
     QString getEmail();
 
+    QString setId(int id);
     QString setName(QString name);
     QString setPassword(QString password);
     QString setEmail(QString email);

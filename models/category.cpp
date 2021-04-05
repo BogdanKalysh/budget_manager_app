@@ -2,13 +2,16 @@
 
 Category::Category()
 {
+    // Attention! Not valid data!
+    this->id = -1;
     this->name = QString();
     this->type = QString();
     this->color = QColor();
 }
 
-Category::Category(QString name, QString type, QColor color)
+Category::Category(int id, QString name, QString type, QColor color)
 {
+    this->setId(id);
     this->setName(name);
     this->setType(type);
     this->setColor(color);
@@ -16,9 +19,15 @@ Category::Category(QString name, QString type, QColor color)
 
 Category::Category(const Category &other)
 {
+    this->id = other.id;
     this->name = other.name;
     this->type = other.type;
     this->color = other.color;
+}
+
+int Category::getId()
+{
+    return this->id;
 }
 
 QString Category::getName()
@@ -34,6 +43,13 @@ QString Category::getType()
 QColor Category::getColor()
 {
     return this->color;
+}
+
+QString Category::setId(int id)
+{
+    // TODO: Int validation logic
+    this->id = id;
+    return "Success";
 }
 
 QString Category::setName(QString name)
