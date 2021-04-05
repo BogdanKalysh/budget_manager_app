@@ -17,6 +17,10 @@ DEPENDPATH += \
 
 
 SOURCES += \
+    DAL/categoryrepository.cpp \
+    DAL/irepository.cpp \
+    DAL/transactionrepository.cpp \
+    DAL/userrepository.cpp \
     main.cpp \
     mainWindow/mainwindow.cpp \
     models/category.cpp \
@@ -28,6 +32,10 @@ SOURCES += \
 
 
 HEADERS += \
+    DAL/categoryrepository.h \
+    DAL/irepository.h \
+    DAL/transactionrepository.h \
+    DAL/userrepository.h \
     mainWindow/mainwindow.h \
     models/category.h \
     models/categoryparcer.h \
