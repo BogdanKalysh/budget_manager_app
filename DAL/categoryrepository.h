@@ -12,5 +12,4 @@ public:
     bool add(Category &object) override;
     bool deleteObject(int id) override;
 };
-
 #endif // CATEGORYREPOSITORY_H

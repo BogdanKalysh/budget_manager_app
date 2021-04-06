@@ -21,6 +21,7 @@ SOURCES += \
     DAL/irepository.cpp \
     DAL/transactionrepository.cpp \
     DAL/userrepository.cpp \
+    loginWindow/loginwindow.cpp \
     main.cpp \
     mainWindow/mainwindow.cpp \
     models/category.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     DAL/irepository.h \
     DAL/transactionrepository.h \
     DAL/userrepository.h \
+    loginWindow/loginwindow.h \
     mainWindow/mainwindow.h \
     models/category.h \
     models/categoryparcer.h \
@@ -46,9 +48,13 @@ HEADERS += \
     models/userparcer.h
 
 FORMS += \
+    loginWindow/loginwindow.ui \
     mainWindow/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    src.qrc
