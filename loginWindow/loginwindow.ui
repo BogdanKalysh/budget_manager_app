@@ -168,7 +168,7 @@ color: rgb(0, 127, 0);</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="signUpLoginButton">
         <property name="font">
          <font>
           <family>Calibri</family>
@@ -179,14 +179,14 @@ color: rgb(0, 127, 0);</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">#pushButton{
+         <string notr="true">#signUpLoginButton{
 background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:1, stop:1 rgba(0, 0, 0, 0));
 color: rgb(0, 134, 0);
 font-size: 16px;
 border:none;
 }
 
-#pushButton:hover{
+#signUpLoginButton:hover{
 color: #ffffff;
 border:none;
 }</string>

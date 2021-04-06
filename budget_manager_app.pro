@@ -29,7 +29,8 @@ SOURCES += \
     models/transaction.cpp \
     models/transactionparcer.cpp \
     models/user.cpp \
-    models/userparcer.cpp
+    models/userparcer.cpp \
+    signUpWindow/signupwindow.cpp
 
 
 HEADERS += \
@@ -45,11 +46,13 @@ HEADERS += \
     models/transaction.h \
     models/transactionparcer.h \
     models/user.h \
-    models/userparcer.h
+    models/userparcer.h \
+    signUpWindow/signupwindow.h
 
 FORMS += \
     loginWindow/loginwindow.ui \
-    mainWindow/mainwindow.ui
+    mainWindow/mainwindow.ui \
+    signUpWindow/signupwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

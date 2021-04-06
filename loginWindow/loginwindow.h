@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "mainwindow.h"
+#include "signUpWindow/signupwindow.h"
 
 namespace Ui {
 class LoginWindow;
@@ -19,9 +20,15 @@ public:
 private slots:
     void on_loginButton_clicked();
 
+
+
+    void on_signUpLoginButton_clicked();
+
 private:
     Ui::LoginWindow *ui;
     MainWindow *mainWindow;
+    SignUpWindow *signUpWindow;
+
 };
 
 #endif // LOGINWINDOW_H

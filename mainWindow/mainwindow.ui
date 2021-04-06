@@ -20,8 +20,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>150</y>
+      <x>300</x>
+      <y>240</y>
       <width>251</width>
       <height>41</height>
      </rect>
@@ -37,7 +37,7 @@
      <string notr="true">color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
-     <string>This is main window</string>
+     <string>This is main window!</string>
     </property>
    </widget>
   </widget>

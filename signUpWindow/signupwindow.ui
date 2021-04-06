@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SignUpWindow</class>
+ <widget class="QDialog" name="SignUpWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>763</width>
+    <height>533</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: qlineargradient(spread:pad, x1:0.551, y1:0.835, x2:0.517236, y2:0.051, stop:0 rgba(0, 255, 0, 223), stop:1 rgba(255, 255, 255, 255));</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>30</y>
+     <width>371</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(0, 132, 255);
+color: rgb(0, 153, 0);
+background-color: qlineargradient(spread:pad, x1:0.511, y1:1, x2:0.510978, y2:0, stop:0 rgba(97, 255, 255, 0), stop:1 rgba(255, 255, 255, 255));
+font: 75 24pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Welcome to Heavy Wallet</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="signUpForm">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>110</y>
+     <width>361</width>
+     <height>361</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Calibri</family>
+     <pointsize>14</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: qlineargradient(spread:pad, x1:0.511, y1:1, x2:0.527831, y2:0, stop:1 rgba(68, 255, 51, 0));
+border-color: rgb(0, 170, 0);
+border-size: 2px;
+font: 75 14pt &quot;Calibri&quot;;
+font: 75 8pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(0, 134, 0);
+font: 14pt &quot;Calibri&quot;;</string>
+   </property>
+   <property name="title">
+    <string>Please sign up</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLineEdit" name="nameLine">
+      <property name="styleSheet">
+       <string notr="true">borde-sizer: 30px;
+borde-color: red;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="emailLine">
+      <property name="styleSheet">
+       <string notr="true">borde-sizer: 30px;
+borde-color: red;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="passwordLine">
+      <property name="echoMode">
+       <enum>QLineEdit::Password</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="signUpButton">
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#signUpButton{
+	color: rgb(0, 170, 0);
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 145, 0);
+	border-radius: 10px;
+}
+#signUpButton:hover{
+	background-color:#00aa00;
+}</string>
+      </property>
+      <property name="text">
+       <string>sign up</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

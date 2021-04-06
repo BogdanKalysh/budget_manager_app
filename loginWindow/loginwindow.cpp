@@ -8,6 +8,8 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->email_line->setPlaceholderText("email");
     ui->password_line->setPlaceholderText("password");
+    signUpWindow = new SignUpWindow();
+    connect(signUpWindow, &SignUpWindow::loginWindow, this, &LoginWindow::show);
 
 }
 
@@ -19,8 +21,14 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_loginButton_clicked()
 {
-    this->hide();
-    mainWindow = new MainWindow(this);
+    mainWindow = new MainWindow();
     mainWindow->show();
+    this->close();
+}
 
+
+void LoginWindow::on_signUpLoginButton_clicked()
+{
+    signUpWindow->show();
+    this->close();
 }
