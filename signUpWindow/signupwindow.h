@@ -2,6 +2,7 @@
 #define SIGNUPWINDOW_H
 
 #include <QDialog>
+#include "user.h"
 
 namespace Ui {
 class SignUpWindow;
