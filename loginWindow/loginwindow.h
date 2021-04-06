@@ -2,8 +2,10 @@
 #define LOGINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include "mainwindow.h"
 #include "signUpWindow/signupwindow.h"
+
 
 namespace Ui {
 class LoginWindow;

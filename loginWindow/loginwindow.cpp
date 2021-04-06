@@ -21,9 +21,22 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_loginButton_clicked()
 {
-    mainWindow = new MainWindow();
-    mainWindow->show();
-    this->close();
+    //connect to db
+    QString email = ui->email_line->text();
+    QString password = ui->password_line->text();
+
+    //if(database.open()){
+
+    if(email=="heavywallet@gmail.com" && password == "123123"){
+        mainWindow = new MainWindow();
+        mainWindow->show();
+        this->close();
+    }
+    else{
+        QMessageBox::critical(this, "Failed", "Wrong login or password");
+    }
+
+
 }
 
 
