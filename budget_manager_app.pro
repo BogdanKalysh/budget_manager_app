@@ -20,22 +20,23 @@ SOURCES += \
     main.cpp \
     mainWindow/mainwindow.cpp \
     models/category.cpp \
-    models/categoryparcer.cpp \
+    models/categoryparser.cpp \
     models/transaction.cpp \
-    models/transactionparcer.cpp \
+    models/transactionparser.cpp \
     models/user.cpp \
-    models/userparcer.cpp
+    models/userparser.cpp
 
 
 HEADERS += \
     mainWindow/mainwindow.h \
     models/category.h \
-    models/categoryparcer.h \
-    models/ijsonparcer.h \
+    models/categoryparser.h \
+    models/constants.h \
+    models/ijsonparser.h \
     models/transaction.h \
-    models/transactionparcer.h \
+    models/transactionparser.h \
     models/user.h \
-    models/userparcer.h
+    models/userparser.h
 
 FORMS += \
     mainWindow/mainwindow.ui
