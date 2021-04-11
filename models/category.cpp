@@ -5,11 +5,11 @@ Category::Category()
     // Attention! Not valid data!
     this->id = -1;
     this->name = QString();
-    this->type = QString();
+    this->type = income;
     this->color = QColor();
 }
 
-Category::Category(int id, QString name, QString type, QColor color)
+Category::Category(int id, QString name, Type type, QColor color)
 {
     this->setId(id);
     this->setName(name);
@@ -35,7 +35,7 @@ QString Category::getName()
     return this->name;
 }
 
-QString Category::getType()
+Type Category::getType()
 {
     return this->type;
 }
@@ -59,7 +59,7 @@ QString Category::setName(QString name)
     return "Success";
 }
 
-QString Category::setType(QString type)
+QString Category::setType(Type type)
 {
     // TODO: Validation logic
     this->type = type;

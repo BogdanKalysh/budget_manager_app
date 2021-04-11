@@ -3,6 +3,8 @@
 
 #include <QString>
 
+enum Type {income, expense};
+
 namespace parser {
     const QString ID = "id";
     const QString NAME = "name";
@@ -14,6 +16,11 @@ namespace parser {
     const QString DATE = "date";
     const QString EMAIL = "email";
     const QString PASSWORD = "password";
+}
+
+
+namespace validationMessage {
+
 }
 
 #endif // CONSTANTS_H
