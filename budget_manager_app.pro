@@ -31,6 +31,7 @@ SOURCES += \
     backend/DAL/categoryrepository.cpp \
     backend/DAL/transactionrepository.cpp \
     backend/DAL/userrepository.cpp \
+    backend/DAL/irepository.cpp \
 
 
 HEADERS += \
@@ -43,10 +44,10 @@ HEADERS += \
     backend/models/transactionparser.h \
     backend/models/user.h \
     backend/models/userparser.h \
-    backend/models/userparser.h \
     backend/DAL/categoryrepository.h \
     backend/DAL/transactionrepository.h \
     backend/DAL/userrepository.h \
+    backend/DAL/irepository.h \
 
 
 FORMS += \
