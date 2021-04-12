@@ -13,7 +13,7 @@ CREATE TYPE transaction_type AS ENUM ('income', 'expense');
 
 CREATE TABLE category_of_transaction(
 	id SERIAL PRIMARY KEY, 
-	user_id INT references users(id), 
+	user_id INT references users(id) NOT NULL, 
 	name VARCHAR(64) NOT NULL, 
 	type transaction_type NOT NULL
 );
