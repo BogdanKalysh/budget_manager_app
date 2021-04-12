@@ -12,6 +12,7 @@ INCLUDEPATH += \
     $$PWD/backend \
     $$PWD/frontend/mainWindow \
     $$PWD/backend/models \
+    $$PWD/backend/DAL \
 
 DEPENDPATH += \
     $$PWD/mainWindow \
@@ -26,7 +27,10 @@ SOURCES += \
     backend/models/transaction.cpp \
     backend/models/transactionparser.cpp \
     backend/models/user.cpp \
-    backend/models/userparser.cpp
+    backend/models/userparser.cpp \
+    backend/DAL/categoryrepository.cpp \
+    backend/DAL/transactionrepository.cpp \
+    backend/DAL/userrepository.cpp \
 
 
 HEADERS += \
@@ -38,7 +42,12 @@ HEADERS += \
     backend/models/transaction.h \
     backend/models/transactionparser.h \
     backend/models/user.h \
-    backend/models/userparser.h
+    backend/models/userparser.h \
+    backend/models/userparser.h \
+    backend/DAL/categoryrepository.h \
+    backend/DAL/transactionrepository.h \
+    backend/DAL/userrepository.h \
+
 
 FORMS += \
     frontend/mainWindow/mainwindow.ui
