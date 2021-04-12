@@ -8,8 +8,10 @@ CONFIG += c++11
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 INCLUDEPATH += \
-    $$PWD/mainWindow \
-    $$PWD/models
+    $$PWD/frontend \
+    $$PWD/backend \
+    $$PWD/frontend/mainWindow \
+    $$PWD/backend/models \
 
 DEPENDPATH += \
     $$PWD/mainWindow \
@@ -17,29 +19,29 @@ DEPENDPATH += \
 
 
 SOURCES += \
-    main.cpp \
-    mainWindow/mainwindow.cpp \
-    models/category.cpp \
-    models/categoryparser.cpp \
-    models/transaction.cpp \
-    models/transactionparser.cpp \
-    models/user.cpp \
-    models/userparser.cpp
+    frontend/main.cpp \
+    frontend/mainWindow/mainwindow.cpp \
+    backend/models/category.cpp \
+    backend/models/categoryparser.cpp \
+    backend/models/transaction.cpp \
+    backend/models/transactionparser.cpp \
+    backend/models/user.cpp \
+    backend/models/userparser.cpp
 
 
 HEADERS += \
-    mainWindow/mainwindow.h \
-    models/category.h \
-    models/categoryparser.h \
-    models/constants.h \
-    models/ijsonparser.h \
-    models/transaction.h \
-    models/transactionparser.h \
-    models/user.h \
-    models/userparser.h
+    frontend/mainWindow/mainwindow.h \
+    backend/models/category.h \
+    backend/models/categoryparser.h \
+    backend/models/constants.h \
+    backend/models/ijsonparser.h \
+    backend/models/transaction.h \
+    backend/models/transactionparser.h \
+    backend/models/user.h \
+    backend/models/userparser.h
 
 FORMS += \
-    mainWindow/mainwindow.ui
+    frontend/mainWindow/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
