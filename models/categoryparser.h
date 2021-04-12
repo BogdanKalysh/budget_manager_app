@@ -4,8 +4,8 @@
 #include "ijsonparser.h"
 #include "category.h"
 
-template <typename T>
-class CategoryParser: IJsonParser<T>
+
+class CategoryParser: IJsonParser<Category>
 {
 public:
     virtual Category parse(QJsonObject json);

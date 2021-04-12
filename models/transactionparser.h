@@ -4,8 +4,8 @@
 #include "ijsonparser.h"
 #include "transaction.h"
 
-template <typename T>
-class TransactionParser: IJsonParser<T>
+
+class TransactionParser: IJsonParser<Transaction>
 {
 public:
     virtual Transaction parse(QJsonObject json);

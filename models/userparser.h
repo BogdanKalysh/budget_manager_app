@@ -4,8 +4,8 @@
 #include "ijsonparser.h"
 #include "user.h"
 
-template <typename T>
-class UserParser: IJsonParser<T>
+
+class UserParser: IJsonParser<User>
 {
 public:
     virtual User parse(QJsonObject json);

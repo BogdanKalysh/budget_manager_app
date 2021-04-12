@@ -1,8 +1,8 @@
 #include "userparser.h"
 #include "constants.h"
 
-template<typename T>
-User UserParser<T>::parse(QJsonObject json)
+
+User UserParser::parse(QJsonObject json)
 {
     int id = json.value(parser::ID).toInt();
     QString name = json.value(parser::NAME).toString();
@@ -12,12 +12,12 @@ User UserParser<T>::parse(QJsonObject json)
     return User(id, name, email, password);
 }
 
-template<typename T>
-QVector<User> UserParser<T>::parseVector(QJsonArray jsonArray)
+
+QVector<User> UserParser::parseVector(QJsonArray jsonArray)
 {
     QVector<User> users;
     foreach(QJsonValue json, jsonArray)
-        users.append(this->parse(json));
+        users.append(this->parse(json.toObject()));
 
     return users;
 }

@@ -2,8 +2,8 @@
 #include "categoryparser.h"
 #include "constants.h"
 
-template<typename T>
-Transaction TransactionParser<T>::parse(QJsonObject json)
+
+Transaction TransactionParser::parse(QJsonObject json)
 {
     int id = json.value(parser::ID).toInt();
     int amount = json.value(parser::AMOUNT).toInt();
@@ -16,12 +16,12 @@ Transaction TransactionParser<T>::parse(QJsonObject json)
     return Transaction(id, amount, date, description, categoryId);
 }
 
-template<typename T>
-QVector<Transaction> TransactionParser<T>::parseVector(QJsonArray jsonArray)
+
+QVector<Transaction> TransactionParser::parseVector(QJsonArray jsonArray)
 {
     QVector<Transaction> transactions;
     foreach(QJsonValue json, jsonArray)
-        transactions.append(this->parse(json));
+        transactions.append(this->parse(json.toObject()));
 
     return transactions;
 }
