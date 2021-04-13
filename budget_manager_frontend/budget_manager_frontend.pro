@@ -17,16 +17,25 @@ DEPENDPATH += \
     $$PWD/mainWindow \
 
 SOURCES += \
+    sources/signupwindow.cpp \
+    sources/loginwindow.cpp \
     main.cpp \
     sources/mainwindow.cpp
 
 HEADERS += \
-    headers/mainwindow.h
+    headers/mainwindow.h \
+    headers/loginwindow.h \
+    headers/signupwindow.h
 
 FORMS += \
-    forms/mainwindow.ui
+    forms/mainwindow.ui \
+    forms/loginwindow.ui \
+    forms/signupwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    src.qrc
