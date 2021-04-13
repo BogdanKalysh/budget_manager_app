@@ -16,11 +16,11 @@ INCLUDEPATH += \
 SOURCES += \
     main.cpp \
     sources/models/category.cpp \
-    sources/models/categoryparser.cpp \
     sources/models/transaction.cpp \
-    sources/models/transactionparser.cpp \
     sources/models/user.cpp \
-    sources/models/userparser.cpp \
+    sources/parsers/userparser.cpp \
+    sources/parsers/categoryparser.cpp \
+    sources/parsers/transactionparser.cpp \
     sources/DAL/categoryrepository.cpp \
     sources/DAL/transactionrepository.cpp \
     sources/DAL/userrepository.cpp \
