@@ -1,10 +1,9 @@
-#include "signupwindow.h"
+#include "signUpWindow.h"
 #include "ui_signupwindow.h"
 #include "constants.h"
-#include <QJsonObject>
-#include <QJsonValue>
+#include "registrationJsonBuilder.h"
 
-
+#include <QDebug>
 
 SignUpWindow::SignUpWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,12 +35,13 @@ void SignUpWindow::on_signUpButton_clicked()
     }
     else{
         //if(database.open())
-        QJsonObject jObj;
-        jObj.insert(jsoncreator::NAME, QJsonValue::fromVariant(ui->nameLine->text()));
-        jObj.insert(jsoncreator::EMAIL, QJsonValue::fromVariant(ui->emailLine->text()));
-        jObj.insert(jsoncreator::PASSWORD, QJsonValue::fromVariant(ui->passwordLine->text()));
 
-        // insert data from object "user" to database
+        User user(ui->nameLine->text(), ui->emailLine->text(), ui->passwordLine->text());
+
+        RegistrationJsonBuilder jObj;
+        QJsonObject json = jObj.buildJson(user);
+        qDebug()<<json;
+        // sent data from object "user" to database
         this->clearMask();
         this->close();
         emit loginWindow();

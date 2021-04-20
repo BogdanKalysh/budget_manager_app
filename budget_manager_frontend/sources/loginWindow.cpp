@@ -1,8 +1,9 @@
-#include "loginwindow.h"
+#include "loginWindow.h"
 #include "ui_loginwindow.h"
 #include "constants.h"
-#include <QJsonObject>
-#include <QJsonValue>
+#include "loginJsonBuilder.h"
+
+#include <QDebug>
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,7 +14,6 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->password_line->setPlaceholderText("password");
     signUpWindow = new SignUpWindow();
     connect(signUpWindow, &SignUpWindow::loginWindow, this, &LoginWindow::show);
-
 }
 
 LoginWindow::~LoginWindow()
@@ -25,16 +25,15 @@ LoginWindow::~LoginWindow()
 void LoginWindow::on_loginButton_clicked()
 {
     //connect to db
-    QString email = ui->email_line->text();
-    QString password = ui->password_line->text();
+    User user(ui->email_line->text(), ui->password_line->text());
 
-    QJsonObject jObj;
-    jObj.insert(jsoncreator::EMAIL, QJsonValue::fromVariant(ui->email_line->text()));
-    jObj.insert(jsoncreator::PASSWORD, QJsonValue::fromVariant(ui->password_line->text()));
+    LoginJsonBuilder jObj;
+    QJsonObject json = jObj.buildJson(user);
+    qDebug()<<json;
 
     //if(database.open()){
 
-    if(email=="qwerty" && password == "123123"){
+    if(ui->email_line->text()=="qwerty" && ui->password_line->text() == "123123"){
         mainWindow = new MainWindow();
         mainWindow->show();
         this->close();

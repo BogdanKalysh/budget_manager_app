@@ -4,7 +4,7 @@
 
 enum Type {income, expense};
 
-namespace jsoncreator {
+namespace jsonbuilder {
     const QString ID = "id";
     const QString NAME = "name";
     const QString TYPE = "type";

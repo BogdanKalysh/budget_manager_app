@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
-#include "mainwindow.h"
-#include "signupwindow.h"
+#include "mainWindow.h"
+#include "signUpWindow.h"
 
 
 namespace Ui {
