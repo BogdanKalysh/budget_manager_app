@@ -23,6 +23,8 @@ SOURCES += \
     sources/mainwindow.cpp
 
 HEADERS += \
+    headers/constants.h \
+    headers/ijsoncreator.h \
     headers/mainwindow.h \
     headers/loginwindow.h \
     headers/signupwindow.h
@@ -32,6 +34,7 @@ FORMS += \
     forms/loginwindow.ui \
     forms/signupwindow.ui
 
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
@@ -39,3 +42,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     src.qrc
+

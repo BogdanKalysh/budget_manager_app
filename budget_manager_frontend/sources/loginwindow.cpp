@@ -1,5 +1,8 @@
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
+#include "constants.h"
+#include <QJsonObject>
+#include <QJsonValue>
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -24,6 +27,10 @@ void LoginWindow::on_loginButton_clicked()
     //connect to db
     QString email = ui->email_line->text();
     QString password = ui->password_line->text();
+
+    QJsonObject jObj;
+    jObj.insert(jsoncreator::EMAIL, QJsonValue::fromVariant(ui->email_line->text()));
+    jObj.insert(jsoncreator::PASSWORD, QJsonValue::fromVariant(ui->password_line->text()));
 
     //if(database.open()){
 

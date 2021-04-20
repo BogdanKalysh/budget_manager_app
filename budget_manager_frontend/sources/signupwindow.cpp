@@ -1,5 +1,8 @@
 #include "signupwindow.h"
 #include "ui_signupwindow.h"
+#include "constants.h"
+#include <QJsonObject>
+#include <QJsonValue>
 
 
 
@@ -11,6 +14,7 @@ SignUpWindow::SignUpWindow(QWidget *parent) :
     ui->nameLine->setPlaceholderText(" name");
     ui->emailLine->setPlaceholderText(" email");
     ui->passwordLine->setPlaceholderText(" password");
+    ui->repeatPasswordLine->setPlaceholderText(" repeat password");
 }
 
 SignUpWindow::~SignUpWindow()
@@ -24,16 +28,21 @@ void SignUpWindow::on_signUpButton_clicked()
     if(ui->nameLine->text().isEmpty() || ui->emailLine->text().isEmpty() || ui->passwordLine->text().isEmpty()){
          QMessageBox::information(this, "Check", "Please, fill in all fields");
     }
+    else if(ui->passwordLine->text() != ui->repeatPasswordLine->text())
+    {
+        ui->passwordLine->clear();
+        ui->repeatPasswordLine->clear();
+        QMessageBox::information(this, "Check", "Passwords do not match");
+    }
     else{
         //if(database.open())
-        QString name = ui->nameLine->text();
-        QString email = ui->emailLine->text();
-        QString password = ui->passwordLine->text();
-
-        //User user(1, name, email, password);
+        QJsonObject jObj;
+        jObj.insert(jsoncreator::NAME, QJsonValue::fromVariant(ui->nameLine->text()));
+        jObj.insert(jsoncreator::EMAIL, QJsonValue::fromVariant(ui->emailLine->text()));
+        jObj.insert(jsoncreator::PASSWORD, QJsonValue::fromVariant(ui->passwordLine->text()));
 
         // insert data from object "user" to database
-
+        this->clearMask();
         this->close();
         emit loginWindow();
     }
