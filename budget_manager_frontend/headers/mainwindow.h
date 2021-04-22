@@ -16,9 +16,14 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_4_clicked();
+    void on_addTransactionButton_clicked();
+
+    void on_incomeRadioButton_clicked();
+
+    void on_expenceRadioButton_clicked();
 
 private:
     Ui::MainWindow *ui;
+
 };
 #endif // MAINWINDOW_H

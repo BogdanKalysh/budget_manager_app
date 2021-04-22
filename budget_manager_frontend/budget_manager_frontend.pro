@@ -18,9 +18,11 @@ DEPENDPATH += \
 
 SOURCES += \
     main.cpp \
-    sources/mainwindow.cpp
+    sources/mainwindow.cpp \
+    sources/models/category.cpp
 
 HEADERS += \
+    headers/category.h \
     headers/mainwindow.h
 
 FORMS += \
