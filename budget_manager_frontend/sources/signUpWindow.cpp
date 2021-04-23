@@ -48,6 +48,7 @@ void SignUpWindow::on_signUpButton_clicked()
     }
 }
 
+
 void SignUpWindow::on_backToLoginButton_clicked()
 {
     this->close();

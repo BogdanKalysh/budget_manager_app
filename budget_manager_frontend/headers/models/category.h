@@ -28,4 +28,3 @@ public:
 };
 
 #endif // CATEGORY_H
-

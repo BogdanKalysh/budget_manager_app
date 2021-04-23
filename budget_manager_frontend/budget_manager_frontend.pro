@@ -11,10 +11,12 @@ CONFIG += c++11
 INCLUDEPATH += \
     $$PWD/sources \
     $$PWD/sources/models \
-    $$PWD/sources/builders \
+    $$PWD/headers/builders \
+    $$PWD/headers/parsers \
     $$PWD/headers \
     $$PWD/headers/models \
     $$PWD/headers/builders \
+    $$PWD/headers/parsers \
     $$PWD/forms \
     $$PWD/resources \
 
@@ -24,22 +26,27 @@ DEPENDPATH += \
 
 
 HEADERS += \
-        headers/builders/IJsonBuilder.h \
-        headers/models/category.h \
-        headers/builders/categoryJsonBuilder.h \
-        headers/constants.h \
-        headers/builders/loginJsonBuilder.h \
-        headers/loginWindow.h \
-        headers/mainWindow.h \
-        headers/builders/registrationJsonBuilder.h \
-        headers/signUpWindow.h \
-        headers/models/transaction.h \
-        headers/builders/transactionJsonBuilder.h \
-        headers/models/user.h \
-        headers/transaction.h
+    headers/builders/IJsonBuilder.h \
+    headers/models/category.h \
+    headers/builders/categoryJsonBuilder.h \
+    headers/constants.h \
+    headers/builders/loginJsonBuilder.h \
+    headers/loginWindow.h \
+    headers/mainWindow.h \
+    headers/builders/registrationJsonBuilder.h \
+    headers/signUpWindow.h \
+    headers/models/transaction.h \
+    headers/builders/transactionJsonBuilder.h \
+    headers/models/user.h \
+    headers/models/transaction.h \
+    headers/parsers/ijsonparser.h \
+    headers/parsers/userparser.h \
+    headers/parsers/categoryparser.h \
+    headers/parsers/transactionparser.h
 
 
 SOURCES += \
+    sources/parsers/categoryparser.cpp \
     sources/builders/categoryJsonBuilder.cpp \
     sources/builders/loginJsonBuilder.cpp \
     sources/loginWindow.cpp \
@@ -49,6 +56,8 @@ SOURCES += \
     sources/models/user.cpp \
     sources/builders/registrationJsonBuilder.cpp \
     main.cpp \
+    sources/parsers/transactionparser.cpp \
+    sources/parsers/userparser.cpp \
     sources/signUpWindow.cpp \
     sources/builders/transactionJsonBuilder.cpp
 

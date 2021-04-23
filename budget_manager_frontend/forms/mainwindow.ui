@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Heavy Wallet</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/src.qrc">
+    <normaloff>:/images/login.png</normaloff>:/images/login.png</iconset>
+  </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
   </property>
@@ -200,6 +204,8 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources/src.qrc"/>
+ </resources>
  <connections/>
 </ui>

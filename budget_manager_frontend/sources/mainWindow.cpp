@@ -1,11 +1,20 @@
 #include "mainWindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(User user, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+//    this->user = user;
+
+//    query(get_all_categories);
+//    parse
+//    categories.pushback;
+
+
+
 
     //filling combo box(temporary)
     ui->cetegoryComboBox->addItem("Прибуток 1");

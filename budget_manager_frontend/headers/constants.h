@@ -15,6 +15,7 @@ namespace jsonbuilder {
     const QString DATE = "date";
     const QString EMAIL = "email";
     const QString PASSWORD = "password";
+    const QString CATEGORYNAME = "password";
 }
 
 #endif // CONSTANTS_H
