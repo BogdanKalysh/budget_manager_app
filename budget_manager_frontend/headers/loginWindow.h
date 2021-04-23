@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include "mainWindow.h"
 #include "signUpWindow.h"
+#include <QCryptographicHash>
 
 
 namespace Ui {

@@ -36,7 +36,8 @@ void SignUpWindow::on_signUpButton_clicked()
     else{
         //if(database.open())
 
-        User user(ui->nameLine->text(), ui->emailLine->text(), ui->passwordLine->text());
+        QByteArray hash = QCryptographicHash::hash(ui->passwordLine->text().toLocal8Bit(), QCryptographicHash::Sha224);
+        User user(ui->nameLine->text(), ui->emailLine->text(), hash.toHex().data());
 
         RegistrationJsonBuilder jObj;
         QJsonObject json = jObj.buildJson(user);

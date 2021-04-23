@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QCryptographicHash>
 //#include "user.h"
 
 
