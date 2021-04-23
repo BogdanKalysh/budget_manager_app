@@ -34,17 +34,17 @@ HEADERS += \
 
 
 SOURCES += \
-    sources/categoryJsonBuilder.cpp \
-    sources/loginJsonBuilder.cpp \
+    sources/builders/categoryJsonBuilder.cpp \
+    sources/builders/loginJsonBuilder.cpp \
     sources/loginWindow.cpp \
     sources/mainWindow.cpp \
     sources/models/category.cpp \
     sources/models/transaction.cpp \
     sources/models/user.cpp \
-    sources/registrationJsonBuilder.cpp \
+    sources/builders/registrationJsonBuilder.cpp \
     main.cpp \
     sources/signUpWindow.cpp \
-    sources/transactionJsonBuilder.cpp
+    sources/builders/transactionJsonBuilder.cpp
 
 
 FORMS += \
