@@ -18,18 +18,18 @@ DEPENDPATH += \
 
 
 HEADERS += \
-        headers/IJsonBuilder.h \
-        headers/category.h \
-        headers/categoryJsonBuilder.h \
+        headers/builders/IJsonBuilder.h \
+        headers/models/category.h \
+        headers/builders/categoryJsonBuilder.h \
         headers/constants.h \
-        headers/loginJsonBuilder.h \
+        headers/builders/loginJsonBuilder.h \
         headers/loginWindow.h \
         headers/mainWindow.h \
-        headers/registrationJsonBuilder.h \
+        headers/builders/registrationJsonBuilder.h \
         headers/signUpWindow.h \
-        headers/transaction.h \
-        headers/transactionJsonBuilder.h \
-        headers/user.h \
+        headers/models/transaction.h \
+        headers/builders/transactionJsonBuilder.h \
+        headers/models/user.h \
         headers/transaction.h
 
 
@@ -46,7 +46,6 @@ SOURCES += \
     sources/signUpWindow.cpp \
     sources/transactionJsonBuilder.cpp
 
-#>>>>>>> a3561b0bdf48440138fe15bef5f842f134fc6482
 
 FORMS += \
     forms/mainwindow.ui \
