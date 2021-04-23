@@ -1,5 +1,6 @@
 #ifndef CATEGORY_H
 #define CATEGORY_H
+
 #include <constants.h>
 #include <QString>
 #include <QColor>
