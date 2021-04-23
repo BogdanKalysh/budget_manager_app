@@ -10,8 +10,14 @@ CONFIG += c++11
 
 INCLUDEPATH += \
     $$PWD/sources \
+    $$PWD/sources/models \
+    $$PWD/sources/builders \
     $$PWD/headers \
+    $$PWD/headers/models \
+    $$PWD/headers/builders \
     $$PWD/forms \
+    $$PWD/resources \
+
 
 DEPENDPATH += \
     $$PWD/mainWindow \
@@ -53,7 +59,7 @@ FORMS += \
     forms/signupwindow.ui
 
 RESOURCES += \
-    src.qrc
+    resources/src.qrc
 
 
 # Default rules for deployment.

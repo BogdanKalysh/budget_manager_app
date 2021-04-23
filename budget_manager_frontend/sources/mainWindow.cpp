@@ -20,6 +20,7 @@ MainWindow::~MainWindow()
 }
 
 
+
 void MainWindow::on_addTransactionButton_clicked()
 {
     int amount = ui->amountInputLine->text().toInt();
