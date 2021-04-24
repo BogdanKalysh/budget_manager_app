@@ -12,6 +12,9 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->email_line->setPlaceholderText("email");
     ui->password_line->setPlaceholderText("password");
+
+    signUpWindow = new SignUpWindow();
+    connect(signUpWindow, &SignUpWindow::loginWindow, this, &LoginWindow::show);
 }
 
 LoginWindow::~LoginWindow()
@@ -40,7 +43,6 @@ void LoginWindow::on_loginButton_clicked()
 
         mainWindow->show();
         this->close();
-        mainWindow->show();
     }
     else{
         QMessageBox::critical(this, "Failed", "Wrong login or password");
@@ -52,9 +54,6 @@ void LoginWindow::on_loginButton_clicked()
 
 void LoginWindow::on_signUpLoginButton_clicked()
 {
-    signUpWindow = new SignUpWindow();
-    connect(signUpWindow, &SignUpWindow::loginWindow, this, &LoginWindow::show);
-
     signUpWindow->show();
     this->close();
 }

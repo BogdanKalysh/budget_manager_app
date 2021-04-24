@@ -1,5 +1,6 @@
 #include "mainWindow.h"
 #include "ui_mainwindow.h"
+#include <QNetworkAccessManager>
 
 MainWindow::MainWindow(User user, QWidget *parent)
     : QMainWindow(parent)
@@ -7,7 +8,7 @@ MainWindow::MainWindow(User user, QWidget *parent)
 {
     ui->setupUi(this);
 
-//    this->user = user;
+    this->user = user;
 
 //    query(get_all_categories);
 //    parse
@@ -30,6 +31,10 @@ MainWindow::~MainWindow()
 
 
 
+
+
+
+
 void MainWindow::on_addTransactionButton_clicked()
 {
     int amount = ui->amountInputLine->text().toInt();
@@ -38,6 +43,10 @@ void MainWindow::on_addTransactionButton_clicked()
 
     qDebug() << amount << " " << description << " " << category << "\n";
 }
+
+
+
+
 
 
 void MainWindow::on_incomeRadioButton_clicked()

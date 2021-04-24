@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "user.h"
+#include "category.h"
+#include "transaction.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,9 +29,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-//    user....
-//    <categories> vector.....
-//    <transactions> vector....
+    User user;
+    QVector<Category> categories;
+    QVector<Transaction> transactions;
 
 };
 #endif // MAINWINDOW_H
