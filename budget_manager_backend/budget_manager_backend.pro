@@ -11,38 +11,35 @@ CONFIG -= app_bundle
 INCLUDEPATH += \
     $$PWD/sources \
     $$PWD/headers \
+    $$PWD/sources/parsers \
+    $$PWD/headers/parsers \
 
+HEADERS += \
+    headers/parsers/categoryparser.h \
+    headers/parsers/ijsonparser.h \
+    headers/parsers/transactionparser.h \
+    headers/parsers/userparser.h \
 
 SOURCES += \
     main.cpp \
-    sources/models/category.cpp \
-    sources/models/transaction.cpp \
-    sources/models/user.cpp \
     sources/parsers/userparser.cpp \
     sources/parsers/categoryparser.cpp \
     sources/parsers/transactionparser.cpp \
-    sources/DAL/categoryrepository.cpp \
-    sources/DAL/transactionrepository.cpp \
-    sources/DAL/userrepository.cpp \
-    sources/DAL/irepository.cpp \
-
-
-HEADERS += \
-    headers/category.h \
-    headers/categoryparser.h \
-    headers/constants.h \
-    headers/ijsonparser.h \
-    headers/transaction.h \
-    headers/transactionparser.h \
-    headers/user.h \
-    headers/userparser.h \
-    headers/categoryrepository.h \
-    headers/transactionrepository.h \
-    headers/userrepository.h \
-    headers/irepository.h \
 
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+LIBS += \
+    -L../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/debug -lDAL \
+
+INCLUDEPATH += \
+    ../DAL/headers \
+    ../DAL/headers/models \
+    ../DAL/headers/repositories
+DEPENDPATH += \
+    ../DAL/headers \
+    ../DAL/headers/models \
+    ../DAL/headers/repositories
