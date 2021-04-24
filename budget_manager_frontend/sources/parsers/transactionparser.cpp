@@ -16,6 +16,8 @@ Transaction TransactionParser::parse(QJsonObject json)
     return Transaction(id, amount, date, description, categoryName, color);
 }
 
+
+
 QVector<Transaction> TransactionParser::parseVector(QJsonArray jsonArray)
 {
     QVector<Transaction> transactions;
