@@ -9,26 +9,6 @@ MainWindow::MainWindow(User user, QWidget *parent)
 
     this->user = user;
 
-//    query(get_all_categories);
-//    parse
-//    categories.pushback;
-
-
-//    QNetworkReply *reply = manager->get(QNetworkRequest(QUrl("http://127.0.0.1:5000/rating/")));
-//    QObject::connect(reply, &QNetworkReply::finished, [&](){
-//        QByteArray read = reply->readAll();
-
-//        qDebug() << "info:\n" << read << "\n";
-
-//        reply->close();
-//        reply->deleteLater();
-//    });
-
-
-
-
-
-
     //filling combo box(temporary)
     ui->cetegoryComboBox->addItem("Прибуток 1");
     ui->cetegoryComboBox->addItem("Прибуток 2");

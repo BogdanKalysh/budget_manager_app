@@ -7,9 +7,7 @@ Category CategoryParser::parse(QJsonObject json)
     int id = json.value(jsonbuilder::ID).toInt();
     QString name = json.value(jsonbuilder::NAME).toString();
     int type = json.value(jsonbuilder::TYPE).toInt();
-
-    QJsonArray jRGB = json.value(jsonbuilder::COLOR).toArray();
-    QColor color(jRGB[0].toInt(), jRGB[1].toInt(), jRGB[2].toInt());
+    QColor color(json.value(jsonbuilder::COLOR).toString());
 
     return Category(id, name, (Type)type, color);
 }
