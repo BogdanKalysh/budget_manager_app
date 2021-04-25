@@ -2,10 +2,28 @@
 using namespace dal;
 QVector<User> UserRepository::select(QString query)
 {
-    //No realization yet
-    //it's pseudo result
     QVector<User> users;
-    users.push_back(User(1, "Petro", "petromostavchuk228@gmail.com", "motyvaciya", 1));
+    QSqlDatabase db = setUpDatabase();
+
+    if(db.open())
+    {
+        QSqlQuery result(query);
+
+        while(result.next()){
+
+            users.push_back(User(
+                                result.value(ID).toInt(),
+                                result.value(NAME).toString(),
+                                result.value(MAIL).toString(),
+                                result.value(PASSWORD).toString(),
+                                result.value(BALANCE).toInt()
+                                ));
+        }
+    }
+    else
+        qDebug() << db.lastError();
+
+
     return users;
 }
 

@@ -17,6 +17,7 @@ namespace parser {
     const QString EMAIL = "email";
     const QString PASSWORD = "password";
     const QString BALANCE = "balance";
+    const QString USER_ID = "user_id";
 }
 
 namespace validationMessage {
@@ -33,7 +34,7 @@ namespace dal {
     const QString DBNAME = "budget-manager";
 
     const QString USERS = "users";
-    const QString CATEGORY = "category_of_transaction";
+    const QString CATEGORY = "category";
     const QString TRANSACTION = "transaction";
 
     const QString ID = "id";
@@ -49,6 +50,7 @@ namespace dal {
     const QString AMOUNT = "amount";
     const QString DESCRIPTION = "description";
     const QString DATE = "date";
+    const QString COLOR = "color";
 }
 
 

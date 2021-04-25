@@ -3,10 +3,26 @@ using namespace dal;
 
 QVector<Transaction> TransactionRepository::select(QString query)
 {
-    //No realization yet
-    //it's pseudo result
     QVector<Transaction> transactions;
-    transactions.push_back(Transaction(1, 300, QDate(2020, 04, 27), "going to a restaurant", 2));
+    QSqlDatabase db = setUpDatabase();
+
+    if(db.open())
+    {
+        QSqlQuery result(query);
+
+        while(result.next()){
+
+            transactions.push_back(Transaction(
+                                result.value(ID).toInt(),
+                                result.value(AMOUNT).toInt(),
+                                result.value(DATE).toDate(),
+                                result.value(DESCRIPTION).toString(),
+                                result.value(CATEGORY_ID).toInt()
+                                ));
+        }
+    }
+    else
+        qDebug() << db.lastError();
     return transactions;
 }
 

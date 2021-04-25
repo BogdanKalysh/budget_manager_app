@@ -9,7 +9,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QDebug>
-
+#include <QSqlRecord>
 
 QSqlDatabase setUpDatabase();
 
