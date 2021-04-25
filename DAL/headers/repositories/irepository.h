@@ -1,8 +1,7 @@
 #ifndef IREPOSITORY_H
 #define IREPOSITORY_H
 
-#include <QString>
-#include <QVector>
+#include "querybuilders.h"
 
 template <typename T>
 class IRepository

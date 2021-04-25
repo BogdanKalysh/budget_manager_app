@@ -1,4 +1,4 @@
-QT += gui
+QT += gui sql
 
 CONFIG += c++11
 TEMPLATE = app
@@ -44,4 +44,5 @@ DEPENDPATH += \
     ../DAL/headers \
     ../DAL/headers/models \
     ../DAL/headers/repositories
+
 

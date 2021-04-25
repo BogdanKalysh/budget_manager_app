@@ -1,5 +1,4 @@
-QT += gui \
-    core
+QT += gui core sql
 
 TEMPLATE = lib
 CONFIG += staticlib

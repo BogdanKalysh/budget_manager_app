@@ -12,7 +12,7 @@ QString insertQueryBuilder(QString table, QVector<QString> fields, QVector<QStri
 
         for(int i = 0; i < fields.size(); i++) {
             queryInsert += fields[i];
-            queryValues += values[i];
+            queryValues += "'" + values[i] + "'";
             if(i != fields.size() - 1) {
                 queryInsert += ", ";
                 queryValues += ", ";
@@ -37,12 +37,13 @@ QString updateQueryBuilder(QPair<QString, int> tableCredentials, QVector<QString
         QString queryUpdate = "UPDATE " + tableCredentials.first + " SET ";
 
         for(int i = 0; i < fields.size(); i++){
-            queryUpdate += fields[i] + " = " + values[i];
+            queryUpdate += fields[i] + " = '" + values[i] + "'";
             if(i != fields.size() - 1)
                 queryUpdate += ", ";
             else
                 queryUpdate += " WHERE id = " + QString::number(tableCredentials.second);
         }
+        return queryUpdate;
     }
     return "";
 }
@@ -53,4 +54,15 @@ QString deleteQueryBuilder(QPair<QString, int> tableCredentials)
     // DELETE FROM table_name WHERE condition
 
     return "DELETE FROM " + tableCredentials.first + " WHERE id = " + QString::number(tableCredentials.second);
+}
+
+QSqlDatabase setUpDatabase()
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase(dal::DBTYPE);
+    db.setHostName(dal::HOST);
+    db.setDatabaseName(dal::DBNAME);
+    db.setUserName(dal::USER);
+    db.setPassword(dal::USER_PASSWORD);
+
+    return db;
 }

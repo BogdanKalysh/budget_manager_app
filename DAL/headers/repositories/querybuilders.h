@@ -1,9 +1,17 @@
 #ifndef QUERYBUILDERS_H
 #define QUERYBUILDERS_H
 
+#include "constants.h"
 #include <QString>
 #include <QVector>
 #include <QPair>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QDebug>
+
+
+QSqlDatabase setUpDatabase();
 
 QString insertQueryBuilder(QString table, QVector<QString> fields, QVector<QString> values);
 
