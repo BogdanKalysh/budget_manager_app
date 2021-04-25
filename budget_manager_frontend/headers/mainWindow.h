@@ -5,9 +5,9 @@
 #include "user.h"
 #include "category.h"
 #include "transaction.h"
-//#include <QNetworkAccessManager>
-//#include <QNetworkReply>
-//#include <QNetworkRequest>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,7 +18,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(User user, QWidget *parent = nullptr);
+    MainWindow(User user, QNetworkAccessManager* manager,  QWidget *parent=nullptr);
     ~MainWindow();
 
 private slots:
@@ -34,6 +34,6 @@ private:
     User user;
     QVector<Category> categories;
     QVector<Transaction> transactions;
-//    QNetworkAccessManager* manager = new QNetworkAccessManager(this);
+    QNetworkAccessManager* manager;
 };
 #endif // MAINWINDOW_H

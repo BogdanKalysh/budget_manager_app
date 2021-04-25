@@ -1,13 +1,15 @@
 #include "mainWindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(User user, QWidget *parent)
+MainWindow::MainWindow(User user, QNetworkAccessManager* manager,  QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
     this->user = user;
+    this->manager = manager;
+
 
     //filling combo box(temporary)
     ui->cetegoryComboBox->addItem("Прибуток 1");

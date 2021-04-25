@@ -30,7 +30,7 @@ private:
     Ui::LoginWindow *ui;
     MainWindow *mainWindow;
     SignUpWindow *signUpWindow;
-
+    QNetworkAccessManager* manager = new QNetworkAccessManager;
 };
 
 #endif // LOGINWINDOW_H

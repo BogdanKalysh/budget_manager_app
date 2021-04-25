@@ -5,7 +5,7 @@
 
 #include <QDebug>
 
-SignUpWindow::SignUpWindow(QWidget *parent) :
+SignUpWindow::SignUpWindow(QNetworkAccessManager* manager, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SignUpWindow)
 {
@@ -14,6 +14,8 @@ SignUpWindow::SignUpWindow(QWidget *parent) :
     ui->emailLine->setPlaceholderText(" email");
     ui->passwordLine->setPlaceholderText(" password");
     ui->repeatPasswordLine->setPlaceholderText(" repeat password");
+
+    this->manager = manager;
 }
 
 SignUpWindow::~SignUpWindow()

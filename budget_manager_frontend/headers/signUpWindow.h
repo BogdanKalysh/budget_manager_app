@@ -18,7 +18,7 @@ class SignUpWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit SignUpWindow(QWidget *parent = nullptr);
+    explicit SignUpWindow(QNetworkAccessManager* manager, QWidget *parent = nullptr);
     ~SignUpWindow();
 
 signals:
@@ -31,6 +31,7 @@ private slots:
 
 private:
     Ui::SignUpWindow *ui;
+    QNetworkAccessManager* manager;
 };
 
 #endif // SIGNUPWINDOW_H
