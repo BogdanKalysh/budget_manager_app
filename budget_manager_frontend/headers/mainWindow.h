@@ -5,6 +5,9 @@
 #include "user.h"
 #include "category.h"
 #include "transaction.h"
+//#include <QNetworkAccessManager>
+//#include <QNetworkReply>
+//#include <QNetworkRequest>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,10 +23,9 @@ public:
 
 private slots:
     void on_addTransactionButton_clicked();
-
     void on_incomeRadioButton_clicked();
-
     void on_expenceRadioButton_clicked();
+
 
 
 private:
@@ -32,6 +34,6 @@ private:
     User user;
     QVector<Category> categories;
     QVector<Transaction> transactions;
-
+//    QNetworkAccessManager* manager = new QNetworkAccessManager(this);
 };
 #endif // MAINWINDOW_H

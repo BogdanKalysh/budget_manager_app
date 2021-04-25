@@ -3,9 +3,6 @@
 #include <QApplication>
 
 #include <QtCore>
-#include <QtHttpServer>
-
-
 
 
 int main(int argc, char *argv[])
