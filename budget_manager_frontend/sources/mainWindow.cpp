@@ -1,6 +1,5 @@
 #include "mainWindow.h"
 #include "ui_mainwindow.h"
-#include <QNetworkAccessManager>
 
 MainWindow::MainWindow(User user, QWidget *parent)
     : QMainWindow(parent)
@@ -15,6 +14,19 @@ MainWindow::MainWindow(User user, QWidget *parent)
 //    categories.pushback;
 
 
+//    QNetworkReply *reply = manager->get(QNetworkRequest(QUrl("http://127.0.0.1:5000/rating/")));
+//    QObject::connect(reply, &QNetworkReply::finished, [&](){
+//        QByteArray read = reply->readAll();
+
+//        qDebug() << "info:\n" << read << "\n";
+
+//        reply->close();
+//        reply->deleteLater();
+//    });
+
+
+
+
 
 
     //filling combo box(temporary)
@@ -27,6 +39,7 @@ MainWindow::MainWindow(User user, QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+//    delete manager;
 }
 
 

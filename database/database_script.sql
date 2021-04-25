@@ -4,7 +4,6 @@ CREATE TABLE users (
 	mail TEXT NOT NULL UNIQUE, 
 	password TEXT NOT NULL, 
 	created_on DATE DEFAULT CURRENT_TIMESTAMP, 
-	role VARCHAR(64) NOT NULL, 
 	name VARCHAR(64) NOT NULL UNIQUE, 
 	balance INT 
 );
@@ -16,6 +15,7 @@ CREATE TABLE category(
 	user_id INT NOT NULL, 
 	name VARCHAR(64) NOT NULL, 
 	type transaction_type NOT NULL,
+	color VARCHAR(9) NOT NULL, 
 
 	FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
