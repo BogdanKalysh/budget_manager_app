@@ -4,7 +4,6 @@ CREATE TABLE users (
 	mail TEXT NOT NULL UNIQUE, 
 	password TEXT NOT NULL, 
 	created_on DATE DEFAULT CURRENT_TIMESTAMP, 
-	role VARCHAR(64) NOT NULL, 
 	name VARCHAR(64) NOT NULL UNIQUE, 
 	balance INT 
 );
