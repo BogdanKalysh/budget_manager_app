@@ -14,7 +14,7 @@
    <string>Sign up</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../src.qrc">
+   <iconset>
     <normaloff>:/images/login.png</normaloff>:/images/login.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -195,8 +195,6 @@ font: 75 24pt &quot;MS Shell Dlg 2&quot;;</string>
    </widget>
   </widget>
  </widget>
- <resources>
-  <include location="../src.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

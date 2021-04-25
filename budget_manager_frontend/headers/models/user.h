@@ -10,6 +10,7 @@ class User
     QString password;
 
 public:
+    User();
     User(QString email, QString password);
     User(QString name, QString email, QString password);
     QString getName();

@@ -14,7 +14,7 @@
    <string>Log in</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../src.qrc">
+   <iconset resource="../resources/src.qrc">
     <normaloff>:/images/login.png</normaloff>:/images/login.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -84,6 +84,9 @@ font: 14pt &quot;Calibri&quot;;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="email_line">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -195,7 +198,7 @@ border:none;
   </widget>
  </widget>
  <resources>
-  <include location="../src.qrc"/>
+  <include location="../resources/src.qrc"/>
  </resources>
  <connections/>
 </ui>

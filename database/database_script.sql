@@ -11,17 +11,21 @@ CREATE TABLE users (
 
 CREATE TYPE transaction_type AS ENUM ('income', 'expense');
 
-CREATE TABLE category_of_transaction(
+CREATE TABLE category(
 	id SERIAL PRIMARY KEY, 
-	user_id INT references users(id) NOT NULL, 
+	user_id INT NOT NULL, 
 	name VARCHAR(64) NOT NULL, 
-	type transaction_type NOT NULL
+	type transaction_type NOT NULL,
+
+	FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
 CREATE TABLE transaction(
 	id SERIAL PRIMARY KEY, 
-	category_id INT REFERENCES category_of_transaction(id) NOT NULL, 
+	category_id INT NOT NULL, 
 	amount INT NOT NULL, 
 	date DATE NOT NULL, 
 	description TEXT
+
+	FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );

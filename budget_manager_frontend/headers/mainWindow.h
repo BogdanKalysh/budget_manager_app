@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "user.h"
+#include "category.h"
+#include "transaction.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -12,13 +15,23 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(User user, QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
-    void on_pushButton_4_clicked();
+    void on_addTransactionButton_clicked();
+
+    void on_incomeRadioButton_clicked();
+
+    void on_expenceRadioButton_clicked();
+
 
 private:
     Ui::MainWindow *ui;
+
+    User user;
+    QVector<Category> categories;
+    QVector<Transaction> transactions;
+
 };
 #endif // MAINWINDOW_H

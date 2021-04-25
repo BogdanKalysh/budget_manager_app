@@ -12,12 +12,17 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->email_line->setPlaceholderText("email");
     ui->password_line->setPlaceholderText("password");
+
     signUpWindow = new SignUpWindow();
     connect(signUpWindow, &SignUpWindow::loginWindow, this, &LoginWindow::show);
 }
 
 LoginWindow::~LoginWindow()
 {
+    if(mainWindow)
+        delete mainWindow;
+    if(signUpWindow)
+        delete signUpWindow;
     delete ui;
 }
 
@@ -34,7 +39,8 @@ void LoginWindow::on_loginButton_clicked()
     //if(database.open()){
 
     if(ui->email_line->text()=="qwerty" && ui->password_line->text() == "123123"){
-        mainWindow = new MainWindow();
+        mainWindow = new MainWindow(user);
+
         mainWindow->show();
         this->close();
     }
