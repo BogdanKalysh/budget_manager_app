@@ -9,8 +9,7 @@ Transaction TransactionParser::parse(QJsonObject json)
     QString description = json.value(jsonbuilder::DESCRIPTION).toString();
 
     QString categoryName = json.value(jsonbuilder::CATEGORYNAME).toString();
-    QJsonArray jRGB = json.value(jsonbuilder::COLOR).toArray();
-    QColor color(jRGB[0].toInt(), jRGB[1].toInt(), jRGB[2].toInt());
+    QColor color(json.value(jsonbuilder::COLOR).toString());
 
 
     return Transaction(id, amount, date, description, categoryName, color);
