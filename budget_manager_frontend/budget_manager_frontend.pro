@@ -12,6 +12,7 @@ INCLUDEPATH += \
     $$PWD/sources \
     $$PWD/headers \
     $$PWD/forms \
+    $$PWD/resources \
 
 DEPENDPATH += \
     $$PWD/mainWindow \
@@ -60,4 +61,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     src.qrc
+
+DISTFILES += \
+    images/login.png
 
