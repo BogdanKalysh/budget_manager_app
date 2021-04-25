@@ -18,7 +18,6 @@ namespace parser {
     const QString PASSWORD = "password";
 }
 
-
 namespace validationMessage {
 
 }

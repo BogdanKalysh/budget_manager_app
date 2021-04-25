@@ -4,6 +4,7 @@
 #include "irepository.h"
 #include "user.h"
 
+
 class UserRepository : public IRepository<User>
 {
 public:

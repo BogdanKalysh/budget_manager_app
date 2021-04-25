@@ -35,6 +35,7 @@ SOURCES += \
     sources/repositories/transactionrepository.cpp \
     sources/repositories/userrepository.cpp \
     sources/repositories/irepository.cpp \
+    sources/repositories/querybuilders.cpp \
 
 HEADERS += \
     headers/constants.h \
@@ -42,6 +43,7 @@ HEADERS += \
     headers/models/transaction.h \
     headers/models/user.h \
     headers/repositories/categoryrepository.h \
+    headers/repositories/querybuilders.h \
     headers/repositories/transactionrepository.h \
     headers/repositories/userrepository.h \
     headers/repositories/irepository.h \
@@ -51,3 +53,4 @@ unix {
     target.path = $$[QT_INSTALL_PLUGINS]/generic
 }
 !isEmpty(target.path): INSTALLS += target
+
