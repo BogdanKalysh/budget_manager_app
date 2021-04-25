@@ -31,7 +31,6 @@ namespace dal {
     const QString USER = "andriy";
     const QString USER_PASSWORD = "root";
     const QString DBNAME = "budget-manager";
-    const QString USER_PASSWORDQQQQQQQQQQQQQQQQQ = "root";
 
     const QString USERS = "users";
     const QString CATEGORY = "category_of_transaction";
@@ -49,6 +48,7 @@ namespace dal {
     const QString CATEGORY_ID = "category_id";
     const QString AMOUNT = "amount";
     const QString DESCRIPTION = "description";
+    const QString DATE = "date";
 }
 
 

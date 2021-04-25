@@ -69,5 +69,4 @@ bool UserRepository::deleteObject(int id)
     }
 
     return false;
-    return true;
 }
