@@ -1,7 +1,7 @@
 #include "signUpWindow.h"
 #include "ui_signupwindow.h"
 #include "constants.h"
-#include "registrationJsonBuilder.h"
+#include "userJsonBuilder.h"
 
 #include <QDebug>
 
@@ -38,7 +38,7 @@ void SignUpWindow::on_signUpButton_clicked()
 
         User user(ui->nameLine->text(), ui->emailLine->text(), ui->passwordLine->text());
 
-        RegistrationJsonBuilder jObj;
+        UserJsonBuilder jObj;
         QJsonObject json = jObj.buildJson(user);
         qDebug()<<json;
         // sent data from object "user" to database

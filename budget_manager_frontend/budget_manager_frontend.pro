@@ -28,13 +28,12 @@ DEPENDPATH += \
 
 HEADERS += \
     headers/builders/IJsonBuilder.h \
+    headers/builders/userJsonBuilder.h \
     headers/models/category.h \
     headers/builders/categoryJsonBuilder.h \
     headers/constants.h \
-    headers/builders/loginJsonBuilder.h \
     headers/loginWindow.h \
     headers/mainWindow.h \
-    headers/builders/registrationJsonBuilder.h \
     headers/signUpWindow.h \
     headers/models/transaction.h \
     headers/builders/transactionJsonBuilder.h \
@@ -47,15 +46,14 @@ HEADERS += \
 
 
 SOURCES += \
+    sources/builders/userJsonBuilder.cpp \
     sources/parsers/categoryparser.cpp \
     sources/builders/categoryJsonBuilder.cpp \
-    sources/builders/loginJsonBuilder.cpp \
     sources/loginWindow.cpp \
     sources/mainWindow.cpp \
     sources/models/category.cpp \
     sources/models/transaction.cpp \
     sources/models/user.cpp \
-    sources/builders/registrationJsonBuilder.cpp \
     main.cpp \
     sources/parsers/transactionparser.cpp \
     sources/parsers/userparser.cpp \

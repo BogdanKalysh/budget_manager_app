@@ -1,7 +1,7 @@
 #include "loginWindow.h"
 #include "ui_loginwindow.h"
 #include "constants.h"
-#include "loginJsonBuilder.h"
+#include "userJsonBuilder.h"
 
 #include <QDebug>
 
@@ -32,7 +32,7 @@ void LoginWindow::on_loginButton_clicked()
     //connect to db
     User user(ui->email_line->text(), ui->password_line->text());
 
-    LoginJsonBuilder jObj;
+    UserJsonBuilder jObj;
     QJsonObject json = jObj.buildJson(user);
     qDebug()<<json;
 

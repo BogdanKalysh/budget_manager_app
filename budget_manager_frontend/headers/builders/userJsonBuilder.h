@@ -1,15 +1,16 @@
-#ifndef LOGINJSONBUILDER_H
-#define LOGINJSONBUILDER_H
+#ifndef USERJSONBUILDER_H
+#define USERJSONBUILDER_H
 #include "IJsonBuilder.h"
 #include <QJsonObject>
 #include <QJsonValue>
 #include "user.h"
 
 
-class LoginJsonBuilder: IJsonBuilder<User>
+class UserJsonBuilder: IJsonBuilder<User>
 {
 public:
     virtual QJsonObject buildJson(User user);
 };
 
-#endif // LOGINJSONBUILDER_H
+
+#endif // USERJSONBUILDER_H

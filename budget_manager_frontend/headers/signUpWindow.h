@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
 //#include "user.h"
 
 
