@@ -6,8 +6,7 @@
 #include "category.h"
 #include "transaction.h"
 #include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QNetworkRequest>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,6 +19,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(User user, QNetworkAccessManager* manager,  QWidget *parent=nullptr);
     ~MainWindow();
+
+public slots:
+    void readCategories();
+    void readTransactions();
+    void finishedPostTransactions();
+
 
 private slots:
     void on_addTransactionButton_clicked();

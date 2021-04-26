@@ -18,9 +18,9 @@ class Transaction
 
 public:
 
-    Transaction(int id, int amount, QDate date, QString description);
-    Transaction(int id, int amount, QDate date, QString description, int categoryId);
-    Transaction(int id, int amount, QDate date, QString description, QString categoryName, QColor color);
+    Transaction(int id, int amount, QString description, int categoryId); //creating new
+    Transaction(int id, int amount, QDate date, QString description, int categoryId); //updating old
+    Transaction(int id, int amount, QDate date, QString description, int categoryId, QString categoryName, QColor color); //getting for display
 
     int getId();
     int getAmount();

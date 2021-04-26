@@ -11,10 +11,10 @@ Category::Category()
 
 Category::Category(int id, QString name, Type type, QColor color)
 {
-    this->setId(id);
-    this->setName(name);
-    this->setType(type);
-    this->setColor(color);
+    this->id = id;
+    this->name = name;
+    this->type = type;
+    this->color = color;
 }
 
 Category::Category(const Category &other)

@@ -1,28 +1,25 @@
 #include "transaction.h"
 
 
-Transaction::Transaction(int id, int amount, QDate date, QString description)
+
+Transaction::Transaction(int id, int amount, QString description, int categoryId)
 {
-    this->setId(id);
-    this->setAmount(amount);
-    this->setDate(date);
-    this->setDescription(description);
+    this->id = id;
+    this->amount = amount;
+    this->description = description;
+    this->categoryId = categoryId;
+
 }
 
-Transaction::Transaction(int id, int amount, QDate date, QString description, int categoryId):Transaction(id, amount, date, description)
+Transaction::Transaction(int id, int amount, QDate date, QString description, int categoryId):Transaction(id, amount, description, categoryId)
 {
-    this->setCategoryId(categoryId);
-
-    this->setCategoryName(" ");
-    this->setColor(QColor());
+    this->date = date;
 }
 
-Transaction::Transaction(int id, int amount, QDate date, QString description, QString categoryName, QColor color):Transaction(id, amount, date, description)
+Transaction::Transaction(int id, int amount, QDate date, QString description, int categoryId, QString categoryName, QColor color):Transaction(id, amount, date, description, categoryId)
 {
-    this->setCategoryName(categoryName);
-    this->setColor(color);
-
-    this->setCategoryId(0);
+    this->categoryName = categoryName;
+    this->color = color;
 }
 
 
