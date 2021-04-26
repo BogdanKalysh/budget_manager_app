@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QJsonDocument>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QScopedPointer>
 #include "mainWindow.h"
 #include "signUpWindow.h"
 
@@ -21,16 +25,16 @@ public:
 
 private slots:
     void on_loginButton_clicked();
-
-
-
     void on_signUpLoginButton_clicked();
+    void onResult();
 
 private:
     Ui::LoginWindow *ui;
     MainWindow *mainWindow;
     SignUpWindow *signUpWindow;
-    QNetworkAccessManager* manager = new QNetworkAccessManager;
+    //QScopedPointer<QNetworkAccessManager> manager;
+    QNetworkAccessManager *manager;
+    User user;
 };
 
 #endif // LOGINWINDOW_H
