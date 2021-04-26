@@ -2,7 +2,7 @@
 #include "ui_loginwindow.h"
 #include "constants.h"
 #include "loginJsonBuilder.h"
-
+#include <QCryptographicHash>
 #include <QDebug>
 
 LoginWindow::LoginWindow(QWidget *parent) :

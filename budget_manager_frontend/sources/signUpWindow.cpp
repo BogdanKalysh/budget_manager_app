@@ -2,7 +2,7 @@
 #include "ui_signupwindow.h"
 #include "constants.h"
 #include "registrationJsonBuilder.h"
-
+#include <QCryptographicHash>
 #include <QDebug>
 
 SignUpWindow::SignUpWindow(QWidget *parent) :
