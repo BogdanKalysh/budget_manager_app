@@ -39,9 +39,6 @@ void MainWindow::on_addTransactionButton_clicked()
 
 
 
-
-
-
 void MainWindow::on_incomeRadioButton_clicked()
 {
     ui->cetegoryComboBox->clear();
