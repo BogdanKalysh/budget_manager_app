@@ -21,10 +21,12 @@ CREATE TABLE category(
 );
 
 CREATE TABLE transaction(
-	id SERIAL PRIMARY KEY, 
+	
+	
+	
 	category_id INT NOT NULL, 
 	amount INT NOT NULL, 
-	date DATE NOT NULL, 
+	date DATE NOT NULL CURRENT_TIMESTAMP, 
 	description TEXT
 
 	FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE RESTRICT ON UPDATE RESTRICT

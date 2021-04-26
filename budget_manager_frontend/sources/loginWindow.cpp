@@ -13,7 +13,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->email_line->setPlaceholderText("email");
     ui->password_line->setPlaceholderText("password");
 
-    signUpWindow = new SignUpWindow();
+    signUpWindow = new SignUpWindow(manager);
     connect(signUpWindow, &SignUpWindow::loginWindow, this, &LoginWindow::show);
 }
 
@@ -32,6 +32,8 @@ void LoginWindow::on_loginButton_clicked()
     //connect to db
     User user(ui->email_line->text(), ui->password_line->text());
 
+    QString query = "SELECT * FROM user WHERE mail = " + ui->email_line->text() + " AND password = " + ui->password_line->text();
+
     UserJsonBuilder jObj;
     QJsonObject json = jObj.buildJson(user);
     qDebug()<<json;
@@ -39,7 +41,7 @@ void LoginWindow::on_loginButton_clicked()
     //if(database.open()){
 
     if(ui->email_line->text()=="qwerty" && ui->password_line->text() == "123123"){
-        mainWindow = new MainWindow(user);
+        mainWindow = new MainWindow(user, manager);
 
         mainWindow->show();
         this->close();
