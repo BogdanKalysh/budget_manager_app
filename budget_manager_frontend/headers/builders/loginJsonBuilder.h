@@ -1,6 +1,6 @@
 #ifndef LOGINJSONBUILDER_H
 #define LOGINJSONBUILDER_H
-#include "ijsonbuilder.h"
+#include "IJsonBuilder.h"
 #include <QJsonObject>
 #include <QJsonValue>
 #include "user.h"
