@@ -11,10 +11,10 @@ class Transaction
     int amount;
     QDate date;
     QString description;
-    //Category category;
     int categoryId;
+
 public:
-    //Transaction(int amount, QDate date, QString description, Category category);
+
     Transaction(int id, int amount, QDate date, QString description, int categoryId);
 
     int getId();
@@ -28,7 +28,6 @@ public:
     QString setDate(QDate date);
     QString setDescription(QString description);
     QString setCategoryId(int categoryId);
-    //QString setCategory(Category category);
 };
 
 #endif // TRANSACTION_H

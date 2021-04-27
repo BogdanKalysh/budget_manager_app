@@ -13,6 +13,7 @@ QString insertQueryBuilder(QString table, QVector<QString> fields, QVector<QStri
         for(int i = 0; i < fields.size(); i++) {
             queryInsert += fields[i];
             queryValues += "'" + values[i] + "'";
+
             if(i != fields.size() - 1) {
                 queryInsert += ", ";
                 queryValues += ", ";
@@ -33,11 +34,13 @@ QString updateQueryBuilder(QPair<QString, int> tableCredentials, QVector<QString
     //  UPDATE table_name
     //  SET column1 = value1, column2 = value2, ...
     //  WHERE condition
+
     if(fields.size() == values.size()) {
         QString queryUpdate = "UPDATE " + tableCredentials.first + " SET ";
 
         for(int i = 0; i < fields.size(); i++){
             queryUpdate += fields[i] + " = '" + values[i] + "'";
+
             if(i != fields.size() - 1)
                 queryUpdate += ", ";
             else

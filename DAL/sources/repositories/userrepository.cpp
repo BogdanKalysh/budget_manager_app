@@ -1,7 +1,10 @@
 #include "userrepository.h"
+
 using namespace dal;
-QVector<User> UserRepository::select(QString query)
+
+QVector<User> UserRepository::select(const QString &query)
 {
+
     QVector<User> users;
     QSqlDatabase db = setUpDatabase();
 
@@ -10,7 +13,6 @@ QVector<User> UserRepository::select(QString query)
         QSqlQuery result(query);
 
         while(result.next()){
-
             users.push_back(User(
                                 result.value(ID).toInt(),
                                 result.value(NAME).toString(),
@@ -19,10 +21,9 @@ QVector<User> UserRepository::select(QString query)
                                 result.value(BALANCE).toInt()
                                 ));
         }
-    }
-    else
+    } else {
         qDebug() << db.lastError();
-
+    }
 
     return users;
 }
@@ -35,13 +36,19 @@ bool UserRepository::update(User &object)
     if(db.open())
     {
         QSqlQuery query;
+
         QVector<QString> fields;
         fields << MAIL << PASSWORD << NAME << BALANCE;
+
         QVector<QString> values;
-        values << object.getEmail() << object.getPassword() << object.getName() << QString::number(object.getBalance());
+        values << object.getEmail()
+               << object.getPassword()
+               << object.getName()
+               << QString::number(object.getBalance());
 
         query.exec(updateQueryBuilder(qMakePair(USERS, object.getId()), fields, values));
         db.close();
+
         return true;
     } else {
         qDebug() << db.lastError();
@@ -57,13 +64,19 @@ bool UserRepository::add(User &object)
     if(db.open())
     {
         QSqlQuery query;
+
         QVector<QString> fields;
         fields << MAIL << PASSWORD << NAME << BALANCE;
+
         QVector<QString> values;
-        values << object.getEmail() << object.getPassword() << object.getName() << QString::number(object.getBalance());
+        values << object.getEmail()
+               << object.getPassword()
+               << object.getName()
+               << QString::number(object.getBalance());
 
         query.exec(insertQueryBuilder(USERS, fields, values));
         db.close();
+
         return true;
     } else {
         qDebug() << db.lastError();
@@ -79,8 +92,10 @@ bool UserRepository::deleteObject(int id)
     if(db.open())
     {
         QSqlQuery query;
+
         query.exec(deleteQueryBuilder(qMakePair(USERS, id)));
         db.close();
+
         return true;
     } else {
         qDebug() << db.lastError();

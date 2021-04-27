@@ -83,4 +83,5 @@ QString Category::setColor(QColor color)
 QString Category::setUserId(int userId)
 {
     this->userId = userId;
+    return "Success";
 }

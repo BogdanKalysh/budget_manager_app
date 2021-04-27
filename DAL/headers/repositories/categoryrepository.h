@@ -3,12 +3,11 @@
 
 #include "irepository.h"
 #include "category.h"
-#include "constants.h"
 
 class CategoryRepository : public IRepository<Category>
 {
 public:
-    QVector<Category> select(QString query) override;
+    QVector<Category> select(const QString &query) override;
     bool update(Category &object) override;
     bool add(Category &object) override;
     bool deleteObject(int id) override;

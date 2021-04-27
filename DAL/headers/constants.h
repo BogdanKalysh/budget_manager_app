@@ -20,13 +20,7 @@ namespace parser {
     const QString USER_ID = "user_id";
 }
 
-namespace validationMessage {
-
-}
-
 namespace dal {
-
-
     const QString DBTYPE = "QPSQL";
     const QString HOST = "34.118.91.164";
     const QString USER = "andriy";
@@ -51,6 +45,8 @@ namespace dal {
     const QString DESCRIPTION = "description";
     const QString DATE = "date";
     const QString COLOR = "color";
+    const QString INCOME = "income";
+    const QString EXPENSE = "expense";
 }
 
 

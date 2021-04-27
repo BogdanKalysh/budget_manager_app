@@ -1,17 +1,16 @@
 #include "transactionrepository.h"
+
 using namespace dal;
 
-QVector<Transaction> TransactionRepository::select(QString query)
+QVector<Transaction> TransactionRepository::select(const QString &query)
 {
     QVector<Transaction> transactions;
     QSqlDatabase db = setUpDatabase();
 
-    if(db.open())
-    {
+    if(db.open()) {
         QSqlQuery result(query);
 
-        while(result.next()){
-
+        while(result.next()) {
             transactions.push_back(Transaction(
                                 result.value(ID).toInt(),
                                 result.value(AMOUNT).toInt(),
@@ -20,9 +19,10 @@ QVector<Transaction> TransactionRepository::select(QString query)
                                 result.value(CATEGORY_ID).toInt()
                                 ));
         }
-    }
-    else
+    } else {
         qDebug() << db.lastError();
+    }
+
     return transactions;
 }
 
@@ -30,13 +30,17 @@ bool TransactionRepository::update(Transaction &object)
 {
     QSqlDatabase db = setUpDatabase();
 
-    if(db.open())
-    {
+    if(db.open()) {
         QSqlQuery query;
+
         QVector<QString> fields;
         fields << CATEGORY_ID << AMOUNT << DESCRIPTION << DATE;
+
         QVector<QString> values;
-        values << QString::number(object.getCategoryId()) << QString::number(object.getAmount()) << object.getDescription() << object.getDate().toString();
+        values << QString::number(object.getCategoryId())
+               << QString::number(object.getAmount())
+               << object.getDescription()
+               << object.getDate().toString();
 
         query.exec(updateQueryBuilder(qMakePair(TRANSACTION, object.getId()), fields, values));
         db.close();
@@ -52,16 +56,21 @@ bool TransactionRepository::add(Transaction &object)
 {
     QSqlDatabase db = setUpDatabase();
 
-    if(db.open())
-    {
+    if(db.open()) {
         QSqlQuery query;
+
         QVector<QString> fields;
         fields << CATEGORY_ID << AMOUNT << DESCRIPTION << DATE;
+
         QVector<QString> values;
-        values << QString::number(object.getCategoryId()) << QString::number(object.getAmount()) << object.getDescription() << object.getDate().toString();
+        values << QString::number(object.getCategoryId())
+               << QString::number(object.getAmount())
+               << object.getDescription()
+               << object.getDate().toString();
 
         query.exec(insertQueryBuilder(TRANSACTION, fields, values));
         db.close();
+
         return true;
     } else {
         qDebug() << db.lastError();
@@ -74,11 +83,12 @@ bool TransactionRepository::deleteObject(int id)
 {
     QSqlDatabase db = setUpDatabase();
 
-    if(db.open())
-    {
+    if(db.open()) {
         QSqlQuery query;
+
         query.exec(deleteQueryBuilder(qMakePair(TRANSACTION, id)));
         db.close();
+
         return true;
     } else {
         qDebug() << db.lastError();

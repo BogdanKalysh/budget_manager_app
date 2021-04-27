@@ -10,6 +10,7 @@ class User
     QString password;
     QString email;
     int balance;
+
 public:
     User(int id, QString name, QString email, QString password, int balance);
     int getId();
