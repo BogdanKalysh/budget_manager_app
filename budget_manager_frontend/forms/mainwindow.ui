@@ -6,22 +6,112 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Heavy Wallet</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../resources/src.qrc">
+   <iconset>
     <normaloff>:/images/login.png</normaloff>:/images/login.png</iconset>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#centralwidget{
+ background: qlineargradient(spread:pad, x1:0.166667, y1:0.756, x2:1, y2:0, stop:0 rgba(207, 31, 31, 255), stop:0.427083 rgba(144, 16, 125, 255), stop:0.822917 rgba(30, 129, 255, 255))
+}
+
+#header, #addTransactionFrame, #pieChartFrame, #transactionListFrame{
+ background: rgba(10,10,10,0.5);
+ border: 2px solid rgba(255,255,255,0.1);
+ border-left-width: 0;
+ border-top-width: 0;
+ border-right-width: 0;
+}
+
+#userName, #settingsIcon{
+	margin: 0 10px;
+}
+
+#addTransactionFrame, #pieChartFrame, #transactionListFrame{
+ border-radius: 20px;
+ border: 1px solid rgba(255,255,255,0.15);
+ 
+ border-left-color: rgba(0,0,0,0.1);
+ border-top-color: rgba(0,0,0,0.1);
+ 
+}
+
+#body{
+ border-style:none;
+}
+
+QLabel{
+ font-size: 25px;
+}
+
+#addTransactionFrameBottom, #addTransactionFrameTop{
+ border-style: none;
+}
+
+#addTransactionButton{
+ height: 50px;
+ width: 140px;
+ border-radius: 25px;
+ background: transparent;
+ border: 1px solid white;
+ font-size: 20px;
+}
+
+#addTransactionButton::hover{
+ background: rgb(88, 153, 255);
+ border-style: none;
+}
+
+QLineEdit{
+ 	border: 1px solid rgba(255,255,255,0.3);
+ 	background: rgba(255,255,255,0.1);
+ 	height: 50px;
+ 	border-radius: 25px;
+ 	font-size: 20px;
+ 	padding: 0 20px;
+ 	color: rgba(255,255,255,0.6);
+}
+
+#categoryComboBox{
+ 	height: 50px;
+ 	width: 200px;
+ 	border-radius: 25px;
+ 	background: transparent;
+ 	border: 1px solid white;
+	font-size: 20px;
+}
+
+QRadioButton{
+	font-size: 20px;
+	height: 50px;
+	width: 110px;
+	border: 1px solid rgba(255,255,255,0.3);
+	border-radius: 25px;
+}
+
+QRadioButton:checked{
+	background: rgb(88, 153, 255);
+}
+
+QRadioButton::indicator{
+	border-style: none;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -34,162 +124,325 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <property name="spacing">
-     <number>0</number>
-    </property>
-    <item row="1" column="1" colspan="2">
-     <spacer name="verticalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+    <item>
+     <widget class="QFrame" name="header">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>100</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
+      <property name="minimumSize">
        <size>
-        <width>20</width>
-        <height>350</height>
+        <width>0</width>
+        <height>60</height>
        </size>
       </property>
-     </spacer>
-    </item>
-    <item row="0" column="0" colspan="3">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
+      <property name="maximumSize">
        <size>
-        <width>20</width>
-        <height>40</height>
+        <width>16777215</width>
+        <height>60</height>
        </size>
       </property>
-     </spacer>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>15</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="logoName">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>10</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Heavy Wallet</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="userIcon">
+         <property name="maximumSize">
+          <size>
+           <width>60</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../resources/src.qrc">:/new/img/user_icon.png</pixmap>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="userName">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Петро Моставчук</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="settingsIcon">
+         <property name="maximumSize">
+          <size>
+           <width>60</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../resources/src.qrc">:/new/img/settings_icon.png</pixmap>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
-    <item row="1" column="0" rowspan="2">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+    <item>
+     <widget class="QFrame" name="body">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>100</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
       </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Preferred</enum>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
       </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>300</width>
-        <height>20</height>
-       </size>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
       </property>
-     </spacer>
-    </item>
-    <item row="2" column="1" colspan="2">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="spacing">
-       <number>10</number>
-      </property>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QRadioButton" name="incomeRadioButton">
-          <property name="text">
-           <string>Прибуток</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="amountInputLine">
-          <property name="inputMask">
-           <string/>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="maxLength">
-           <number>10</number>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-          <property name="placeholderText">
-           <string>0</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="currencySign">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>$</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="cetegoryComboBox">
-          <property name="acceptDrops">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QRadioButton" name="expenceRadioButton">
-          <property name="text">
-           <string>Витрата</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="descriptionInputLine">
-          <property name="inputMask">
-           <string/>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="cursorPosition">
-           <number>0</number>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-          <property name="dragEnabled">
-           <bool>false</bool>
-          </property>
-          <property name="placeholderText">
-           <string>Опис...</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="addTransactionButton">
-          <property name="text">
-           <string>Додати</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>15</number>
+       </property>
+       <property name="topMargin">
+        <number>15</number>
+       </property>
+       <property name="rightMargin">
+        <number>15</number>
+       </property>
+       <property name="bottomMargin">
+        <number>15</number>
+       </property>
+       <property name="spacing">
+        <number>30</number>
+       </property>
+       <item row="0" column="1">
+        <widget class="QFrame" name="transactionListFrame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>6</horstretch>
+           <verstretch>6</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QFrame" name="addTransactionFrame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>6</horstretch>
+           <verstretch>2</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QFrame" name="addTransactionFrameTop">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QRadioButton" name="incomeRadioButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Прибуток</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">buttonGroup</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="amountInputLine">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>2</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::ClickFocus</enum>
+               </property>
+               <property name="placeholderText">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="currencySign">
+               <property name="text">
+                <string>₴</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>50</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QComboBox" name="categoryComboBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="addTransactionFrameBottom">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QRadioButton" name="expenceRadioButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Витрата</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">buttonGroup</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="descriptionInputLine">
+               <property name="focusPolicy">
+                <enum>Qt::ClickFocus</enum>
+               </property>
+               <property name="placeholderText">
+                <string>Опис...</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="addTransactionButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Додати</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0" rowspan="2">
+        <widget class="QFrame" name="pieChartFrame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>4</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -198,7 +451,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1280</width>
      <height>22</height>
     </rect>
    </property>
@@ -208,4 +461,7 @@
   <include location="../resources/src.qrc"/>
  </resources>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>

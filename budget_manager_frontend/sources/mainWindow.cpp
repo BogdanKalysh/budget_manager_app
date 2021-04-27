@@ -8,6 +8,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMessageBox>
 
 MainWindow::MainWindow(User user, QNetworkAccessManager* manager,  QWidget *parent)
     : QMainWindow(parent)
@@ -18,13 +19,21 @@ MainWindow::MainWindow(User user, QNetworkAccessManager* manager,  QWidget *pare
     this->user = user;
     this->manager = manager;
 
+    QPixmap settingsPixMap(":/new/img/settings_icon.png");
+    QPixmap userPixMap(":/new/img/user_icon.png");
+    int w(40), h(40);
+    ui->settingsIcon->setPixmap(settingsPixMap.scaled(w, h, Qt::KeepAspectRatio));
+    ui->userIcon->setPixmap(userPixMap.scaled(w, h, Qt::KeepAspectRatio));
+
+    ui->amountInputLine->setValidator( new QIntValidator(0, 10000000, this));
+
     QString getCategoriesQuery = "http://127.0.0.1:5000/rating/getcategories?u_email=" + user.getEmail();
     QNetworkReply *categoriesReply = manager->get(QNetworkRequest(QUrl(getCategoriesQuery)));
-    connect(categoriesReply, &QIODevice::readyRead, this, &MainWindow::readCategories);
+    connect(categoriesReply, &QNetworkReply::readyRead, this, &MainWindow::readCategories);
 
     QString getTransactionsQuery = "http://127.0.0.1:5000/rating/gettransactions?u_email=" + user.getEmail() + "&lim=10";
     QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
-    connect(transactionsReply, &QIODevice::readyRead, this, &MainWindow::readTransactions);
+    connect(transactionsReply, &QNetworkReply::readyRead, this, &MainWindow::readTransactions);
 
 
 }
@@ -48,17 +57,17 @@ void MainWindow::readCategories()
         categories = parser.parseVector(json_array);
     }
 
-    ui->cetegoryComboBox->clear();
+    ui->categoryComboBox->clear();
 
     if(ui->expenceRadioButton->isChecked()){
         foreach(Category cat, categories){
             if(!cat.getType())
-                ui->cetegoryComboBox->addItem(cat.getName());
+                ui->categoryComboBox->addItem(cat.getName());
         }
     }else{
         foreach(Category cat, categories){
             if(cat.getType())
-                ui->cetegoryComboBox->addItem(cat.getName());
+                ui->categoryComboBox->addItem(cat.getName());
         }
     }
 
@@ -104,52 +113,56 @@ void MainWindow::finishedPostTransactions()
 void MainWindow::on_addTransactionButton_clicked()
 {
 
-    int amount;
-    if (ui->incomeRadioButton->isChecked())
-        amount = ui->amountInputLine->text().toInt();
-    else
-        amount = -ui->amountInputLine->text().toInt();
-
+    int amount = 0;
+    amount = ui->amountInputLine->text().toInt();
     QString description = ui->descriptionInputLine->text();
-    QString category = ui->cetegoryComboBox->currentText();
-    int categoryId(0);
+    QString category = ui->categoryComboBox->currentText();
 
-    foreach(Category cat, categories){
-        if(cat.getType() == ui->incomeRadioButton->isChecked() && cat.getName() == category){
-            categoryId = cat.getId();
-            break;
+    if(amount == 0 || description == "" || category == ""){
+        QMessageBox::about(this, "info", "Заповніть всі поля");
+    }else{
+        int categoryId(0);
+        foreach(Category cat, categories){
+            if(cat.getType() == ui->incomeRadioButton->isChecked() && cat.getName() == category){
+                categoryId = cat.getId();
+                break;
+            }
         }
+
+        Transaction transaction(0, amount, description, categoryId);
+        TransactionJsonBuilder builder;
+        QJsonObject jsonData =  builder.buildJson(transaction);
+        QJsonDocument jsonDoc(jsonData);
+        QByteArray byteData = jsonDoc.toJson();
+
+
+        QNetworkRequest request = QNetworkRequest(QUrl("http://127.0.0.1:5000/rating/posttransaction"));
+        request.setRawHeader("Content-Type", "application/json");
+        QNetworkReply* postTranasactionReply = manager->post(request, byteData);
+        connect(postTranasactionReply, &QNetworkReply::finished, this, &MainWindow::finishedPostTransactions);
+
+        ui->amountInputLine->clear();
+        ui->descriptionInputLine->clear();
+
     }
-
-    Transaction transaction(0, amount, description, categoryId);
-    TransactionJsonBuilder builder;
-    QJsonObject jsonData =  builder.buildJson(transaction);
-    QJsonDocument jsonDoc(jsonData);
-    QByteArray byteData = jsonDoc.toJson();
-
-
-    QNetworkRequest request = QNetworkRequest(QUrl("http://127.0.0.1:5000/rating/posttransaction"));
-    request.setRawHeader("Content-Type", "application/json");
-    QNetworkReply* postTranasactionReply = manager->post(request, byteData);
-    connect(postTranasactionReply, &QNetworkReply::finished, this, &MainWindow::finishedPostTransactions);
 
 }
 
 void MainWindow::on_incomeRadioButton_clicked()
 {
-    ui->cetegoryComboBox->clear();
+    ui->categoryComboBox->clear();
     foreach(Category cat, categories){
         if(cat.getType())
-            ui->cetegoryComboBox->addItem(cat.getName());
+            ui->categoryComboBox->addItem(cat.getName());
     }
 
 }
 
 void MainWindow::on_expenceRadioButton_clicked()
 {
-    ui->cetegoryComboBox->clear();
+    ui->categoryComboBox->clear();
     foreach(Category cat, categories){
         if(!cat.getType())
-            ui->cetegoryComboBox->addItem(cat.getName());
+            ui->categoryComboBox->addItem(cat.getName());
     }
 }

@@ -14,8 +14,11 @@
    <string>Log in</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/images/login.png</normaloff>:/images/login.png</iconset>
+   <iconset resource="../resources/src.qrc">
+    <normaloff>:/new/img/login.png</normaloff>:/new/img/login.png</iconset>
+  </property>
+  <property name="animated">
+   <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -197,6 +200,8 @@ border:none;
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources/src.qrc"/>
+ </resources>
  <connections/>
 </ui>
