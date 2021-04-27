@@ -8,13 +8,13 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-//    LoginWindow loginWindow;
-//    loginWindow.show();
+    LoginWindow loginWindow;
+    loginWindow.show();
 
-    User usr("ddd", "ddd");
-    QNetworkAccessManager *manager = new QNetworkAccessManager;
-    MainWindow mainW(usr, manager);
-    mainW.show();
+//    User usr("Петро Моставчук" ,"p_mostav@gmail.com", "password");
+//    QNetworkAccessManager *manager = new QNetworkAccessManager;
+//    MainWindow mainW(usr, manager);
+//    mainW.show();
 
     return a.exec();
 }

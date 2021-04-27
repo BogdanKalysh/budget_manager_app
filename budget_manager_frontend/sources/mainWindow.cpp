@@ -19,6 +19,8 @@ MainWindow::MainWindow(User user, QNetworkAccessManager* manager,  QWidget *pare
     this->user = user;
     this->manager = manager;
 
+    ui->userName->setText(user.getName());
+
     QPixmap settingsPixMap(":/new/img/settings_icon.png");
     QPixmap userPixMap(":/new/img/user_icon.png");
     int w(40), h(40);

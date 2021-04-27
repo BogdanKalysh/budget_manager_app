@@ -10,8 +10,6 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-    ui->email_line->setPlaceholderText("email");
-    ui->password_line->setPlaceholderText("password");
 
     signUpWindow = new SignUpWindow(manager);
     connect(signUpWindow, &SignUpWindow::loginWindow, this, &LoginWindow::show);

@@ -207,7 +207,7 @@ QRadioButton::indicator{
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Петро Моставчук</string>
+          <string>Ім'я Користувача</string>
          </property>
         </widget>
        </item>
@@ -408,6 +408,9 @@ QRadioButton::indicator{
              </item>
              <item>
               <widget class="QPushButton" name="addTransactionButton">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -416,6 +419,9 @@ QRadioButton::indicator{
                </property>
                <property name="text">
                 <string>Додати</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
