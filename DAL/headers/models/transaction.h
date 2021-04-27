@@ -15,19 +15,19 @@ class Transaction
 
 public:
 
-    Transaction(int id, int amount, QDate date, QString description, int categoryId);
+    Transaction(const int id, const int amount, const QDate date, const QString description, const int categoryId);
 
-    int getId();
-    int getAmount();
-    int getCategoryId();
-    QDate getDate();
-    QString getDescription();
+    int getId() const;
+    int getAmount() const;
+    int getCategoryId() const;
+    QDate getDate() const;
+    QString getDescription() const;
 
-    QString setId(int id);
-    QString setAmount(int amount);
-    QString setDate(QDate date);
-    QString setDescription(QString description);
-    QString setCategoryId(int categoryId);
+    QString setId(const int id);
+    QString setAmount(const int amount);
+    QString setDate(const QDate date);
+    QString setDescription(const QString description);
+    QString setCategoryId(const int categoryId);
 };
 
 #endif // TRANSACTION_H

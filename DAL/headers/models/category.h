@@ -14,20 +14,20 @@ class Category
 
 public:
     Category();
-    Category(int id, QString name, Type type, QColor color, int userId);
+    Category(const int id, const QString name, const Type type, const QColor color, const int userId);
     Category (const Category &other);
 
-    int getId();
-    int getUserId();
-    QString getName();
-    Type getType();
-    QColor getColor();
+    int getId() const;
+    int getUserId() const;
+    QString getName() const;
+    Type getType() const;
+    QColor getColor() const;
 
-    QString setId(int id);
-    QString setName(QString name);
-    QString setType(Type type);
-    QString setColor(QColor color);
-    QString setUserId(int userId);
+    QString setId(const int id);
+    QString setName(const QString name);
+    QString setType(const Type type);
+    QString setColor(const QColor color);
+    QString setUserId(const int userId);
 };
 
 #endif // CATEGORY_H
