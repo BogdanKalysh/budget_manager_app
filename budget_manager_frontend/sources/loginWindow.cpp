@@ -2,7 +2,7 @@
 #include "ui_loginwindow.h"
 #include "constants.h"
 #include "loginJsonBuilder.h"
-
+#include <QCryptographicHash>
 #include <QDebug>
 
 LoginWindow::LoginWindow(QWidget *parent) :
@@ -25,7 +25,8 @@ LoginWindow::~LoginWindow()
 void LoginWindow::on_loginButton_clicked()
 {
     //connect to db
-    User user(ui->email_line->text(), ui->password_line->text());
+    QByteArray passwordHash = QCryptographicHash::hash(ui->password_line->text().toLocal8Bit(), QCryptographicHash::Sha224);
+    User user(ui->email_line->text(), passwordHash.toHex().data());
 
     LoginJsonBuilder jObj;
     QJsonObject json = jObj.buildJson(user);
