@@ -1,7 +1,7 @@
 #include<pieslice.h>
 
 PieSlice::PieSlice(QWidget *parent):QWidget(parent)
-    ,data(new PieSliceData())
+
 {
 
 }
@@ -10,14 +10,12 @@ PieSlice::PieSlice(qreal value, QString label,QRectF& rectangle , QWidget *paren
 {
     this->rectangle=rectangle;
 
-    data=new PieSliceData();
-    data->label=label;
-    data->value=value;
+    data=new PieSliceData(value,label);
 }
 
 PieSlice::~PieSlice()
 {
-
+    delete data;
 }
 
 PieSlice::setStartAngle(qreal angle)
@@ -122,9 +120,7 @@ void PieSlice::paintEvent(QPaintEvent *event)
     rectangle.normalized();
 
     QPainterPath path;
-
-    path.moveTo(rectangle.center().x()-rectangle.width()/2, rectangle.center().y()-rectangle.height()/2);
-    path.arcTo(rectangle.x()-rectangle.width()/2, rectangle.y()-rectangle.height()/2, rectangle.width(), rectangle.height(), startAngle(), spanAngle());
+    pathCalculation(path);
     path.closeSubpath();
 
     painter.drawPath(path);
@@ -143,6 +139,12 @@ void PieSlice::mousePressEvent(QMouseEvent *event)
     const QPoint p = event->pos();
     event->ignore();
     printf("%s",data->label.toUtf8().constData());
+}
+
+void PieSlice::pathCalculation(QPainterPath &path)
+{
+    path.moveTo(rectangle.center().x()-rectangle.width()/2, rectangle.center().y()-rectangle.height()/2);
+    path.arcTo(rectangle.x()-rectangle.width()/2, rectangle.y()-rectangle.height()/2, rectangle.width(), rectangle.height(), startAngle(), spanAngle());
 }
 
 

@@ -9,7 +9,7 @@
 #include <time.h>
 #include <pieslice.h>
 #include<hole.h>
-
+#include <memory>
 
 class PieSeries :public QWidget
 {
@@ -19,17 +19,17 @@ public:
     static const qreal maxSize;
 
 private:
-    QList<PieSlice*> slices;
+    QList<QSharedPointer<PieSlice>> slices;
     qreal sum;
     QMap<QString, QColor> categoryColor;
 
 public:
     explicit PieSeries(QWidget * parent=nullptr);
-    PieSeries(QList<PieSlice *> m_slices,QWidget * parent=nullptr);
+    PieSeries(QList<QSharedPointer<PieSlice>> m_slices,QWidget * parent=nullptr);
     ~PieSeries();
 
     PieSlice* append(qreal value,QString label);
-    void append(PieSlice *slice);
+    void append(QSharedPointer<PieSlice> slice);
 
     void setFont(const QFont &value);
 
@@ -76,7 +76,7 @@ private:
     QFont font;
     QPoint center;
     qreal radius;
-    qreal relativeRadiusSize = 0.3;
+    qreal relativeRadiusSize;
     QRectF rectangle;
     Hole *hole;
 

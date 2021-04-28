@@ -17,6 +17,8 @@ protected:
     void paintEvent(QPaintEvent *e);
     void mousePressEvent(QMouseEvent *e);
 
+    void pathCalculation(QPainterPath& path);
+
 public:
     explicit PieSlice(QWidget * parent=nullptr);
     PieSlice(qreal value ,QString label, QRectF& rectangle ,QWidget * parent=nullptr);

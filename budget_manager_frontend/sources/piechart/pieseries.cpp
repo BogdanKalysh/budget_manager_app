@@ -16,6 +16,7 @@ PieSeries::PieSeries(QWidget *parent)
 {
     srand (time(NULL));
 
+    relativeRadiusSize =0.3;
     hole=new Hole();
 
     hole->setParent(this);
@@ -23,13 +24,13 @@ PieSeries::PieSeries(QWidget *parent)
     hole->installEventFilter(this);
 }
 
-PieSeries::PieSeries(QList<PieSlice *> slices, QWidget *parent)
+PieSeries::PieSeries(QList<QSharedPointer<PieSlice>> slices, QWidget *parent)
     :QWidget(parent)
 {
     srand (time(NULL));
 
     this->slices=slices;
-
+    relativeRadiusSize =0.3;
     hole=new Hole();
 
     hole->setParent(this);
@@ -39,51 +40,63 @@ PieSeries::PieSeries(QList<PieSlice *> slices, QWidget *parent)
 
 PieSeries::~PieSeries()
 {
+    for (QSharedPointer<PieSlice> s: slices){
+        s.clear();//this qt method dropping the reference that it may have had to the pointer.
+                  //If this was the last reference, then the pointer itself will be deleted.
+    }
+
+    slices.clear();
+    delete hole;
 
 }
 
 PieSlice* PieSeries::append(qreal value, QString label)
 {
-    PieSlice *slice = new PieSlice(value,label,rectangle);
+    QSharedPointer<PieSlice> slice = QSharedPointer<PieSlice>(new PieSlice(value,label,rectangle),&QObject::deleteLater);
+
     append(slice);
-    return slice;
+    slice.clear();
+
 }
 
-void PieSeries::append(PieSlice *slice)
+void PieSeries::append(QSharedPointer<PieSlice> slice)
 {
     qreal totalSum=0;
 
     if(slice->parentWidget()!=nullptr) // already added to some series
         return;
-    slice->setParent(this);
+    slice.get()->setParent(this);
 
     slices.append(slice);
 
     //calculating geometry for all slices
     //this algorithm calculates start and span angle for sector(geometry of pieslice widget is circle sector)
-    foreach (PieSlice *s, slices) {
-        totalSum+=s->getData()->value;
+    foreach (QSharedPointer<PieSlice> s, slices){
+        totalSum+=s.get()->getData()->value;
     }
 
     angle=(qreal)360/totalSum;
     qreal startAngle = 0;
 
-    foreach (PieSlice *s, slices) {
-        qreal spanAngle=s->getData()->value*angle;
+    for (QSharedPointer<PieSlice> s: slices) {
 
-        s->setStartAngle(startAngle);
-        s->setSpanAngle(spanAngle);
+        PieSlice * slice=s.get();
+
+        qreal spanAngle=slice->getData()->value*angle;
+
+        slice->setStartAngle(startAngle);
+        slice->setSpanAngle(spanAngle);
         startAngle+=spanAngle;
 
         //set all atributtes of pieslice
-        if(categoryColor.find(s->getData()->label)==categoryColor.end()){
+        if(categoryColor.find(slice->getData()->label)==categoryColor.end()){
             QColor color =randomColor();                           //if category has no user color we just random color
-            categoryColor.insert(s->getData()->label,color);
+            categoryColor.insert(slice->getData()->label,color);
         }
 
-        s->setColor(categoryColor.find(s->getData()->label).value());
-        s->setPen(Qt::NoPen);                   // it sets the border of pislice to none
-        s->installEventFilter(this);
+        slice->setColor(categoryColor.find(slice->getData()->label).value());
+        slice->setPen(Qt::NoPen);                   // it sets the border of pislice to none
+        slice->installEventFilter(this);
     }
 
     hole->setLabelText(QString::number(totalSum));//Label in the center of our widget is total sum of pieslices value
@@ -119,9 +132,9 @@ void PieSeries::resizeEvent(QResizeEvent *event)
 {
     updateSizes();
 
-    foreach (PieSlice *s, slices) {
-        s->setRectangle(this->rectangle);
-        s->resize(this->width(),this->height());
+    for (QSharedPointer<PieSlice> s: slices){
+        s.get()->setRectangle(this->rectangle);
+        s.get()->resize(this->width(),this->height());
     }
 
     hole->setRect(rectangle);
