@@ -2,6 +2,7 @@
 #include "ui_loginwindow.h"
 #include "constants.h"
 #include "userJsonBuilder.h"
+#include <QCryptographicHash>
 
 #include <QDebug>
 
@@ -29,7 +30,8 @@ LoginWindow::~LoginWindow()
 void LoginWindow::on_loginButton_clicked()
 {
     //connect to db
-    User user(ui->email_line->text(), ui->password_line->text());
+    QByteArray passwordHash = QCryptographicHash::hash(ui->password_line->text().toLocal8Bit(), QCryptographicHash::Sha224);
+    User user(ui->email_line->text(), passwordHash.toHex().data());
 
     QString query = "SELECT * FROM user WHERE mail = " + ui->email_line->text() + " AND password = " + ui->password_line->text();
 

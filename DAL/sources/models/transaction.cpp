@@ -11,7 +11,7 @@ Transaction::Transaction(int amount, QDate date, QString description, Category c
 */
 
 
-Transaction::Transaction(int id, int amount, QDate date, QString description, int categoryId)
+Transaction::Transaction(const int id, const int amount, const QDate date, const QString description, const int categoryId)
 {
     this->setId(id);
     this->setAmount(amount);
@@ -20,64 +20,57 @@ Transaction::Transaction(int id, int amount, QDate date, QString description, in
     this->setCategoryId(categoryId);
 }
 
-int Transaction::getId()
+int Transaction::getId() const
 {
     return this->id;
 }
 
-int Transaction::getAmount()
+int Transaction::getAmount() const
 {
     return this->amount;
 }
 
-QDate Transaction::getDate()
+QDate Transaction::getDate() const
 {
     return this->date;
 }
 
-QString Transaction::getDescription()
+QString Transaction::getDescription() const
 {
     return this->description;
 }
 
-QString Transaction::setId(int id)
+QString Transaction::setId(const int id)
 {
     // TODO: Int validation logic
     this->id = id;
     return "Success";
 }
 
-QString Transaction::setAmount(int amount)
+QString Transaction::setAmount(const int amount)
 {
     // TODO: Validation logic; It may be realized with the help of QIntValidator
     this->amount = amount;
     return "Success";
 }
 
-QString Transaction::setDate(QDate date)
+QString Transaction::setDate(const QDate date)
 {
     // TODO: Validation logic; It may be realized with the help of QDate::isValid
     this->date = date;
     return "Success";
 }
 
-QString Transaction::setDescription(QString description)
+QString Transaction::setDescription(const QString description)
 {
     // TODO: Validation logic
     this->description = description;
     return "Success";
 }
 
-QString Transaction::setCategoryId(int categoryId)
+QString Transaction::setCategoryId(const int categoryId)
 {
     // TODO: Validation logic; It may be realized with the help of QIntValidator
     this->categoryId = categoryId;
     return "Success";
 }
-
-//QString Transaction::setCategory(Category category)
-//{
-//    // TODO: Validation logic
-//    this->category = category;
-//    return "Success";
-//}
