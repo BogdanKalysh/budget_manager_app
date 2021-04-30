@@ -100,7 +100,7 @@ void MainWindow::finishedPostTransactions()
     {
         QString error = postTranasactionReply->errorString();
         qDebug() << error;
-        QMessageBox::about(this, "info", error);
+        QMessageBox::about(this, "info", "Error: "+error);
     }
     postTranasactionReply->close();
     postTranasactionReply->deleteLater();
