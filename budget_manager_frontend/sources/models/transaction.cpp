@@ -1,14 +1,12 @@
 #include "transaction.h"
 
 
-
 Transaction::Transaction(int id, int amount, QString description, int categoryId)
 {
     this->id = id;
     this->amount = amount;
     this->description = description;
     this->categoryId = categoryId;
-
 }
 
 Transaction::Transaction(int id, int amount, QDate date, QString description, int categoryId):Transaction(id, amount, description, categoryId)

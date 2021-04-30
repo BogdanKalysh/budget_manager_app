@@ -19,7 +19,8 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#centralwidget{
- background: qlineargradient(spread:pad, x1:0.166667, y1:0.756, x2:1, y2:0, stop:0 rgba(207, 31, 31, 255), stop:0.427083 rgba(144, 16, 125, 255), stop:0.822917 rgba(30, 129, 255, 255))
+ /*background: qlineargradient(spread:pad, x1:0.166667, y1:0.756, x2:1, y2:0, stop:0 rgba(207, 31, 31, 255), stop:0.427083 rgba(144, 16, 125, 255), stop:0.822917 rgba(30, 129, 255, 255))*/
+	background: qlineargradient(spread:pad, x1:0, y1:0.960227, x2:1, y2:0, stop:0 rgba(13, 189, 217, 255), stop:1 rgba(0, 75, 230, 255))
 }
 
 #loginHeader{

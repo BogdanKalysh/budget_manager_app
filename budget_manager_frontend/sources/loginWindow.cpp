@@ -10,6 +10,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    manager.reset(new QNetworkAccessManager);
 
     signUpWindow = new SignUpWindow(manager);
     connect(signUpWindow, &SignUpWindow::loginWindow, this, &LoginWindow::show);

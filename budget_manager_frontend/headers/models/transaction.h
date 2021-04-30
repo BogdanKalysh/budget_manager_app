@@ -20,7 +20,7 @@ public:
 
     Transaction(int id, int amount, QString description, int categoryId); //creating new
     Transaction(int id, int amount, QDate date, QString description, int categoryId); //updating old
-    Transaction(int id, int amount, QDate date, QString description, int categoryId, QString categoryName, QColor color); //getting for display
+    Transaction(int id, int amount, QDate date, QString description, int categoryId, QString categoryName, QColor color); //getting from db
 
     int getId();
     int getAmount();

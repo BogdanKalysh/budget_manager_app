@@ -6,6 +6,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QSharedPointer>
 //#include "user.h"
 
 
@@ -18,7 +19,7 @@ class SignUpWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit SignUpWindow(QNetworkAccessManager* manager, QWidget *parent = nullptr);
+    explicit SignUpWindow(QSharedPointer<QNetworkAccessManager> manager, QWidget *parent = nullptr);
     ~SignUpWindow();
 
 signals:
@@ -26,12 +27,11 @@ signals:
 
 private slots:
     void on_signUpButton_clicked();
-
     void on_backToLoginButton_clicked();
 
 private:
     Ui::SignUpWindow *ui;
-    QNetworkAccessManager* manager;
+    QSharedPointer<QNetworkAccessManager> manager;
 };
 
 #endif // SIGNUPWINDOW_H

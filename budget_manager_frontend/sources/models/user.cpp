@@ -30,7 +30,6 @@ QString User::getEmail()
     return this->email;
 }
 
-
 void User::setName(QString name)
 {
     this->name = name;

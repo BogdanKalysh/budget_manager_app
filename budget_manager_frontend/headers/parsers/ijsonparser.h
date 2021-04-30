@@ -6,7 +6,7 @@
 #include <QVector>
 
 
-template <typename  T>
+template <typename T>
 class IJsonParser
 {
 public:

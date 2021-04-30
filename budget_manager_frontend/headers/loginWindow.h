@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include "mainWindow.h"
 #include "signUpWindow.h"
+#include <QSharedPointer>
 
 
 namespace Ui {
@@ -21,16 +22,13 @@ public:
 
 private slots:
     void on_loginButton_clicked();
-
-
-
     void on_signUpLoginButton_clicked();
 
 private:
     Ui::LoginWindow *ui;
     MainWindow *mainWindow;
     SignUpWindow *signUpWindow;
-    QNetworkAccessManager* manager = new QNetworkAccessManager;
+    QSharedPointer<QNetworkAccessManager> manager;
 };
 
 #endif // LOGINWINDOW_H

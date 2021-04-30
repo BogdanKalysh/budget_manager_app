@@ -16,7 +16,7 @@ Category CategoryParser::parse(QJsonObject json)
 QVector<Category> CategoryParser::parseVector(QJsonArray jsonArray)
 {
     QVector<Category> categories;
-    foreach(QJsonValue json, jsonArray)
+    for (const QJsonValue& json: jsonArray)
         categories.append(this->parse(json.toObject()));
 
     return categories;

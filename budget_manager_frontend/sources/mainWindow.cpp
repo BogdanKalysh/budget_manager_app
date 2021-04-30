@@ -10,7 +10,7 @@
 #include <QJsonObject>
 #include <QMessageBox>
 
-MainWindow::MainWindow(User user, QNetworkAccessManager* manager,  QWidget *parent)
+MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,  QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -27,7 +27,7 @@ MainWindow::MainWindow(User user, QNetworkAccessManager* manager,  QWidget *pare
     ui->settingsIcon->setPixmap(settingsPixMap.scaled(w, h, Qt::KeepAspectRatio));
     ui->userIcon->setPixmap(userPixMap.scaled(w, h, Qt::KeepAspectRatio));
 
-    ui->amountInputLine->setValidator( new QIntValidator(0, 10000000, this));
+    ui->amountInputLine->setValidator(new QIntValidator(0, 10000000, this));
 
     QString getCategoriesQuery = "http://127.0.0.1:5000/rating/getcategories?u_email=" + user.getEmail();
     QNetworkReply *categoriesReply = manager->get(QNetworkRequest(QUrl(getCategoriesQuery)));
@@ -36,8 +36,6 @@ MainWindow::MainWindow(User user, QNetworkAccessManager* manager,  QWidget *pare
     QString getTransactionsQuery = "http://127.0.0.1:5000/rating/gettransactions?u_email=" + user.getEmail() + "&lim=10";
     QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
     connect(transactionsReply, &QNetworkReply::readyRead, this, &MainWindow::readTransactions);
-
-
 }
 
 MainWindow::~MainWindow()
@@ -55,24 +53,19 @@ void MainWindow::readCategories()
         QJsonDocument jsonResponse = QJsonDocument::fromJson(categoriesStr.toUtf8());
         QJsonArray json_array = jsonResponse.array();
 
-        CategoryParser parser;
-        categories = parser.parseVector(json_array);
+        QSharedPointer<IJsonParser<Category>> parser (new CategoryParser);
+        categories = parser->parseVector(json_array);
     }
 
     ui->categoryComboBox->clear();
 
-    if(ui->expenceRadioButton->isChecked()){
-        foreach(Category cat, categories){
-            if(!cat.getType())
-                ui->categoryComboBox->addItem(cat.getName());
-        }
-    }else{
-        foreach(Category cat, categories){
-            if(cat.getType())
-                ui->categoryComboBox->addItem(cat.getName());
+    for (Category& cat: categories){
+        if(cat.getType() == ui->incomeRadioButton->isChecked()){
+            ui->categoryComboBox->addItem(cat.getName(), cat.getId());
+        }else if(!cat.getType() == ui->expenceRadioButton->isChecked()){
+            ui->categoryComboBox->addItem(cat.getName(), cat.getId());
         }
     }
-
 
     categoriesReply->close();
     categoriesReply->deleteLater();
@@ -87,8 +80,8 @@ void MainWindow::readTransactions()
         QJsonDocument jsonResponse = QJsonDocument::fromJson(transactionsStr.toUtf8());
         QJsonArray json_array = jsonResponse.array();
 
-        TransactionParser parser;
-        transactions = parser.parseVector(json_array);
+        QSharedPointer<IJsonParser<Transaction>> parser (new TransactionParser);
+        transactions = parser->parseVector(json_array);
     }
 
     transactionsReply->close();
@@ -103,9 +96,11 @@ void MainWindow::finishedPostTransactions()
         QString contents = QString::fromUtf8(postTranasactionReply->readAll());
         qDebug() << contents;
     }
-    else{
+    else
+    {
         QString error = postTranasactionReply->errorString();
         qDebug() << error;
+        QMessageBox::about(this, "info", error);
     }
     postTranasactionReply->close();
     postTranasactionReply->deleteLater();
@@ -114,29 +109,18 @@ void MainWindow::finishedPostTransactions()
 
 void MainWindow::on_addTransactionButton_clicked()
 {
-
-    int amount = 0;
-    amount = ui->amountInputLine->text().toInt();
+    int amount = ui->amountInputLine->text().toInt();
     QString description = ui->descriptionInputLine->text();
-    QString category = ui->categoryComboBox->currentText();
+    int categoryId = ui->categoryComboBox->currentData().toInt();
 
-    if(amount == 0 || description == "" || category == ""){
+    if(amount == 0 || description == "" || categoryId == 0){
         QMessageBox::about(this, "info", "Заповніть всі поля");
-    }else{
-        int categoryId(0);
-        foreach(Category cat, categories){
-            if(cat.getType() == ui->incomeRadioButton->isChecked() && cat.getName() == category){
-                categoryId = cat.getId();
-                break;
-            }
-        }
-
-        Transaction transaction(0, amount, description, categoryId);
-        TransactionJsonBuilder builder;
-        QJsonObject jsonData =  builder.buildJson(transaction);
-        QJsonDocument jsonDoc(jsonData);
+    }
+    else
+    {
+        QSharedPointer<IJsonBuilder<Transaction>> builder (new TransactionJsonBuilder);
+        QJsonDocument jsonDoc(builder->buildJson(Transaction (0, amount, description, categoryId)));
         QByteArray byteData = jsonDoc.toJson();
-
 
         QNetworkRequest request = QNetworkRequest(QUrl("http://127.0.0.1:5000/rating/posttransaction"));
         request.setRawHeader("Content-Type", "application/json");
@@ -145,26 +129,23 @@ void MainWindow::on_addTransactionButton_clicked()
 
         ui->amountInputLine->clear();
         ui->descriptionInputLine->clear();
-
     }
-
 }
 
 void MainWindow::on_incomeRadioButton_clicked()
 {
     ui->categoryComboBox->clear();
-    foreach(Category cat, categories){
+    for (Category& cat: categories){
         if(cat.getType())
-            ui->categoryComboBox->addItem(cat.getName());
+            ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
-
 }
 
 void MainWindow::on_expenceRadioButton_clicked()
 {
     ui->categoryComboBox->clear();
-    foreach(Category cat, categories){
+    for (Category& cat: categories){
         if(!cat.getType())
-            ui->categoryComboBox->addItem(cat.getName());
+            ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
 }

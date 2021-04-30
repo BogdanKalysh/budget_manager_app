@@ -5,7 +5,7 @@
 
 #include <QDebug>
 
-SignUpWindow::SignUpWindow(QNetworkAccessManager* manager, QWidget *parent) :
+SignUpWindow::SignUpWindow(QSharedPointer<QNetworkAccessManager> manager, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SignUpWindow)
 {

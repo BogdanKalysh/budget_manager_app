@@ -1,6 +1,7 @@
 #include "mainWindow.h"
 #include "loginWindow.h"
 #include <QApplication>
+#include <QSharedPointer>
 
 
 
@@ -12,7 +13,8 @@ int main(int argc, char *argv[])
     loginWindow.show();
 
 //    User usr("Петро Моставчук" ,"p_mostav@gmail.com", "password");
-//    QNetworkAccessManager *manager = new QNetworkAccessManager;
+//    QSharedPointer<QNetworkAccessManager> manager;
+//    manager.reset(new QNetworkAccessManager);
 //    MainWindow mainW(usr, manager);
 //    mainW.show();
 
