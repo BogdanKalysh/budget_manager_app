@@ -1,11 +1,12 @@
 #include "signUpWindow.h"
 #include "ui_signupwindow.h"
 #include "constants.h"
-#include "registrationJsonBuilder.h"
+#include "userJsonBuilder.h"
 #include <QCryptographicHash>
+
 #include <QDebug>
 
-SignUpWindow::SignUpWindow(QWidget *parent) :
+SignUpWindow::SignUpWindow(QSharedPointer<QNetworkAccessManager> manager, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SignUpWindow)
 {
@@ -14,6 +15,8 @@ SignUpWindow::SignUpWindow(QWidget *parent) :
     ui->emailLine->setPlaceholderText(" email");
     ui->passwordLine->setPlaceholderText(" password");
     ui->repeatPasswordLine->setPlaceholderText(" repeat password");
+
+    this->manager = manager;
 }
 
 SignUpWindow::~SignUpWindow()
@@ -46,7 +49,7 @@ void SignUpWindow::on_signUpButton_clicked()
         QByteArray hash = QCryptographicHash::hash(ui->passwordLine->text().toLocal8Bit(), QCryptographicHash::Sha224);
         User user(ui->nameLine->text(), ui->emailLine->text(), hash.toHex().data());
 
-        RegistrationJsonBuilder jObj;
+        UserJsonBuilder jObj;
         QJsonObject json = jObj.buildJson(user);
         qDebug()<<json;
         // sent data from object "user" to database
@@ -55,6 +58,7 @@ void SignUpWindow::on_signUpButton_clicked()
         emit loginWindow();
     }
 }
+
 
 void SignUpWindow::on_backToLoginButton_clicked()
 {

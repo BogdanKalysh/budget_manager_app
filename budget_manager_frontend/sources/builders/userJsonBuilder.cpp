@@ -1,9 +1,10 @@
-#include "loginJsonBuilder.h"
+#include "userJsonBuilder.h"
 #include "constants.h"
 
 
-QJsonObject LoginJsonBuilder::buildJson(User user){
+QJsonObject UserJsonBuilder::buildJson(User user){
     QJsonObject jObj;
+    jObj.insert(jsonbuilder::NAME, QJsonValue::fromVariant(user.getName()));
     jObj.insert(jsonbuilder::EMAIL, QJsonValue::fromVariant(user.getEmail()));
     jObj.insert(jsonbuilder::PASSWORD, QJsonValue::fromVariant(user.getPassword()));
 

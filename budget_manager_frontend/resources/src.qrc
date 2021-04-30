@@ -1,5 +1,8 @@
 <RCC>
-    <qresource prefix="/images">
+    <qresource prefix="/new/img">
         <file>login.png</file>
+        <file>settings_icon.png</file>
+        <file>user_icon.png</file>
     </qresource>
+    <qresource prefix="/new/prefix1"/>
 </RCC>

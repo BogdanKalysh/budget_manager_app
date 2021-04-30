@@ -1,14 +1,17 @@
 #include "user.h"
 
+User:: User(){
+}
+
 User:: User(QString email, QString password)
 {
-    this->setEmail(email);
-    this->setPassword(password);
+    this->email = email;
+    this->password = password;
 }
 
 User:: User(QString name, QString email, QString password):User(email, password)
 {
-    this->setName(name);
+    this->name = name;
 }
 
 
@@ -26,7 +29,6 @@ QString User::getEmail()
 {
     return this->email;
 }
-
 
 void User::setName(QString name)
 {
