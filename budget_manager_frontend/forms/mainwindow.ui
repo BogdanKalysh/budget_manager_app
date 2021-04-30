@@ -279,6 +279,16 @@ QRadioButton::indicator{
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <widget class="QListWidget" name="listWidget">
+          <property name="geometry">
+           <rect>
+            <x>70</x>
+            <y>50</y>
+            <width>531</width>
+            <height>101</height>
+           </rect>
+          </property>
+         </widget>
         </widget>
        </item>
        <item row="1" column="1">
@@ -447,6 +457,19 @@ QRadioButton::indicator{
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <widget class="QPushButton" name="pushButton">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>50</y>
+            <width>80</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -460,7 +483,7 @@ QRadioButton::indicator{
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

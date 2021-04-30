@@ -32,6 +32,8 @@ private slots:
     void on_incomeRadioButton_clicked();
     void on_expenceRadioButton_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     User user;
