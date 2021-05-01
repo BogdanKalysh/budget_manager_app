@@ -35,10 +35,6 @@ Thumbs.db
 /.qmake.cache
 /.qmake.stash
 
-build-budget_manager_backend-Desktop_Qt_6_0_2_clang_64bit-Debug/
-build-budget_manager_frontend-Desktop_Qt_6_0_2_clang_64bit-Debug/
-.idea/
-
 # qtcreator generated files
 *.pro.user*
 
@@ -62,7 +58,6 @@ build-budget_manager_frontend-Desktop_Qt_6_0_2_clang_64bit-Debug/
 *.opensdf
 *.vcxproj
 *vcxproj.*
-.DS_Store
 
 # MinGW generated files
 *.Debug
@@ -75,6 +70,4 @@ build-budget_manager_frontend-Desktop_Qt_6_0_2_clang_64bit-Debug/
 # --------
 *.dll
 *.exe
-
-/build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug
 

@@ -15,7 +15,7 @@ User UserParser::parse(QJsonObject json)
 QVector<User> UserParser::parseVector(QJsonArray jsonArray)
 {
     QVector<User> users;
-    foreach(QJsonValue json, jsonArray)
+    for (const QJsonValue& json: jsonArray)
         users.append(this->parse(json.toObject()));
 
     return users;

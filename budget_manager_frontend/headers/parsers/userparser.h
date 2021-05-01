@@ -5,11 +5,11 @@
 #include "user.h"
 
 
-class UserParser: IJsonParser<User>
+class UserParser: public IJsonParser<User>
 {
 public:
-    virtual User parse(QJsonObject json);
-    virtual QVector<User> parseVector(QJsonArray jsonArray);
+    User parse(QJsonObject json) override;
+    QVector<User> parseVector(QJsonArray jsonArray) override;
 };
 
 #endif // USERPARSER_H

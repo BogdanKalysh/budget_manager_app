@@ -4,7 +4,6 @@
 #include "ijsonparser.h"
 #include "user.h"
 
-
 class UserParser: IJsonParser<User>
 {
 public:

@@ -6,10 +6,11 @@
 #include <QJsonValue>
 #include "transaction.h"
 
-class TransactionJsonBuilder: IJsonBuilder<Transaction>
+
+class TransactionJsonBuilder: public IJsonBuilder<Transaction>
 {
 public:
-    virtual QJsonObject buildJson(Transaction transaction);
+    QJsonObject buildJson(Transaction transaction) override;
 };
 
 #endif // TRANSACTIONJSONBUILDER_H

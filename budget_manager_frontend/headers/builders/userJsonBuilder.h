@@ -6,11 +6,10 @@
 #include "user.h"
 
 
-class UserJsonBuilder: IJsonBuilder<User>
+class UserJsonBuilder: public IJsonBuilder<User>
 {
 public:
-    virtual QJsonObject buildJson(User user);
+    QJsonObject buildJson(User user) override;
 };
-
 
 #endif // USERJSONBUILDER_H

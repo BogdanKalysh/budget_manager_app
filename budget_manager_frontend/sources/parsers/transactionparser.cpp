@@ -12,7 +12,6 @@ Transaction TransactionParser::parse(QJsonObject json)
     QString categoryName = json.value(jsonbuilder::CATEGORYNAME).toString();
     QColor color(json.value(jsonbuilder::COLOR).toString());
 
-
     return Transaction(id, amount, date, description, categoryId, categoryName, color);
 }
 
@@ -21,7 +20,7 @@ Transaction TransactionParser::parse(QJsonObject json)
 QVector<Transaction> TransactionParser::parseVector(QJsonArray jsonArray)
 {
     QVector<Transaction> transactions;
-    foreach(QJsonValue json, jsonArray)
+    for (const QJsonValue& json: jsonArray)
         transactions.append(this->parse(json.toObject()));
 
     return transactions;

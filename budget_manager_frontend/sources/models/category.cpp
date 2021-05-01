@@ -25,6 +25,7 @@ Category::Category(const Category &other)
     this->color = other.color;
 }
 
+
 int Category::getId()
 {
     return this->id;
