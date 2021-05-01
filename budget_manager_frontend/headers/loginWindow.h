@@ -3,9 +3,6 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
-#include <QJsonDocument>
-#include <QNetworkReply>
-#include <QNetworkRequest>
 #include <QScopedPointer>
 #include "mainWindow.h"
 #include "signUpWindow.h"

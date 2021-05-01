@@ -4,7 +4,10 @@
 #include "userJsonBuilder.h"
 #include "userparser.h"
 #include <QDebug>
-
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 
 LoginWindow::LoginWindow(QWidget *parent) :
@@ -36,7 +39,7 @@ void LoginWindow::on_loginButton_clicked()
 {
     QString query = "SELECT * FROM user WHERE mail = " + ui->email_line->text() + " AND password = " + ui->password_line->text();
     qDebug()<<query;
-    QNetworkReply *getUserReply = manager->get(QNetworkRequest(QUrl("http://127.0.0.1:5000/getuser")));
+    QNetworkReply *getUserReply = manager->get(QNetworkRequest(QUrl("http://127.0.0.1:5000/getusers")));
     connect(getUserReply, &QIODevice::readyRead, this, &LoginWindow::onResult);
 }
 

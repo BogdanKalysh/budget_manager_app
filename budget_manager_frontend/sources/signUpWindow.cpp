@@ -3,7 +3,9 @@
 #include "constants.h"
 #include "userJsonBuilder.h"
 #include <QDebug>
-
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QJsonDocument>
 
 SignUpWindow::SignUpWindow(QNetworkAccessManager* manager, QWidget *parent) :
     QMainWindow(parent),

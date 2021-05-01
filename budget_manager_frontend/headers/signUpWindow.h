@@ -4,9 +4,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QJsonDocument>
+
 //#include "user.h"
 
 
@@ -30,7 +28,7 @@ private slots:
 
     void on_backToLoginButton_clicked();
 
-    void postUser();//QNetworkReply *postUserReply
+    void postUser();
 
 private:
     Ui::SignUpWindow *ui;
