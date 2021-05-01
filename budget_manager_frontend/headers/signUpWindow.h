@@ -4,13 +4,9 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QNetworkAccessManager>
-<<<<<<< HEAD
-
-=======
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QSharedPointer>
->>>>>>> 66c1eb63193cf74ddaad7cb888a3f961f1103bff
 //#include "user.h"
 
 
@@ -41,6 +37,3 @@ private:
 };
 
 #endif // SIGNUPWINDOW_H
-
-
-

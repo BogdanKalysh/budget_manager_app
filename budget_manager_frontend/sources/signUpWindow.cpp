@@ -4,6 +4,7 @@
 #include "userJsonBuilder.h"
 #include <QCryptographicHash>
 
+#include <QScopedPointer>
 #include <QDebug>
 #include <QNetworkRequest>
 #include <QNetworkReply>
@@ -43,15 +44,16 @@ void SignUpWindow::on_signUpButton_clicked()
         QMessageBox::information(this, "Check", "Passwords do not match");
     }
     else if(!emailRegExp.match(ui->emailLine->text()).hasMatch() ||
-           !passwordRegExp.match(ui->passwordLine->text()).hasMatch()){
+           !passwordRegExp.match(ui->passwordLine->text()).hasMatch())
+    {
          QMessageBox::information(this, "Check", "Not valid login or password (Password must contain minimum eight characters, at least one letter and one number)");
     }
-    else{
-        //if(database.open())
+    else
+    {
         QByteArray hash = QCryptographicHash::hash(ui->passwordLine->text().toLocal8Bit(), QCryptographicHash::Sha224);
         User user(ui->nameLine->text(), ui->emailLine->text(), hash.toHex().data());
-        UserJsonBuilder builder;
-        QJsonObject jsonData =  builder.buildJson(user);
+        QScopedPointer<IJsonBuilder<User>> builder (new UserJsonBuilder);
+        QJsonObject jsonData =  builder->buildJson(user);
         QJsonDocument jsonDoc(jsonData);
         QByteArray byteData = jsonDoc.toJson();
         QNetworkRequest request = QNetworkRequest(QUrl("http://127.0.0.1:5000/setuser"));

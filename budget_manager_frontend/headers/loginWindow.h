@@ -30,13 +30,8 @@ private:
     Ui::LoginWindow *ui;
     MainWindow *mainWindow;
     SignUpWindow *signUpWindow;
-<<<<<<< HEAD
-    //QScopedPointer<QNetworkAccessManager> manager;
-    QNetworkAccessManager *manager;
-    User user;
-=======
     QSharedPointer<QNetworkAccessManager> manager;
->>>>>>> 66c1eb63193cf74ddaad7cb888a3f961f1103bff
+    User user;
 };
 
 #endif // LOGINWINDOW_H
