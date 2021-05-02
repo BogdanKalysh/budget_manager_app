@@ -10,7 +10,7 @@ Category::Category()
     this->userId = -1;
 }
 
-Category::Category(const int id, const QString name, const Type type, const QColor color, const int userId)
+Category::Category(const int &id, const QString &name, const Type &type, const QColor &color, const int &userId)
 {
     this->setId(id);
     this->setName(name);
@@ -52,35 +52,35 @@ QColor Category::getColor() const
     return this->color;
 }
 
-QString Category::setId(const int id)
+QString Category::setId(const int &id)
 {
     // TODO: Int validation logic
     this->id = id;
     return "Success";
 }
 
-QString Category::setName(const QString name)
+QString Category::setName(const QString &name)
 {
     // TODO: Validation logic
     this->name = name;
     return "Success";
 }
 
-QString Category::setType(const Type type)
+QString Category::setType(const Type &type)
 {
     // TODO: Validation logic
     this->type = type;
     return "Success";
 }
 
-QString Category::setColor(const QColor color)
+QString Category::setColor(const QColor &color)
 {
     // TODO: Validation logic; Tt may be realizet with the help of QColor::isValid
     this->color = color;
     return "Success";
 }
 
-QString Category::setUserId(const int userId)
+QString Category::setUserId(const int &userId)
 {
     this->userId = userId;
     return "Success";

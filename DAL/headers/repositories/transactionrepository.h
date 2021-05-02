@@ -8,9 +8,9 @@ class TransactionRepository : public IRepository<Transaction>
 {
 public:
     QVector<Transaction> select(const QString &query) override;
-    bool update(Transaction &object) override;
-    bool add(Transaction &object) override;
-    bool deleteObject(int id) override;
+    bool update(const Transaction &object) override;
+    bool add(const Transaction &object) override;
+    bool deleteObject(const int &id) override;
 };
 
 #endif // TRANSACTIONREPOSITORY_H

@@ -29,7 +29,7 @@ QVector<User> UserRepository::select(const QString &query)
 }
 
 
-bool UserRepository::update(User &object)
+bool UserRepository::update(const User &object)
 {
     QSqlDatabase db = setUpDatabase();
 
@@ -57,7 +57,7 @@ bool UserRepository::update(User &object)
     return false;
 }
 
-bool UserRepository::add(User &object)
+bool UserRepository::add(const User &object)
 {
     QSqlDatabase db = setUpDatabase();
 
@@ -85,7 +85,7 @@ bool UserRepository::add(User &object)
     return false;
 }
 
-bool UserRepository::deleteObject(int id)
+bool UserRepository::deleteObject(const int &id)
 {
     QSqlDatabase db = setUpDatabase();
 

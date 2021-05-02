@@ -26,7 +26,7 @@ QVector<Transaction> TransactionRepository::select(const QString &query)
     return transactions;
 }
 
-bool TransactionRepository::update(Transaction &object)
+bool TransactionRepository::update(const Transaction &object)
 {
     QSqlDatabase db = setUpDatabase();
 
@@ -52,7 +52,7 @@ bool TransactionRepository::update(Transaction &object)
     return false;
 }
 
-bool TransactionRepository::add(Transaction &object)
+bool TransactionRepository::add(const Transaction &object)
 {
     QSqlDatabase db = setUpDatabase();
 
@@ -79,7 +79,7 @@ bool TransactionRepository::add(Transaction &object)
     return false;
 }
 
-bool TransactionRepository::deleteObject(int id)
+bool TransactionRepository::deleteObject(const int &id)
 {
     QSqlDatabase db = setUpDatabase();
 
