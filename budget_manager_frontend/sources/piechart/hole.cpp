@@ -7,7 +7,7 @@ Hole::Hole(QWidget *parent) :
     font.setStyleHint(QFont::Times, QFont::PreferAntialias);
     textColor = Qt::black;
     backgroundColor = Qt::white;
-    relativeFontSize=0.1;
+    relativeFontSize = 0.1;
 
     setAttribute(Qt::WA_TransparentForMouseEvents);
 

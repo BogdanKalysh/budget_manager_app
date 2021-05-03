@@ -22,6 +22,7 @@ protected:
 public:
     explicit PieSlice(QWidget * parent=nullptr);
     PieSlice(qreal value ,QString label, QRectF& rectangle ,QWidget * parent=nullptr);
+    PieSlice(qreal value ,QString label,QColor color, QRectF& rectangle ,QWidget * parent=nullptr);
     ~PieSlice();
 
 
