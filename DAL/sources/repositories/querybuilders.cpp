@@ -61,11 +61,47 @@ QString deleteQueryBuilder(QPair<QString, int> tableCredentials)
 
 QSqlDatabase setUpDatabase()
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase(dal::DBTYPE);
-    db.setHostName(dal::HOST);
-    db.setDatabaseName(dal::DBNAME);
-    db.setUserName(dal::USER);
-    db.setPassword(dal::USER_PASSWORD);
+    QFile dbFile("../DAL/DB.txt");
+
+    if(!dbFile.open(QIODevice::ReadOnly)) {
+        qDebug() << "Error: Opening file DB.txt";
+        return QSqlDatabase();
+    }
+
+    QTextStream in(&dbFile);
+    QMap<QString, QString> dbConfig;
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QString field = "";
+        QString value = "";
+
+        int len = line.length(), ind = 0;
+        bool firstPart = true;
+        while(ind < len){
+            if(line[ind] == ':'){
+                ind++;
+                firstPart = false;
+            }
+
+            if(firstPart)
+                field += line[ind];
+            else
+                value += line[ind];
+
+            ind++;
+        }
+
+       dbConfig[field] = value;
+    }
+    dbFile.close();
+
+
+    QSqlDatabase db = QSqlDatabase::addDatabase(dbConfig[dal::DB]);
+
+    db.setHostName(dbConfig[dal::HOST]);
+    db.setDatabaseName(dbConfig[dal::DBNAME]);
+    db.setUserName(dbConfig[dal::USER]);
+    db.setPassword(dbConfig[dal::USER_PASSWORD]);
 
     return db;
 }
