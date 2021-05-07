@@ -10,7 +10,7 @@ public:
     QVector<User> select(const QString &query) override;
     bool update(const User &object) override;
     bool add(const User &object) override;
-    bool deleteObject(const int &id) override;
+    bool deleteObject(const int id) override;
 };
 
 #endif // USERREPOSITORY_H

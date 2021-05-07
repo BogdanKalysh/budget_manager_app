@@ -79,7 +79,7 @@ bool TransactionRepository::add(const Transaction &object)
     return false;
 }
 
-bool TransactionRepository::deleteObject(const int &id)
+bool TransactionRepository::deleteObject(const int id)
 {
     QSqlDatabase db = setUpDatabase();
 

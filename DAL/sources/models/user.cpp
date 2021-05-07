@@ -1,6 +1,6 @@
 #include "user.h"
 
-User:: User(const int &id, const QString &name, const QString &email, const QString &password, const int &balance)
+User:: User(const int id, const QString &name, const QString &email, const QString &password, const int balance)
 {
     this->setId(id);
     this->setName(name);
@@ -34,7 +34,7 @@ int User::getBalance() const
     return this->balance;
 }
 
-QString User::setId(const int &id)
+QString User::setId(const int id)
 {
     // TODO: Int validation logic
     this->id = id;
@@ -62,7 +62,7 @@ QString User::setEmail(const QString &email)
     return "Success";
 }
 
-QString User::setBalance(const int &balance)
+QString User::setBalance(const int balance)
 {
     // TODO: validation logic
     this->balance = balance;

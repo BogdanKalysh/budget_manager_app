@@ -79,7 +79,7 @@ bool CategoryRepository::add(const Category &object)
     return false;
 }
 
-bool CategoryRepository::deleteObject(const int &id)
+bool CategoryRepository::deleteObject(const int id)
 {
     QSqlDatabase db = setUpDatabase();
 

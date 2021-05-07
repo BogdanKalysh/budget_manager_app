@@ -85,7 +85,7 @@ bool UserRepository::add(const User &object)
     return false;
 }
 
-bool UserRepository::deleteObject(const int &id)
+bool UserRepository::deleteObject(const int id)
 {
     QSqlDatabase db = setUpDatabase();
 
