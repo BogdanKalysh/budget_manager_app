@@ -1,0 +1,4 @@
+#ifndef IJSONBUILDER_H
+#define IJSONBUILDER_H
+
+#endif // IJSONBUILDER_H
