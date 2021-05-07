@@ -26,8 +26,8 @@ public:
     ~PieSlice();
 
 
-    setStartAngle(qreal angle);
-    setSpanAngle(qreal angle);
+    void setStartAngle(qreal angle);
+    void setSpanAngle(qreal angle);
 
     void setPen(const QPen &value);
     QPen getPen() const;

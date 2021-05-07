@@ -19,10 +19,6 @@ LoginWindow::LoginWindow(QWidget *parent) :
 
 LoginWindow::~LoginWindow()
 {
-    if(mainWindow)
-        delete mainWindow;
-    if(signUpWindow)
-        delete signUpWindow;
     delete ui;
 }
 

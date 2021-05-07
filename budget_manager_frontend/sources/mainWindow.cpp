@@ -26,7 +26,6 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
 
     piechart->setSeries(series);
     settingPiechart();
-    updatePiechart();
 
     ui->userName->setText(user.getName());
 
@@ -45,6 +44,8 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
     QString getTransactionsQuery = "http://127.0.0.1:5000/rating/gettransactions?u_email=" + user.getEmail() + "&lim=10";
     QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
     connect(transactionsReply, &QNetworkReply::readyRead, this, &MainWindow::readTransactions);
+
+    updatePiechart();
 }
 
 MainWindow::~MainWindow()
@@ -169,6 +170,7 @@ void MainWindow::on_addTransactionButton_clicked()
         ui->amountInputLine->clear();
         ui->descriptionInputLine->clear();
     }
+    updatePiechart();
 }
 
 void MainWindow::on_incomeRadioButton_clicked()
@@ -178,6 +180,7 @@ void MainWindow::on_incomeRadioButton_clicked()
         if(cat.getType())
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
+    updatePiechart();
 }
 
 void MainWindow::on_expenceRadioButton_clicked()
@@ -187,4 +190,5 @@ void MainWindow::on_expenceRadioButton_clicked()
         if(!cat.getType())
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
+    updatePiechart();
 }
