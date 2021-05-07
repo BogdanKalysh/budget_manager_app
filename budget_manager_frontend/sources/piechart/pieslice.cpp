@@ -8,9 +8,16 @@ PieSlice::PieSlice(QWidget *parent):QWidget(parent)
 
 PieSlice::PieSlice(qreal value, QString label,QRectF& rectangle , QWidget *parent):QWidget(parent)
 {
-    this->rectangle=rectangle;
+    this->rectangle = rectangle;
 
-    data=new PieSliceData(value,label);
+    data = new PieSliceData(value,label);
+}
+
+PieSlice::PieSlice(qreal value, QString label, QColor color, QRectF &rectangle, QWidget *parent)
+{
+    this->rectangle = rectangle;
+    this->color = color;
+    data = new PieSliceData(value,label);
 }
 
 PieSlice::~PieSlice()
@@ -25,7 +32,7 @@ PieSlice::setStartAngle(qreal angle)
 
 PieSlice::setSpanAngle(qreal angle)
 {
-    data->spanAngle=angle;
+    data->spanAngle = angle;
 }
 
 void PieSlice::setPen(const QPen &value)

@@ -21,7 +21,7 @@ public:
 private:
     QList<QSharedPointer<PieSlice>> slices;
     qreal sum;
-    QMap<QString, QColor> categoryColor;
+    QMap<QString, QColor> piesliceLabelColor;
 
 public:
     explicit PieSeries(QWidget * parent=nullptr);
@@ -29,6 +29,7 @@ public:
     ~PieSeries();
 
     PieSlice* append(qreal value,QString label);
+    PieSlice* append(qreal value,QString label,QColor color);
     void append(QSharedPointer<PieSlice> slice);
 
     void setFont(const QFont &value);
@@ -44,20 +45,18 @@ public:
     QFont getCentralTitleFont() const;
     void setCentralTitleFont(const QFont &value);
 
-    QMap<QString, QColor> getCategoryColor() const;
-    void setCategoryColor(const QMap<QString, QColor> &value);
+    QMap<QString, QColor> getPiesliceLabelColor() const;
 
     qreal getRelativeRadiusSize() const;
     void setRelativeRadiusSize(const qreal &value);
 
+    void clear();
 protected:
     void paintEvent(QPaintEvent *e);
     void resizeEvent(QResizeEvent* event);
 
 private:
     qreal getAngle();
-
-    void clear();
 
     qreal getRadius() const;
     void setRadius();

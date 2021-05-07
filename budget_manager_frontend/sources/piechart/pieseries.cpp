@@ -1,15 +1,6 @@
 #include<pieseries.h>
 #include<iostream>
 
-QMap<QString, QColor> PieSeries::getCategoryColor() const
-{
-    return categoryColor;
-}
-
-void PieSeries::setCategoryColor(const QMap<QString, QColor> &value)
-{
-    categoryColor = value;
-}
 
 PieSeries::PieSeries(QWidget *parent)
     :QWidget(parent)
@@ -40,23 +31,23 @@ PieSeries::PieSeries(QList<QSharedPointer<PieSlice>> slices, QWidget *parent)
 
 PieSeries::~PieSeries()
 {
-    for (QSharedPointer<PieSlice> s: slices){
-        s.clear();//this qt method dropping the reference that it may have had to the pointer.
-                  //If this was the last reference, then the pointer itself will be deleted.
-    }
-
-    slices.clear();
+    clear();
     delete hole;
-
 }
 
 PieSlice* PieSeries::append(qreal value, QString label)
 {
     QSharedPointer<PieSlice> slice = QSharedPointer<PieSlice>(new PieSlice(value,label,rectangle),&QObject::deleteLater);
-
     append(slice);
     slice.clear();
 
+}
+
+PieSlice *PieSeries::append(qreal value, QString label, QColor color)
+{
+    QSharedPointer<PieSlice> slice = QSharedPointer<PieSlice>(new PieSlice(value,label,color,rectangle),&QObject::deleteLater);
+    append(slice);
+    slice.clear();
 }
 
 void PieSeries::append(QSharedPointer<PieSlice> slice)
@@ -71,7 +62,7 @@ void PieSeries::append(QSharedPointer<PieSlice> slice)
 
     //calculating geometry for all slices
     //this algorithm calculates start and span angle for sector(geometry of pieslice widget is circle sector)
-    foreach (QSharedPointer<PieSlice> s, slices){
+    for (QSharedPointer<PieSlice> s: slices){
         totalSum+=s.get()->getData()->value;
     }
 
@@ -80,7 +71,7 @@ void PieSeries::append(QSharedPointer<PieSlice> slice)
 
     for (QSharedPointer<PieSlice> s: slices) {
 
-        PieSlice * slice=s.get();
+        PieSlice * slice = s.get();
 
         qreal spanAngle=slice->getData()->value*angle;
 
@@ -89,12 +80,12 @@ void PieSeries::append(QSharedPointer<PieSlice> slice)
         startAngle+=spanAngle;
 
         //set all atributtes of pieslice
-        if(categoryColor.find(slice->getData()->label)==categoryColor.end()){
-            QColor color =randomColor();                           //if category has no user color we just random color
-            categoryColor.insert(slice->getData()->label,color);
+        if(piesliceLabelColor.find(slice->getData()->label)==piesliceLabelColor.end()){
+            QColor color = randomColor();                           //if category has no user color we just random color
+            piesliceLabelColor.insert(slice->getData()->label,color);
         }
 
-        slice->setColor(categoryColor.find(slice->getData()->label).value());
+        slice->setColor(piesliceLabelColor.find(slice->getData()->label).value());
         slice->setPen(Qt::NoPen);                   // it sets the border of pislice to none
         slice->installEventFilter(this);
     }
@@ -131,7 +122,8 @@ void PieSeries::paintEvent(QPaintEvent *e)
 void PieSeries::resizeEvent(QResizeEvent *event)
 {
     updateSizes();
-
+    if(slices.length()==0)
+        return ;
     for (QSharedPointer<PieSlice> s: slices){
         s.get()->setRectangle(this->rectangle);
         s.get()->resize(this->width(),this->height());
@@ -182,6 +174,15 @@ void PieSeries::setRelativeRadiusSize(const qreal &value)
     relativeRadiusSize = value;
 }
 
+void PieSeries::clear()
+{
+    for (QSharedPointer<PieSlice> s: slices){
+        s.clear();//this qt method dropping the reference that it may have had to the pointer.
+                  //If this was the last reference, then the pointer itself will be deleted.
+    }
+    slices.clear();
+}
+
 QFont PieSeries::getCentralTitleFont() const
 {
     return hole->getFont();
@@ -205,6 +206,11 @@ void PieSeries::setHoleSize(const qreal &value)
 void PieSeries::setHoleColor(const QColor &value) const
 {
     hole->setBackgroundColor(value);
+}
+
+QMap<QString, QColor> PieSeries::getPiesliceLabelColor() const
+{
+    return piesliceLabelColor;
 }
 
 const qreal PieSeries::minSize=0;

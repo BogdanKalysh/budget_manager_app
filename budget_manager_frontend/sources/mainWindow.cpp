@@ -19,6 +19,15 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
     this->user = user;
     this->manager = manager;
 
+    piechart = ui->pieChartFrame->findChild<Piechart*>("donutPiechart");
+    piechart->installEventFilter(this);
+
+    series = new PieSeries();
+
+    piechart->setSeries(series);
+    settingPiechart();
+    updatePiechart();
+
     ui->userName->setText(user.getName());
 
     QPixmap settingsPixMap(":/new/img/settings_icon.png");
@@ -40,10 +49,32 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
 
 MainWindow::~MainWindow()
 {
+    delete piechart;
+    delete series;
     delete ui;
 }
 
+void MainWindow::settingPiechart()
+{
+    QFont font;
+    font.setStyleHint(QFont::Times, QFont::PreferAntialias);
 
+    series->setCentralTitleFont(font);
+    series->setHoleSize(0.8);
+    series->setHoleColor(QColor("#0a5074"));
+}
+
+qreal MainWindow::getCategoryTotalSum(QString categoryName)
+{
+    qreal totalsum = 0;
+
+    for(Transaction & transac:transactions){
+        if(transac.getCategoryName()==categoryName)
+            totalsum+= transac.getAmount();
+    }
+
+    return totalsum;
+}
 void MainWindow::readCategories()
 {
     QNetworkReply *categoriesReply = qobject_cast<QNetworkReply*>(sender());
@@ -106,6 +137,14 @@ void MainWindow::finishedPostTransactions()
     postTranasactionReply->deleteLater();
 }
 
+void MainWindow::updatePiechart()
+{
+    series->clear();
+
+    for(Category& cat: categories){
+        series->append(getCategoryTotalSum(cat.getName()),cat.getName(),cat.getColor());
+    }
+}
 
 void MainWindow::on_addTransactionButton_clicked()
 {

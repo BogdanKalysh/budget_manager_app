@@ -7,7 +7,7 @@
 #include "transaction.h"
 #include <QNetworkAccessManager>
 #include <QSharedPointer>
-
+#include<piechart.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,12 +21,14 @@ public:
     MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,  QWidget *parent=nullptr);
 
     ~MainWindow();
-
+protected:
+    void settingPiechart();
+    qreal getCategoryTotalSum(QString categoryName);
 public slots:
     void readCategories();
     void readTransactions();
     void finishedPostTransactions();
-
+    void updatePiechart();
 private slots:
     void on_addTransactionButton_clicked();
     void on_incomeRadioButton_clicked();
@@ -34,6 +36,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    Piechart *piechart;
+    PieSeries *series;
     User user;
     QVector<Category> categories;
     QVector<Transaction> transactions;
