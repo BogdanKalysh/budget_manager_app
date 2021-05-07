@@ -5,34 +5,31 @@
 PieSeries::PieSeries(QWidget *parent)
     :QWidget(parent)
 {
-    srand (time(NULL));
-
-    relativeRadiusSize =0.3;
-    hole=new Hole();
-
-    hole->setParent(this);
-    hole->setRect(this->rectangle);
-    hole->installEventFilter(this);
+    init();
 }
 
 PieSeries::PieSeries(QList<QSharedPointer<PieSlice>> slices, QWidget *parent)
     :QWidget(parent)
 {
-    srand (time(NULL));
-
     this->slices=slices;
-    relativeRadiusSize =0.3;
-    hole=new Hole();
-
-    hole->setParent(this);
-    hole->setRect(this->rectangle);
-    hole->installEventFilter(this);
+    init();
 }
 
 PieSeries::~PieSeries()
 {
     clear();
     delete hole;
+}
+
+void PieSeries::init()
+{
+    srand (time(NULL));
+    relativeRadiusSize =0.3;
+    hole=new Hole();
+
+    hole->setParent(this);
+    hole->setRect(this->rectangle);
+    hole->installEventFilter(this);
 }
 
 PieSlice* PieSeries::append(qreal value, QString label)
@@ -88,6 +85,7 @@ void PieSeries::append(QSharedPointer<PieSlice> slice)
         slice->setColor(piesliceLabelColor.find(slice->getData()->label).value());
         slice->setPen(Qt::NoPen);                   // it sets the border of pislice to none
         slice->installEventFilter(this);
+        slice->show();
     }
 
     hole->setLabelText(QString::number(totalSum));//Label in the center of our widget is total sum of pieslices value
@@ -115,6 +113,7 @@ void PieSeries::updateSizes()
 
 void PieSeries::paintEvent(QPaintEvent *e)
 {
+
     hole->raise();
 }
 
@@ -131,8 +130,8 @@ void PieSeries::resizeEvent(QResizeEvent *event)
 
     hole->setRect(rectangle);
     hole->resize(this->width(),this->height());
-
 }
+
 
 qreal PieSeries::getAngle()
 {
@@ -180,7 +179,7 @@ void PieSeries::clear()
         s.clear();//this qt method dropping the reference that it may have had to the pointer.
                   //If this was the last reference, then the pointer itself will be deleted.
     }
-    slices.clear();
+   slices.clear();
 }
 
 QFont PieSeries::getCentralTitleFont() const

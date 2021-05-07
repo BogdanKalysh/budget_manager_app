@@ -56,6 +56,7 @@ protected:
     void resizeEvent(QResizeEvent* event);
 
 private:
+    void init();
     qreal getAngle();
 
     qreal getRadius() const;

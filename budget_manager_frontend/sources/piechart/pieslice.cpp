@@ -25,12 +25,12 @@ PieSlice::~PieSlice()
     delete data;
 }
 
-PieSlice::setStartAngle(qreal angle)
+void PieSlice::setStartAngle(qreal angle)
 {
     data->startAngle=angle;
 }
 
-PieSlice::setSpanAngle(qreal angle)
+void PieSlice::setSpanAngle(qreal angle)
 {
     data->spanAngle = angle;
 }
