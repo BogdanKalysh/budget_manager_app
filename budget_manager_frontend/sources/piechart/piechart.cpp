@@ -20,6 +20,7 @@ Piechart::Piechart(PieSeries *series,QWidget *parent):
     this->series = series;
     this->series->setParent(this);
     this->series->installEventFilter(this);
+
 }
 
 Piechart::~Piechart()
@@ -66,6 +67,7 @@ void Piechart::paintEvent(QPaintEvent *e)
 
         totalWidth+= textPixelSize+width()*spacing;
     }
+
 }
 
 void Piechart::resizeEvent(QResizeEvent *event)

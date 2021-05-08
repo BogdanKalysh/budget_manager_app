@@ -49,7 +49,11 @@ public:
     qreal getRelativeRadiusSize() const;
     void setRelativeRadiusSize(const qreal &value);
 
+    void setHoleTextColor(const QColor &value);
     void clear();
+
+    void setMarginY(const qreal &value);
+
 protected:
     void paintEvent(QPaintEvent *e);
     void resizeEvent(QResizeEvent* event);
@@ -71,6 +75,7 @@ private:
 
 private:
 
+    qreal marginY;
     qreal angle;
     QFont font;
     QPoint center;
