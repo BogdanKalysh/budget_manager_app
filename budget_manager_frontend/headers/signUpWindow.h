@@ -29,12 +29,11 @@ private slots:
     void on_signUpButton_clicked();
     void on_backToLoginButton_clicked();
 
+    void postUser();
+
 private:
     Ui::SignUpWindow *ui;
     QSharedPointer<QNetworkAccessManager> manager;
 };
 
 #endif // SIGNUPWINDOW_H
-
-
-
