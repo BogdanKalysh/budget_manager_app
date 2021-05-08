@@ -100,7 +100,7 @@ void Piechart::standartSetting()
     spacing = 0.1 ;
     marginX = 0.1;
     marginY = 0.9;
-    fontRelativeSize=0.03;
+    fontRelativeSize=0.04;
 
     font.setStyleHint(QFont::Times, QFont::PreferAntialias);
 }

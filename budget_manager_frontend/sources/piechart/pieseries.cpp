@@ -24,7 +24,7 @@ PieSeries::~PieSeries()
 void PieSeries::init()
 {
     srand (time(NULL));
-    relativeRadiusSize =0.3;
+    relativeRadiusSize =0.4;
     hole=new Hole();
 
     hole->setParent(this);
@@ -81,7 +81,7 @@ void PieSeries::append(QSharedPointer<PieSlice> slice)
         slice->show();
     }
 
-    hole->setLabelText(QString::number(totalSum));//Label in the center of our widget is total sum of pieslices value
+    hole->setLabelText(QString::number(totalSum) + " ₴");//Label in the center of our widget is total sum of pieslices value
 }
 
 QPoint PieSeries::getCenter() const

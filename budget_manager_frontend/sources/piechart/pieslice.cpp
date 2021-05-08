@@ -136,7 +136,7 @@ void PieSlice::paintEvent(QPaintEvent *event)
     QPolygon polygon = path.toFillPolygon().toPolygon();
     region = QRegion(polygon,  Qt::WindingFill);
 
-    setMask(region);//this stuff make sometimes some pixels artifacts but without it we cant use mouse events
+//    setMask(region);//this stuff make sometimes some pixels artifacts but without it we cant use mouse events
 }
 
 //change this part of code to make your own action on press event
