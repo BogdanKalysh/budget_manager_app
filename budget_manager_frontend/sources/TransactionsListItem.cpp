@@ -4,8 +4,8 @@
 
 TransactionsItem::TransactionsItem(Transaction transaction, QWidget *parent) : QDialog(parent)
 {
-    categoryName = new QLabel(transaction.getCategoryName());
-    categoryName->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+    Description = new QLabel(transaction.getDescription());
+    Description->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
 
     line = new QFrame;
     line->setFrameShape(QFrame::HLine);
@@ -21,7 +21,7 @@ TransactionsItem::TransactionsItem(Transaction transaction, QWidget *parent) : Q
     sum->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
 
     QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(categoryName);
+    layout->addWidget(Description);
     layout->addWidget(line);
     layout->addWidget(sum);
 

@@ -14,7 +14,7 @@ class TransactionsItem : public QDialog
 public:
     TransactionsItem(Transaction transaction, QWidget *parent=0);
 private:
-    QLabel *categoryName;
+    QLabel *Description;
     QFrame *line;
     QLabel *sum;
 };
