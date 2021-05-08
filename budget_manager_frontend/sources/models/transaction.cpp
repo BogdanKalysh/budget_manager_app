@@ -7,18 +7,18 @@ Transaction::Transaction(int id, int amount, QString description, int categoryId
     this->amount = amount;
     this->description = description;
     this->categoryId = categoryId;
-    this->type = type;
 }
 
-Transaction::Transaction(int id, int amount, QDate date, QString description, int categoryId, QString type):Transaction(id, amount, description, categoryId)
+Transaction::Transaction(int id, int amount, QDate date, QString description, int categoryId):Transaction(id, amount, description, categoryId)
 {
     this->date = date;
 }
 
-Transaction::Transaction(int id, int amount, QDate date, QString description, int categoryId, QString categoryName, QColor color):Transaction(id, amount, date, description, categoryId, type)
+Transaction::Transaction(int id, int amount, QDate date, QString description, int categoryId, QString categoryName, QColor color, QString type):Transaction(id, amount, date, description, categoryId)
 {
     this->categoryName = categoryName;
     this->color = color;
+    this->type = type;
 }
 
 

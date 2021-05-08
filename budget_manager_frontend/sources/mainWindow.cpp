@@ -33,12 +33,12 @@ void MainWindow::updateList()
     test_transactions[3].setColor("#FF0FF0");
     test_transactions[4].setColor("#FF1235");
     test_transactions[5].setColor("#002133");
-    test_transactions[0].setType("expences");
-    test_transactions[1].setType("expences");
-    test_transactions[2].setType("incomes");
-    test_transactions[3].setType("incomes");
-    test_transactions[4].setType("expences");
-    test_transactions[5].setType("incomes");
+    test_transactions[0].setType("expence");
+    test_transactions[1].setType("expence");
+    test_transactions[2].setType("income");
+    test_transactions[3].setType("income");
+    test_transactions[4].setType("expence");
+    test_transactions[5].setType("income");
     test_transactions[0].setDate(QDate(2001, 10, 11));
     test_transactions[1].setDate(QDate(2002, 10, 11));
     test_transactions[2].setDate(QDate(2003, 10, 11));

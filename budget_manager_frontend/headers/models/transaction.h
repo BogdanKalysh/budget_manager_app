@@ -20,8 +20,8 @@ class Transaction
 public:
 
     Transaction(int id, int amount, QString description, int categoryId); //creating new
-    Transaction(int id, int amount, QDate date, QString description, int categoryId, QString type); //updating old
-    Transaction(int id, int amount, QDate date, QString description, int categoryId, QString categoryName, QColor color); //getting from db
+    Transaction(int id, int amount, QDate date, QString description, int categoryId); //updating old
+    Transaction(int id, int amount, QDate date, QString description, int categoryId, QString categoryName, QColor color, QString type); //getting from db
 
     int getId();
     int getAmount();

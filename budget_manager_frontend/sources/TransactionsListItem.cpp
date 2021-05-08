@@ -1,5 +1,5 @@
 #include "TransactionsListItem.h"
-
+#include "constants.h"
 #include <QHBoxLayout>
 
 TransactionsItem::TransactionsItem(Transaction transaction, QWidget *parent) : QDialog(parent)
@@ -11,7 +11,7 @@ TransactionsItem::TransactionsItem(Transaction transaction, QWidget *parent) : Q
     line->setFrameShape(QFrame::HLine);
     line->setFixedHeight(6);
     line->setLineWidth(10);
-    if (transaction.getType() == "incomes")
+    if (transaction.getType() == jsonbuilder::INCOME)
         line->setStyleSheet("*{background-color: green;\n border-radius: 3px;}");
     else
         line->setStyleSheet("*{background-color: tomato;\n border-radius: 3px;}");
