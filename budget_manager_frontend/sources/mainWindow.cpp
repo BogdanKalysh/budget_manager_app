@@ -84,6 +84,8 @@ void MainWindow::settingPiechart()
     series->setHoleSize(0.8);
     series->setHoleColor(QColor("#0a5074"));
     series->setMarginY(0.1);
+    series->setHoleTextColor(QColor(255,255,255));
+    piechart->setTextColor(QColor(255,255,255));
 }
 
 qreal MainWindow::getCategoryTotalSum(QString categoryName)
