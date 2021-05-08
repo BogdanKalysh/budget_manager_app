@@ -193,7 +193,7 @@ QRadioButton::indicator{
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../resources/src.qrc">:/new/img/user_icon.png</pixmap>
+          <pixmap>:/new/img/user_icon.png</pixmap>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -225,7 +225,7 @@ QRadioButton::indicator{
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../resources/src.qrc">:/new/img/settings_icon.png</pixmap>
+          <pixmap>:/new/img/settings_icon.png</pixmap>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -265,6 +265,22 @@ QRadioButton::indicator{
        <property name="spacing">
         <number>30</number>
        </property>
+       <item row="0" column="0" rowspan="2">
+        <widget class="QFrame" name="pieChartFrame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>4</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="1">
         <widget class="QFrame" name="addTransactionFrame">
          <property name="sizePolicy">
@@ -437,31 +453,15 @@ QRadioButton::indicator{
             <x>0</x>
             <y>0</y>
             <width>731</width>
-            <height>401</height>
+            <height>161</height>
            </rect>
           </property>
          </widget>
-        </widget>
-       </item>
-       <item row="0" column="0" rowspan="2">
-        <widget class="QFrame" name="pieChartFrame">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>4</horstretch>
-           <verstretch>1</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
          <widget class="QDateEdit" name="fromDateEdit">
           <property name="geometry">
            <rect>
-            <x>60</x>
-            <y>50</y>
+            <x>240</x>
+            <y>280</y>
             <width>110</width>
             <height>25</height>
            </rect>
@@ -479,8 +479,8 @@ QRadioButton::indicator{
           </property>
           <property name="geometry">
            <rect>
-            <x>60</x>
-            <y>90</y>
+            <x>240</x>
+            <y>320</y>
             <width>110</width>
             <height>25</height>
            </rect>
@@ -507,9 +507,7 @@ QRadioButton::indicator{
    </property>
   </widget>
  </widget>
- <resources>
-  <include location="../resources/src.qrc"/>
- </resources>
+ <resources/>
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup"/>
