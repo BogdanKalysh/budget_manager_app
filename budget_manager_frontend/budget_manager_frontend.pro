@@ -21,6 +21,8 @@ INCLUDEPATH += \
     $$PWD/headers/parsers \
     $$PWD/forms \
     $$PWD/resources \
+    $$PWD/sources/piechart \
+    $$PWD/headers/piechart
 
 
 DEPENDPATH += \
@@ -44,7 +46,12 @@ HEADERS += \
     headers/parsers/ijsonparser.h \
     headers/parsers/userparser.h \
     headers/parsers/categoryparser.h \
-    headers/parsers/transactionparser.h
+    headers/parsers/transactionparser.h\
+    headers/piechart/hole.h \
+    headers/piechart/piechart.h \
+    headers/piechart/pieseries.h \
+    headers/piechart/pieslice.h \
+    headers/piechart/pieslicedata.h
 
 
 SOURCES += \
@@ -61,13 +68,18 @@ SOURCES += \
     sources/parsers/transactionparser.cpp \
     sources/parsers/userparser.cpp \
     sources/signUpWindow.cpp \
-    sources/builders/transactionJsonBuilder.cpp
-
+    sources/builders/transactionJsonBuilder.cpp \
+    sources/piechart/hole.cpp \
+    sources/piechart/piechart.cpp \
+    sources/piechart/pieseries.cpp \
+    sources/piechart/pieslice.cpp \
+    sources/piechart/pieslicedata.cpp
 
 FORMS += \
     forms/mainwindow.ui \
     forms/loginwindow.ui \
-    forms/signupwindow.ui
+    forms/signupwindow.ui \
+    forms/piechart.ui
 
 RESOURCES += \
     resources/src.qrc

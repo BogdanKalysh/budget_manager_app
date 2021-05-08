@@ -442,7 +442,7 @@ QRadioButton::indicator{
           </sizepolicy>
          </property>
          <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
+          <enum>QFrame::HLine</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
@@ -489,6 +489,11 @@ QRadioButton::indicator{
            <bool>true</bool>
           </property>
          </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="Piechart" name="donutPiechart" native="true"/>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
@@ -502,12 +507,22 @@ QRadioButton::indicator{
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
  </widget>
- <resources/>
+ <customwidgets>
+  <customwidget>
+   <class>Piechart</class>
+   <extends>QWidget</extends>
+   <header location="global">piechart.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../resources/src.qrc"/>
+ </resources>
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup"/>

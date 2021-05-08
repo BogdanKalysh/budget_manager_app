@@ -1,7 +1,8 @@
-QT += gui
+QT += gui sql
 
-CONFIG += c++11 console
-CONFIG -= app_bundle
+CONFIG += c++11
+TEMPLATE = app
+CONFIG += console
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -11,38 +12,63 @@ CONFIG -= app_bundle
 INCLUDEPATH += \
     $$PWD/sources \
     $$PWD/headers \
+    $$PWD/sources/parsers \
+    $$PWD/sources/handlers \
+    $$PWD/sources/dbManager \
+    $$PWD/sources/JsonBuilders \
+    $$PWD/headers/parsers \
+    $$PWD/headers/handlers \
+    $$PWD/headers/dbManager \
+    $$PWD/headers/JsonBuilders
 
+HEADERS += \
+    headers/dbManager/idbmanager.h \
+    headers/parsers/categoryparser.h \
+    headers/parsers/ijsonparser.h \
+    headers/parsers/transactionparser.h \
+    headers/parsers/userparser.h \
+    headers/applicationservice.h \
+    headers/handlerfactory.h \
+    headers/handlers/ihandler.h \
+    headers/handlers/transactionhandler.h \
+    headers/handlers/userhandler.h\
+    headers/handlers/categoryhandler.h\
+    headers/dbManager/dbmanager.h \
+    headers/JsonBuilders/IJsonBuilder.h \
+    headers/JsonBuilders/categoryjsonbuilder.h \
+    headers/JsonBuilders/transactionjsonbuilder.h \
+    headers/JsonBuilders/userjsonbuilder.h
 
 SOURCES += \
     main.cpp \
-    sources/models/category.cpp \
-    sources/models/transaction.cpp \
-    sources/models/user.cpp \
     sources/parsers/userparser.cpp \
     sources/parsers/categoryparser.cpp \
     sources/parsers/transactionparser.cpp \
-    sources/DAL/categoryrepository.cpp \
-    sources/DAL/transactionrepository.cpp \
-    sources/DAL/userrepository.cpp \
-    sources/DAL/irepository.cpp \
-
-
-HEADERS += \
-    headers/category.h \
-    headers/categoryparser.h \
-    headers/constants.h \
-    headers/ijsonparser.h \
-    headers/transaction.h \
-    headers/transactionparser.h \
-    headers/user.h \
-    headers/userparser.h \
-    headers/categoryrepository.h \
-    headers/transactionrepository.h \
-    headers/userrepository.h \
-    headers/irepository.h \
-
+    sources/applicationservice.cpp \
+    sources/handlerfactory.cpp \
+    sources/handlers/transactionhandler.cpp \
+    sources/handlers/userhandler.cpp \
+    sources/handlers/categoryhandler.cpp \
+    sources/dbManager/dbmanager.cpp \
+    sources/JsonBuilders/transactionjsonbuilder.cpp \
+    sources/JsonBuilders/userjsonbuilder.cpp \
+    sources/JsonBuilders/categoryjsonbuilder.cpp \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+LIBS += \
+    -L../ -lDAL \
+
+INCLUDEPATH += \
+    ../DAL/headers \
+    ../DAL/headers/models \
+    ../DAL/headers/repositories \
+DEPENDPATH += \
+    ../DAL/headers \
+    ../DAL/headers/models \
+    ../DAL/headers/repositories
+
+

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QScopedPointer>
 #include "mainWindow.h"
 #include "signUpWindow.h"
 #include <QSharedPointer>
@@ -23,12 +24,14 @@ public:
 private slots:
     void on_loginButton_clicked();
     void on_signUpLoginButton_clicked();
+    void onResult();
 
 private:
     Ui::LoginWindow *ui;
     MainWindow *mainWindow;
     SignUpWindow *signUpWindow;
     QSharedPointer<QNetworkAccessManager> manager;
+    User user;
 };
 
 #endif // LOGINWINDOW_H
