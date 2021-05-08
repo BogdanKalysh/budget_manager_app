@@ -70,8 +70,8 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
 
 MainWindow::~MainWindow()
 {
-    delete piechart;
     delete series;
+    delete piechart;
     delete ui;
 }
 
