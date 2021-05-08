@@ -83,6 +83,7 @@ void MainWindow::settingPiechart()
     series->setCentralTitleFont(font);
     series->setHoleSize(0.8);
     series->setHoleColor(QColor("#0a5074"));
+    series->setMarginY(0.1);
 }
 
 qreal MainWindow::getCategoryTotalSum(QString categoryName)

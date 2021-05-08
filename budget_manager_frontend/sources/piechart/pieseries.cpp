@@ -132,7 +132,7 @@ qreal PieSeries::getAngle()
 
 void PieSeries::setRectangle()
 {
-    rectangle = QRectF(center.x(),center.y(),radius*2,radius*2);
+    rectangle = QRectF(center.x(),center.y()-height()/2*(1-marginY)+radius,radius*2,radius*2);
 }
 
 QRectF PieSeries::getRectangle() const
@@ -155,6 +155,11 @@ QColor PieSeries::randomColor()
     return QColor(rand()%256, rand()%256, rand()%256);//just return a random color
 }
 
+void PieSeries::setMarginY(const qreal &value)
+{
+    marginY = qBound(minSize,value,maxSize);
+}
+
 qreal PieSeries::getRelativeRadiusSize() const
 {
     return relativeRadiusSize;
@@ -163,6 +168,11 @@ qreal PieSeries::getRelativeRadiusSize() const
 void PieSeries::setRelativeRadiusSize(const qreal &value)
 {
     relativeRadiusSize = value;
+}
+
+void PieSeries::setHoleTextColor(const QColor &value)
+{
+    hole->setTextColor(value);
 }
 
 void PieSeries::clear()
