@@ -141,10 +141,11 @@ void MainWindow::finishedPostTransactions()
 void MainWindow::updatePiechart()
 {
     series->clear();
-
     for(Category& cat: categories){
         series->append(getCategoryTotalSum(cat.getName()),cat.getName(),cat.getColor());
     }
+
+    piechart->update();
 }
 
 void MainWindow::on_addTransactionButton_clicked()
