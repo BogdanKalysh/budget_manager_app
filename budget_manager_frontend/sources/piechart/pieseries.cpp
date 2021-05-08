@@ -76,13 +76,6 @@ void PieSeries::append(QSharedPointer<PieSlice> slice)
         slice->setSpanAngle(spanAngle);
         startAngle+=spanAngle;
 
-        //set all atributtes of pieslice
-        if(piesliceLabelColor.find(slice->getData()->label)==piesliceLabelColor.end()){
-            QColor color = randomColor();                           //if category has no user color we just random color
-            piesliceLabelColor.insert(slice->getData()->label,color);
-        }
-
-        slice->setColor(piesliceLabelColor.find(slice->getData()->label).value());
         slice->setPen(Qt::NoPen);                   // it sets the border of pislice to none
         slice->installEventFilter(this);
         slice->show();
@@ -113,7 +106,6 @@ void PieSeries::updateSizes()
 
 void PieSeries::paintEvent(QPaintEvent *e)
 {
-
     hole->raise();
 }
 
@@ -175,6 +167,7 @@ void PieSeries::setRelativeRadiusSize(const qreal &value)
 
 void PieSeries::clear()
 {
+
     for (QSharedPointer<PieSlice> s: slices){
         s.clear();//this qt method dropping the reference that it may have had to the pointer.
                   //If this was the last reference, then the pointer itself will be deleted.
@@ -209,6 +202,11 @@ void PieSeries::setHoleColor(const QColor &value) const
 
 QMap<QString, QColor> PieSeries::getPiesliceLabelColor() const
 {
+    QMap<QString, QColor> piesliceLabelColor;
+    for (QSharedPointer<PieSlice> s: slices) {
+        PieSlice * slice = s.get();
+        piesliceLabelColor.insert(slice->getData()->label,slice->getColor());
+    }
     return piesliceLabelColor;
 }
 

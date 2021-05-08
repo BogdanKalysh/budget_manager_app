@@ -21,7 +21,6 @@ public:
 private:
     QList<QSharedPointer<PieSlice>> slices;
     qreal sum;
-    QMap<QString, QColor> piesliceLabelColor;
 
 public:
     explicit PieSeries(QWidget * parent=nullptr);
