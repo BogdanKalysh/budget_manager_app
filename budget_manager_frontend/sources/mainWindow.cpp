@@ -19,6 +19,14 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
     this->user = user;
     this->manager = manager;
 
+    piechart = ui->pieChartFrame->findChild<Piechart*>("donutPiechart");
+    piechart->installEventFilter(this);
+
+    series = new PieSeries();
+
+    piechart->setSeries(series);
+    settingPiechart();
+
     ui->userName->setText(user.getName());
 
     QPixmap settingsPixMap(":/new/img/settings_icon.png");
@@ -36,14 +44,38 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
     QString getTransactionsQuery = "http://127.0.0.1:5000/rating/gettransactions?u_email=" + user.getEmail() + "&lim=10";
     QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
     connect(transactionsReply, &QNetworkReply::readyRead, this, &MainWindow::readTransactions);
+
+    updatePiechart();
 }
 
 MainWindow::~MainWindow()
 {
+    delete piechart;
+    delete series;
     delete ui;
 }
 
+void MainWindow::settingPiechart()
+{
+    QFont font;
+    font.setStyleHint(QFont::Times, QFont::PreferAntialias);
 
+    series->setCentralTitleFont(font);
+    series->setHoleSize(0.8);
+    series->setHoleColor(QColor("#0a5074"));
+}
+
+qreal MainWindow::getCategoryTotalSum(QString categoryName)
+{
+    qreal totalsum = 0;
+
+    for(Transaction & transac:transactions){
+        if(transac.getCategoryName()==categoryName)
+            totalsum+= transac.getAmount();
+    }
+
+    return totalsum;
+}
 void MainWindow::readCategories()
 {
     QNetworkReply *categoriesReply = qobject_cast<QNetworkReply*>(sender());
@@ -106,6 +138,14 @@ void MainWindow::finishedPostTransactions()
     postTranasactionReply->deleteLater();
 }
 
+void MainWindow::updatePiechart()
+{
+    series->clear();
+
+    for(Category& cat: categories){
+        series->append(getCategoryTotalSum(cat.getName()),cat.getName(),cat.getColor());
+    }
+}
 
 void MainWindow::on_addTransactionButton_clicked()
 {
@@ -130,6 +170,7 @@ void MainWindow::on_addTransactionButton_clicked()
         ui->amountInputLine->clear();
         ui->descriptionInputLine->clear();
     }
+    updatePiechart();
 }
 
 void MainWindow::on_incomeRadioButton_clicked()
@@ -139,6 +180,7 @@ void MainWindow::on_incomeRadioButton_clicked()
         if(cat.getType())
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
+    updatePiechart();
 }
 
 void MainWindow::on_expenceRadioButton_clicked()
@@ -148,4 +190,5 @@ void MainWindow::on_expenceRadioButton_clicked()
         if(!cat.getType())
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
+    updatePiechart();
 }

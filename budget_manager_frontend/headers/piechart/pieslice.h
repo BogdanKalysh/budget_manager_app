@@ -22,11 +22,12 @@ protected:
 public:
     explicit PieSlice(QWidget * parent=nullptr);
     PieSlice(qreal value ,QString label, QRectF& rectangle ,QWidget * parent=nullptr);
+    PieSlice(qreal value ,QString label,QColor color, QRectF& rectangle ,QWidget * parent=nullptr);
     ~PieSlice();
 
 
-    setStartAngle(qreal angle);
-    setSpanAngle(qreal angle);
+    void setStartAngle(qreal angle);
+    void setSpanAngle(qreal angle);
 
     void setPen(const QPen &value);
     QPen getPen() const;
