@@ -29,10 +29,15 @@ public slots:
     void readTransactions();
     void finishedPostTransactions();
     void updatePiechart();
+    void updateList();
 private slots:
     void on_addTransactionButton_clicked();
     void on_incomeRadioButton_clicked();
     void on_expenceRadioButton_clicked();
+
+    void on_fromDateEdit_dateChanged(const QDate &date);
+
+    void on_toDateEdit_dateChanged(const QDate &date);
 
 private:
     Ui::MainWindow *ui;
@@ -42,5 +47,7 @@ private:
     QVector<Category> categories;
     QVector<Transaction> transactions;
     QSharedPointer<QNetworkAccessManager> manager;
+    QDate fromDateTransactions;
+    QDate toDateTransactions;
 };
 #endif // MAINWINDOW_H

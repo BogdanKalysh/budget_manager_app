@@ -3,12 +3,28 @@
 #include "categoryparser.h"
 #include "transactionparser.h"
 #include "transactionJsonBuilder.h"
+#include "TransactionsListItem.h"
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMessageBox>
+
+void MainWindow::updateList()
+{
+    for (Transaction transaction : transactions)
+    {
+        if (transaction.getDate() >= fromDateTransactions && transaction.getDate() <= toDateTransactions)
+        {
+            QListWidgetItem* item = new QListWidgetItem( ui->TransactionsList );
+            TransactionsItem *transactionsItem = new TransactionsItem(transaction);
+
+            item->setSizeHint(transactionsItem->sizeHint());
+            ui->TransactionsList->setItemWidget(item, transactionsItem);
+        }
+    }
+}
 
 MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,  QWidget *parent)
     : QMainWindow(parent)
@@ -45,6 +61,10 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
     QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
     connect(transactionsReply, &QNetworkReply::readyRead, this, &MainWindow::readTransactions);
 
+    fromDateTransactions.setDate(0001,1,1);
+    toDateTransactions.setDate(9999,12,31);
+
+    updateList();
     updatePiechart();
 }
 
@@ -192,4 +212,16 @@ void MainWindow::on_expenceRadioButton_clicked()
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
     updatePiechart();
+}
+
+void MainWindow::on_fromDateEdit_dateChanged(const QDate &date)
+{
+    fromDateTransactions = date;
+    updateList();
+}
+
+void MainWindow::on_toDateEdit_dateChanged(const QDate &date)
+{
+    toDateTransactions = date;
+    updateList();
 }

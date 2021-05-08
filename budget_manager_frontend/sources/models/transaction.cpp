@@ -14,10 +14,11 @@ Transaction::Transaction(int id, int amount, QDate date, QString description, in
     this->date = date;
 }
 
-Transaction::Transaction(int id, int amount, QDate date, QString description, int categoryId, QString categoryName, QColor color):Transaction(id, amount, date, description, categoryId)
+Transaction::Transaction(int id, int amount, QDate date, QString description, int categoryId, QString categoryName, QColor color, QString type):Transaction(id, amount, date, description, categoryId)
 {
     this->categoryName = categoryName;
     this->color = color;
+    this->type = type;
 }
 
 
@@ -56,6 +57,11 @@ QColor Transaction::getColor()
     return this->color;
 }
 
+QString Transaction::getType()
+{
+    return this->type;
+}
+
 void Transaction::setId(int id)
 {
     this->id = id;
@@ -88,4 +94,8 @@ void Transaction::setCategoryName(QString categoryName)
 
 void Transaction::setColor(QColor color){
     this->color = color;
+}
+
+void Transaction::setType(QString type) {
+    this->type = type;
 }

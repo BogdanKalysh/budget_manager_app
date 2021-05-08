@@ -16,6 +16,9 @@ namespace jsonbuilder {
     const QString EMAIL = "email";
     const QString PASSWORD = "password";
     const QString CATEGORYNAME = "category_name";
+    const QString INCOME = "income";
+    const QString EXPENCE = "expence";
+
 }
 
 #endif // CONSTANTS_H
