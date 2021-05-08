@@ -3,12 +3,64 @@
 #include "categoryparser.h"
 #include "transactionparser.h"
 #include "transactionJsonBuilder.h"
+#include "TransactionsListItem.h"
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMessageBox>
+#include <QList>
+#include <QCalendarWidget>
+
+
+void MainWindow::updateList()
+{
+    QVector<Transaction> test_transactions = {{1,1,"Name1",1},{2,2,"Name2",2},{3,3,"Name3",3},{4,4,"Name1",4},{5,5,"Name2",5},{5,5,"Name3",5}};
+    ui->TransactionsList->clear();
+    test_transactions[0].setCategoryName("Go to shop");
+    test_transactions[1].setCategoryName("Pay for internet");
+    test_transactions[2].setCategoryName("Buy juice");
+    test_transactions[3].setCategoryName("Go to shop enother time");
+    test_transactions[4].setCategoryName("Pay for internet another time");
+    test_transactions[5].setCategoryName("Buy juice and be happy");
+    test_transactions[0].setAmount(123);
+    test_transactions[1].setAmount(34);
+    test_transactions[2].setAmount(12);
+    test_transactions[3].setAmount(123);
+    test_transactions[4].setAmount(34);
+    test_transactions[5].setAmount(12);
+    test_transactions[0].setColor("#FFCC08");
+    test_transactions[1].setColor("#FFFFFF");
+    test_transactions[2].setColor("#000000");
+    test_transactions[3].setColor("#FF0FF0");
+    test_transactions[4].setColor("#FF1235");
+    test_transactions[5].setColor("#002133");
+    test_transactions[0].setType("expences");
+    test_transactions[1].setType("expences");
+    test_transactions[2].setType("incomes");
+    test_transactions[3].setType("incomes");
+    test_transactions[4].setType("expences");
+    test_transactions[5].setType("incomes");
+    test_transactions[0].setDate(QDate(2001, 10, 11));
+    test_transactions[1].setDate(QDate(2002, 10, 11));
+    test_transactions[2].setDate(QDate(2003, 10, 11));
+    test_transactions[3].setDate(QDate(2004, 10, 11));
+    test_transactions[4].setDate(QDate(2005, 10, 11));
+    test_transactions[5].setDate(QDate(2005, 10, 11));
+
+    for (Transaction transaction : test_transactions)
+    {
+        if (transaction.getDate() >= fromDateTransactions && transaction.getDate() <= toDateTransactions)
+        {
+            QListWidgetItem* item = new QListWidgetItem( ui->TransactionsList );
+            TransactionsItem *transactionsItem = new TransactionsItem(transaction);
+
+            item->setSizeHint(transactionsItem->sizeHint());
+            ui->TransactionsList->setItemWidget(item, transactionsItem);
+        }
+    }
+}
 
 MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,  QWidget *parent)
     : QMainWindow(parent)
@@ -36,13 +88,19 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
     QString getTransactionsQuery = "http://127.0.0.1:5000/rating/gettransactions?u_email=" + user.getEmail() + "&lim=10";
     QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
     connect(transactionsReply, &QNetworkReply::readyRead, this, &MainWindow::readTransactions);
+
+
+
+    fromDateTransactions.setDate(0001,1,1);
+    toDateTransactions.setDate(9999,12,31);
+
+    updateList();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 
 void MainWindow::readCategories()
 {
@@ -106,7 +164,6 @@ void MainWindow::finishedPostTransactions()
     postTranasactionReply->deleteLater();
 }
 
-
 void MainWindow::on_addTransactionButton_clicked()
 {
     int amount = ui->amountInputLine->text().toInt();
@@ -150,45 +207,14 @@ void MainWindow::on_expenceRadioButton_clicked()
     }
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_fromDateEdit_dateChanged(const QDate &date)
 {
-    QVector<Transaction> test_transactions = {{1,1,"Name1",1},{2,2,"Name2",2},{3,3,"Name3",3},{4,4,"Name1",4},{5,5,"Name2",5},{5,5,"Name3",5}};
-    ui->listWidget->clear();
-    test_transactions[0].setCategoryName("Go to shop");
-    test_transactions[1].setCategoryName("Pay for internet");
-    test_transactions[2].setCategoryName("Buy juice");
-    test_transactions[3].setCategoryName("Go to shop");
-    test_transactions[4].setCategoryName("Pay for internet");
-    test_transactions[5].setCategoryName("Buy juice");
-    test_transactions[0].setAmount(123);
-    test_transactions[1].setAmount(34);
-    test_transactions[2].setAmount(12);
-    test_transactions[3].setAmount(123);
-    test_transactions[4].setAmount(34);
-    test_transactions[5].setAmount(12);
-    test_transactions[0].setColor("#FFCC08");
-    test_transactions[1].setColor("#FFFFFF");
-    test_transactions[2].setColor("#000000");
-    test_transactions[3].setColor("#FF0FF0");
-    test_transactions[4].setColor("#FF1235");
-    test_transactions[5].setColor("#002133");
-    for (Transaction transaction : transactions) {
-        QWidget* wgt = new QWidget;
-        QLayout* l = new QHBoxLayout(wgt);
+    fromDateTransactions = date;
+    updateList();
+}
 
-        l->addWidget( new QLabel(transaction.getCategoryName()) );
-
-        QFrame *line = new QFrame;
-        line->setFixedHeight(10);
-        line->setFrameShape(QFrame::HLine);
-        line->setLineWidth(10);
-        line->setStyleSheet("*{color: " + transaction.getColor().name()+";}");
-        l->addWidget(line);
-
-        l->addWidget( new QLabel(QString::number(transaction.getAmount())) );
-
-        QListWidgetItem* item = new QListWidgetItem( ui->listWidget );
-        item->setSizeHint(wgt->sizeHint());
-        ui->listWidget->setItemWidget( item, wgt );
-    }
+void MainWindow::on_toDateEdit_dateChanged(const QDate &date)
+{
+    toDateTransactions = date;
+    updateList();
 }

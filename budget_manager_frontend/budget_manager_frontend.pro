@@ -28,6 +28,7 @@ DEPENDPATH += \
 
 
 HEADERS += \
+    headers/TransactionsListItem.h \
     headers/builders/IJsonBuilder.h \
     headers/builders/userJsonBuilder.h \
     headers/models/category.h \
@@ -47,6 +48,7 @@ HEADERS += \
 
 
 SOURCES += \
+    sources/TransactionsListItem.cpp \
     sources/builders/userJsonBuilder.cpp \
     sources/parsers/categoryparser.cpp \
     sources/builders/categoryJsonBuilder.cpp \
