@@ -42,7 +42,6 @@
     <property name="styleSheet">
      <string notr="true">background-color: qlineargradient(spread:pad, x1:0.511, y1:1, x2:0.527831, y2:0, stop:1 rgba(68, 255, 51, 0));
 border-color: rgb(0, 170, 0);
-border-size: 2px;
 font: 75 14pt &quot;Calibri&quot;;
 font: 75 8pt &quot;MS Shell Dlg 2&quot;;
 color: rgb(0, 134, 0);

@@ -18,20 +18,13 @@ LoginWindow::LoginWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     manager.reset(new QNetworkAccessManager);
-
-    manager.reset(new QNetworkAccessManager);
     signUpWindow = new SignUpWindow(manager);
-
 
     connect(signUpWindow, &SignUpWindow::loginWindow, this, &LoginWindow::show);
 }
 
 LoginWindow::~LoginWindow()
 {
-    if(mainWindow)
-        delete mainWindow;
-    if(signUpWindow)
-        delete signUpWindow;
     delete ui;
 }
 
@@ -66,7 +59,8 @@ void LoginWindow::onResult()
         qDebug()<<jUser;
         QScopedPointer<IJsonParser<User>> parser (new UserParser);
         user = parser->parse(jUser);
-        if(user.getName().length()){
+        if(user.getName().length())
+        {
             qDebug()<<user.getName();
             mainWindow = new MainWindow(user, manager);
             mainWindow->show();
