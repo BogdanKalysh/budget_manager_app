@@ -12,7 +12,7 @@ class User
     int balance;
 
 public:
-    User(int id, QString name, QString email, QString password, int balance);
+    User(const int id, const QString &name, const QString &email, const QString &password, const int balance);
     int getId() const;
     QString getName() const;
     QString getPassword() const;
@@ -20,9 +20,9 @@ public:
     int getBalance() const;
 
     QString setId(const int id);
-    QString setName(const QString name);
-    QString setPassword(const QString password);
-    QString setEmail(const QString email);
+    QString setName(const QString &name);
+    QString setPassword(const QString &password);
+    QString setEmail(const QString &email);
     QString setBalance(const int balance);
 };
 

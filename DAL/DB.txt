@@ -1,0 +1,5 @@
+DB:QPSQL
+HOST:34.118.91.164
+USER:andriy
+PASSWORD:root
+DBNAME:budget-manager

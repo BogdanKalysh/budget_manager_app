@@ -5,11 +5,11 @@
 #include "category.h"
 
 
-class CategoryParser: IJsonParser<Category>
+class CategoryParser: public IJsonParser<Category>
 {
 public:
-    virtual Category parse(QJsonObject json);
-    virtual QVector<Category> parseVector(QJsonArray jsonArray);
+    Category parse(QJsonObject json) override;
+    QVector<Category> parseVector(QJsonArray jsonArray) override;
 };
 
 #endif // CATEGORYPARSER_H

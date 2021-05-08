@@ -8,9 +8,9 @@ class UserRepository : public IRepository<User>
 {
 public:
     QVector<User> select(const QString &query) override;
-    bool update(User &object) override;
-    bool add(User &object) override;
-    bool deleteObject(int id) override;
+    bool update(const User &object) override;
+    bool add(const User &object) override;
+    bool deleteObject(const int id) override;
 };
 
 #endif // USERREPOSITORY_H

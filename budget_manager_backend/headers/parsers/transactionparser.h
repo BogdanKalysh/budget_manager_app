@@ -4,12 +4,12 @@
 #include "ijsonparser.h"
 #include "transaction.h"
 
-
-class TransactionParser: IJsonParser<Transaction>
+class TransactionParser: public IJsonParser<Transaction>
 {
 public:
-    virtual Transaction parse(QJsonObject json);
-    virtual QVector<Transaction> parseVector(QJsonArray jsonArray);
+    Transaction parse(QJsonObject json) override;
+    QVector<Transaction> parseVector(QJsonArray jsonArray) override;
 };
+
 
 #endif // TRANSACTIONPARSER_H

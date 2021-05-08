@@ -15,7 +15,7 @@ class Transaction
 
 public:
 
-    Transaction(const int id, const int amount, const QDate date, const QString description, const int categoryId);
+    Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId);
 
     int getId() const;
     int getAmount() const;
@@ -25,8 +25,8 @@ public:
 
     QString setId(const int id);
     QString setAmount(const int amount);
-    QString setDate(const QDate date);
-    QString setDescription(const QString description);
+    QString setDate(const QDate &date);
+    QString setDescription(const QString &description);
     QString setCategoryId(const int categoryId);
 };
 

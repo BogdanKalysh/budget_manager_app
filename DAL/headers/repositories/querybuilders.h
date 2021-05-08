@@ -2,14 +2,15 @@
 #define QUERYBUILDERS_H
 
 #include "constants.h"
-#include <QString>
 #include <QVector>
 #include <QPair>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
-#include <QDebug>
 #include <QSqlRecord>
+#include <QFile>
+#include <QMap>
+#include <QDebug>
 
 QSqlDatabase setUpDatabase();
 

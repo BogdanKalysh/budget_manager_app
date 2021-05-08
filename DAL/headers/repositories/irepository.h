@@ -8,9 +8,9 @@ class IRepository
 {
 public:
     virtual QVector<T> select(const QString &query) = 0;
-    virtual bool update(T &object) = 0;
-    virtual bool add(T &object) = 0;
-    virtual bool deleteObject(int id) = 0;
+    virtual bool update(const T &object) = 0;
+    virtual bool add(const T &object) = 0;
+    virtual bool deleteObject(const int id) = 0;
 };
 
 #endif // IREPOSITORY_H

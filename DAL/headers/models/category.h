@@ -14,7 +14,7 @@ class Category
 
 public:
     Category();
-    Category(const int id, const QString name, const Type type, const QColor color, const int userId);
+    Category(int id, const QString &name, const Type &type, const QColor &color, int userId);
     Category (const Category &other);
 
     int getId() const;
@@ -24,9 +24,9 @@ public:
     QColor getColor() const;
 
     QString setId(const int id);
-    QString setName(const QString name);
-    QString setType(const Type type);
-    QString setColor(const QColor color);
+    QString setName(const QString &name);
+    QString setType(const Type &type);
+    QString setColor(const QColor &color);
     QString setUserId(const int userId);
 };
 

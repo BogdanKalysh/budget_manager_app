@@ -21,11 +21,11 @@ namespace parser {
 }
 
 namespace dal {
-    const QString DBTYPE = "QPSQL";
-    const QString HOST = "34.118.91.164";
-    const QString USER = "andriy";
-    const QString USER_PASSWORD = "root";
-    const QString DBNAME = "budget-manager";
+    const QString DB = "DB";
+    const QString HOST = "HOST";
+    const QString USER = "USER";
+    const QString USER_PASSWORD = "PASSWORD";
+    const QString DBNAME = "DBNAME";
 
     const QString USERS = "users";
     const QString CATEGORY = "category";

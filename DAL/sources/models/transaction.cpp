@@ -11,7 +11,7 @@ Transaction::Transaction(int amount, QDate date, QString description, Category c
 */
 
 
-Transaction::Transaction(const int id, const int amount, const QDate date, const QString description, const int categoryId)
+Transaction::Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId)
 {
     this->setId(id);
     this->setAmount(amount);
@@ -54,14 +54,14 @@ QString Transaction::setAmount(const int amount)
     return "Success";
 }
 
-QString Transaction::setDate(const QDate date)
+QString Transaction::setDate(const QDate &date)
 {
     // TODO: Validation logic; It may be realized with the help of QDate::isValid
     this->date = date;
     return "Success";
 }
 
-QString Transaction::setDescription(const QString description)
+QString Transaction::setDescription(const QString &description)
 {
     // TODO: Validation logic
     this->description = description;

@@ -26,7 +26,7 @@ QVector<Category> CategoryRepository::select(const QString &query)
     return categories;
 }
 
-bool CategoryRepository::update(Category &object)
+bool CategoryRepository::update(const Category &object)
 {
     QSqlDatabase db = setUpDatabase();
 
@@ -52,7 +52,7 @@ bool CategoryRepository::update(Category &object)
     return false;
 }
 
-bool CategoryRepository::add(Category &object)
+bool CategoryRepository::add(const Category &object)
 {
     QSqlDatabase db = setUpDatabase();
 
@@ -79,7 +79,7 @@ bool CategoryRepository::add(Category &object)
     return false;
 }
 
-bool CategoryRepository::deleteObject(int id)
+bool CategoryRepository::deleteObject(const int id)
 {
     QSqlDatabase db = setUpDatabase();
 
