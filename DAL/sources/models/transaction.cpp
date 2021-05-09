@@ -30,6 +30,11 @@ int Transaction::getAmount() const
     return this->amount;
 }
 
+int Transaction::getCategoryId() const
+{
+    return this->categoryId;
+}
+
 QDate Transaction::getDate() const
 {
     return this->date;

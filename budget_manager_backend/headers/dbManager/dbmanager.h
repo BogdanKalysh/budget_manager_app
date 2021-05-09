@@ -2,10 +2,15 @@
 #define DBMANAGER_H
 
 
-class DBManager
+#include "idbmanager.h"
+
+class DBManager : public IDBManager
 {
+
 public:
-    DBManager();
+    IRepository<User> *getUserRepository() override;
+    IRepository<Category> *getCategoryRepository() override;
+    IRepository<Transaction> *getTransactionRepository() override;
 };
 
 #endif // DBMANAGER_H
