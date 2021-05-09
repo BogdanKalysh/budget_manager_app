@@ -7,9 +7,9 @@
 
 class IDBManager{
 public:
-    virtual UserRepository getUserRepository() = 0;
-    virtual CategoryRepository getCategoryRepository() = 0;
-    virtual TransactionRepository getTransactionRepository() = 0;
+    virtual IRepository<User> *getUserRepository() = 0;
+    virtual IRepository<Category> *getCategoryRepository() = 0;
+    virtual IRepository<Transaction> *getTransactionRepository() = 0;
 };
 
 #endif // IDBMANAGER_H

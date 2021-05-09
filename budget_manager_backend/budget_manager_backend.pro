@@ -60,7 +60,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 LIBS += \
-    -L../ -lDAL \
+    -L../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/debug/ -lDAL \
 
 INCLUDEPATH += \
     ../DAL/headers \

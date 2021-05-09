@@ -8,9 +8,9 @@ class DBManager : public IDBManager
 {
 
 public:
-    UserRepository getUserRepository() override;
-    CategoryRepository getCategoryRepository() override;
-    TransactionRepository getTransactionRepository() override;
+    IRepository<User> *getUserRepository() override;
+    IRepository<Category> *getCategoryRepository() override;
+    IRepository<Transaction> *getTransactionRepository() override;
 };
 
 #endif // DBMANAGER_H

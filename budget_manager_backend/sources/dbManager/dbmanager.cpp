@@ -1,18 +1,17 @@
 #include "dbmanager.h"
 
-UserRepository DBManager::getUserRepository()
+
+IRepository<User> *DBManager::getUserRepository()
 {
-    return UserRepository();
+    return new UserRepository();
 }
 
-CategoryRepository DBManager::getCategoryRepository()
+IRepository<Category> *DBManager::getCategoryRepository()
 {
-    return CategoryRepository();
+    return new CategoryRepository();
 }
 
-TransactionRepository DBManager::getTransactionRepository()
+IRepository<Transaction> *DBManager::getTransactionRepository()
 {
-    return TransactionRepository();
+    return new TransactionRepository();
 }
-
-
