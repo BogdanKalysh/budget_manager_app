@@ -24,7 +24,7 @@ PieSeries::~PieSeries()
 void PieSeries::init()
 {
     srand (time(NULL));
-    relativeRadiusSize =0.4;
+    relativeRadiusSize = 0.4;
     hole=new Hole();
 
     hole->setParent(this);
