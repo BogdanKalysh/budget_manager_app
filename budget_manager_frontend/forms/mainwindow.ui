@@ -22,8 +22,6 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#centralwidget{
- /*background: qlineargradient(spread:pad, x1:0.166667, y1:0.756, x2:1, y2:0, stop:0 rgba(207, 31, 31, 255), stop:0.427083 rgba(144, 16, 125, 255), stop:0.822917 rgba(30, 129, 255, 255))*/
-	/*background: qlineargradient(spread:pad, x1:0.09375, y1:0.948864, x2:0.813, y2:0.102273, stop:0 rgba(114, 42, 159, 255), stop:0.505208 rgba(158, 31, 100, 255), stop:1 rgba(59, 105, 224, 255))*/
 	background: qlineargradient(spread:pad, x1:0, y1:0.960227, x2:1, y2:0, stop:0 rgba(13, 189, 217, 255), stop:1 rgba(0, 75, 230, 255))
 }
 
@@ -93,6 +91,12 @@ QLineEdit{
 	font-size: 20px;
 }
 
+#categoryComboBox::drop-down{
+	width: 40px;
+	height: 20px;
+	subcontrol-position: right;
+}
+
 QRadioButton{
 	font-size: 20px;
 	height: 50px;
@@ -107,6 +111,48 @@ QRadioButton:checked{
 
 QRadioButton::indicator{
 	border-style: none;
+}
+
+QListWidget{
+	background: rgba(0,0,0,0);
+	border-style: none;
+}
+
+QListWidget::item{
+	background: rgba(255,255,255,0.2);
+	border-radius: 20px;
+	border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+QListWidget::item::hover{
+	background: rgba(255,255,255,0.5) ;
+}
+
+#dateEditFrame{
+	background: transparent;
+	border-style:none;
+}
+
+#fromDateEdit, #toDateEdit{
+ 	height: 50px;
+ 	border-radius: 25px;
+ 	background: transparent;
+ 	border: 1px solid white;
+	font-size: 20px;
+	padding-left: 15px;
+	margin-right: 0px;
+}
+
+#fromDateEdit:drop-down, #toDateEdit:drop-down{
+	width: 40px;
+	height: 20px;
+	subcontrol-position: right;
+}
+
+#dateDivisionLine{
+	background: rgba(255,255,255,0.2);
+	border: 1px solid rgba( 255, 255, 255, 0.18 );
+	border-radius: 3px;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -281,7 +327,11 @@ QRadioButton::indicator{
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QListWidget" name="TransactionsList"/>
+           <widget class="QListWidget" name="TransactionsList">
+            <property name="spacing">
+             <number>8</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -454,7 +504,7 @@ QRadioButton::indicator{
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QFrame" name="frame">
+           <widget class="QFrame" name="dateEditFrame">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -476,13 +526,53 @@ QRadioButton::indicator{
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
               <widget class="QDateEdit" name="fromDateEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>1</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="calendarPopup">
                 <bool>true</bool>
                </property>
               </widget>
              </item>
              <item>
+              <widget class="QFrame" name="dateDivisionLine">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>35</width>
+                 <height>6</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>35</width>
+                 <height>6</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QDateEdit" name="toDateEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>1</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="calendarPopup">
                 <bool>true</bool>
                </property>

@@ -11,21 +11,6 @@
 #include <QJsonObject>
 #include <QMessageBox>
 
-void MainWindow::updateList()
-{
-    for (Transaction transaction : transactions)
-    {
-        if (transaction.getDate() >= fromDateTransactions && transaction.getDate() <= toDateTransactions)
-        {
-            QListWidgetItem* item = new QListWidgetItem( ui->TransactionsList );
-            TransactionsItem *transactionsItem = new TransactionsItem(transaction);
-
-            item->setSizeHint(transactionsItem->sizeHint());
-            ui->TransactionsList->setItemWidget(item, transactionsItem);
-        }
-    }
-}
-
 MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,  QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -63,9 +48,6 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
 
     fromDateTransactions.setDate(0001,1,1);
     toDateTransactions.setDate(9999,12,31);
-
-    updateList();
-    updatePiechart();
 }
 
 MainWindow::~MainWindow()
@@ -74,6 +56,7 @@ MainWindow::~MainWindow()
     delete piechart;
     delete ui;
 }
+
 
 void MainWindow::settingPiechart()
 {
@@ -99,6 +82,7 @@ qreal MainWindow::getCategoryTotalSum(QString categoryName)
 
     return totalsum;
 }
+
 void MainWindow::readCategories()
 {
     QNetworkReply *categoriesReply = qobject_cast<QNetworkReply*>(sender());
@@ -122,6 +106,9 @@ void MainWindow::readCategories()
         }
     }
 
+    updateList();
+    updatePiechart();
+
     categoriesReply->close();
     categoriesReply->deleteLater();
 }
@@ -139,6 +126,9 @@ void MainWindow::readTransactions()
         transactions = parser->parseVector(json_array);
     }
 
+    updateList();
+    updatePiechart();
+
     transactionsReply->close();
     transactionsReply->deleteLater();
 }
@@ -155,7 +145,7 @@ void MainWindow::finishedPostTransactions()
     {
         QString error = postTranasactionReply->errorString();
         qDebug() << error;
-        QMessageBox::about(this, "info", "Error: "+error);
+        QMessageBox::about(this, "info", "Error: " + error);
     }
     postTranasactionReply->close();
     postTranasactionReply->deleteLater();
@@ -170,6 +160,23 @@ void MainWindow::updatePiechart()
 
     piechart->update();
 }
+
+void MainWindow::updateList()
+{
+    ui->TransactionsList->clear();
+    for (Transaction transaction : transactions)
+    {
+        if (transaction.getDate() >= fromDateTransactions && transaction.getDate() <= toDateTransactions)
+        {
+            QListWidgetItem* item = new QListWidgetItem( ui->TransactionsList );
+            TransactionsItem *transactionsItem = new TransactionsItem(transaction);
+
+            item->setSizeHint(transactionsItem->sizeHint());
+            ui->TransactionsList->setItemWidget(item, transactionsItem);
+        }
+    }
+}
+
 
 void MainWindow::on_addTransactionButton_clicked()
 {
