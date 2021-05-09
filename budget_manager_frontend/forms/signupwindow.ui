@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>730</width>
-    <height>541</height>
+    <width>900</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,181 +17,302 @@
    <iconset resource="../resources/src.qrc">
     <normaloff>:/new/img/login.png</normaloff>:/new/img/login.png</iconset>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <property name="styleSheet">
-    <string notr="true">background-color: qlineargradient(spread:pad, x1:0.551, y1:0.835, x2:0.517236, y2:0.051, stop:0 rgba(0, 255, 0, 223), stop:1 rgba(255, 255, 255, 255));</string>
-   </property>
-   <widget class="QGroupBox" name="signUpForm">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>130</y>
-      <width>371</width>
-      <height>361</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Calibri</family>
-      <pointsize>14</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: qlineargradient(spread:pad, x1:0.511, y1:1, x2:0.527831, y2:0, stop:1 rgba(68, 255, 51, 0));
-border-color: rgb(0, 170, 0);
-font: 75 14pt &quot;Calibri&quot;;
-font: 75 8pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(0, 134, 0);
-font: 14pt &quot;Calibri&quot;;</string>
-    </property>
-    <property name="title">
-     <string>Please sign up</string>
-    </property>
-    <widget class="QLineEdit" name="nameLine">
-     <property name="geometry">
-      <rect>
-       <x>12</x>
-       <y>73</y>
-       <width>351</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">borde-sizer: 30px;
-borde-color: red;</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="emailLine">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>130</y>
-       <width>351</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">borde-sizer: 30px;
-borde-color: red;</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="passwordLine">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>190</y>
-       <width>351</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="echoMode">
-      <enum>QLineEdit::Password</enum>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="signUpButton">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>300</y>
-       <width>111</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Calibri</family>
-       <pointsize>14</pointsize>
-       <weight>50</weight>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#signUpButton{
-	color: rgb(0, 170, 0);
-	color: rgb(255, 255, 255);
-	background-color: rgb(0, 145, 0);
-	border-radius: 10px;
+  <property name="styleSheet">
+   <string notr="true">#centralwidget{
+	background: qlineargradient(spread:pad, x1:0, y1:0.960227, x2:1, y2:0, stop:0 rgba(13, 189, 217, 255), stop:1 rgba(0, 75, 230, 255))
 }
-#signUpButton:hover{
-	background-color:#00aa00;
-}</string>
-     </property>
-     <property name="text">
-      <string>sign up</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="backToLoginButton">
-     <property name="geometry">
-      <rect>
-       <x>140</x>
-       <y>330</y>
-       <width>91</width>
-       <height>19</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Calibri</family>
-       <pointsize>-1</pointsize>
-       <weight>50</weight>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#backToLoginButton{
-background-color:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:1, stop:1 rgba(0, 0, 0, 0));
-color: rgb(0, 134, 0);
-font-size: 16px;
-border:none;
+
+#signUpHeader{
+	font-size: 20px;
+}
+
+#backToLoginButton{
+ 	background: transparent;
+ 	font-size: 10px;
+	height:10px;
 }
 
 #backToLoginButton:hover{
-color: #ffffff;
-border:none;
+ 	color: rgb(25, 95, 227)
+}
+
+#signUpButton{
+	border-radius: 23px;
+	margin-top: 10px;
+	margin-left: 70px;
+	margin-right:70px;
+ 	background: transparent;
+ 	border: 1px solid white;
+ 	font-size: 20px;
+	height:45px;
+}
+
+#signUpButton::hover{
+ background: rgb(88, 153, 255);
+ border-style: none;
+}
+
+#signUpFrame{
+ 	border-radius: 20px;
+ 	border: 1px solid rgba(255,255,255,0.15);
+	background: rgba(10,10,10,0.5);
+ 
+ 	border-left-color: rgba(0,0,0,0.1);
+ 	border-top-color: rgba(0,0,0,0.1);
+}
+
+#emailLine, #nameLine,#passwordLine,#repeatPasswordLine{	
+	border: 1px solid rgba(255,255,255,0.3);
+ 	background: rgba(255,255,255,0.1);
+ 	border-radius: 15px;
+ 	font-size: 20px;
+ 	padding: 0 20px;
+ 	color: rgba(255,255,255,0.6);
+}
+
+#heavyWalletName{
+	font-size:40px;
 }</string>
-     </property>
-     <property name="text">
-      <string>Back to login</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="repeatPasswordLine">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>250</y>
-       <width>351</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="echoMode">
-      <enum>QLineEdit::Password</enum>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>20</y>
-      <width>371</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 132, 255);
-color: rgb(0, 153, 0);
-background-color: qlineargradient(spread:pad, x1:0.511, y1:1, x2:0.510978, y2:0, stop:0 rgba(97, 255, 255, 0), stop:1 rgba(255, 255, 255, 255));
-font: 75 24pt &quot;MS Shell Dlg 2&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Welcome to Heavy Wallet</string>
-    </property>
-   </widget>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="heavyWalletName">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Heavy Wallet</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QFrame" name="signUpFrame">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>350</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>400</width>
+        <height>350</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>30</number>
+       </property>
+       <property name="topMargin">
+        <number>15</number>
+       </property>
+       <property name="rightMargin">
+        <number>30</number>
+       </property>
+       <property name="bottomMargin">
+        <number>15</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="signUpHeader">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>45</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Реєстрація</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="nameLine">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="placeholderText">
+          <string>Ім'я</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="emailLine">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="placeholderText">
+          <string>Email</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="passwordLine">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+         <property name="placeholderText">
+          <string>Пароль</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="repeatPasswordLine">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+         <property name="placeholderText">
+          <string>Повторіть пароль</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="signUpButton">
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <pointsize>-1</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Створити</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="backToLoginButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <pointsize>-1</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Назад до входу</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources>

@@ -15,10 +15,7 @@ SignUpWindow::SignUpWindow(QSharedPointer<QNetworkAccessManager> manager, QWidge
     ui(new Ui::SignUpWindow)
 {
     ui->setupUi(this);
-    ui->nameLine->setPlaceholderText(" name");
-    ui->emailLine->setPlaceholderText(" email");
-    ui->passwordLine->setPlaceholderText(" password");
-    ui->repeatPasswordLine->setPlaceholderText(" repeat password");
+
     this->manager = manager;
 }
 
