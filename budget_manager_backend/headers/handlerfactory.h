@@ -12,7 +12,7 @@ namespace handlers
 class HandlerFactory : public Poco::Net::HTTPRequestHandlerFactory
 {
 private:
-//    std::shared_ptr <IDBManager> manager;
+    std::shared_ptr <IDBManager> manager;
     std::map <std::string, IHandler*> handlers;
 
     Poco::Net::HTTPRequestHandler* createRequestHandler(const Poco::Net::HTTPServerRequest& request) override;
