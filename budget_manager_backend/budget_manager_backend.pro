@@ -72,3 +72,23 @@ DEPENDPATH += \
     ../DAL/headers/repositories
 
 
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../poco/cmake-build/lib/release/ -lPocoData.71 -lPocoDataPostgreSQL.71 -lPocoDataSQLite.71\
+-lPocoEncodings.71 -lPocoFoundation.71 -lPocoJSON.71 -lPocoMongoDB.71 -lPocoNet.71 -lPocoRedis.71 -lPocoUtil.71\
+-lPocoXML.71 -lPocoZip.71
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../poco/cmake-build/lib/debug/ -lPocoData.71 -lPocoDataPostgreSQL.71 -lPocoDataSQLite.71\
+-lPocoEncodings.71 -lPocoFoundation.71 -lPocoJSON.71 -lPocoMongoDB.71 -lPocoNet.71 -lPocoRedis.71 -lPocoUtil.71\
+-lPocoXML.71 -lPocoZip.71
+else:unix: LIBS += -L$$PWD/../../poco/cmake-build/lib/ -lPocoData.71 -lPocoDataPostgreSQL.71 -lPocoDataSQLite.71\
+-lPocoEncodings.71 -lPocoFoundation.71 -lPocoJSON.71 -lPocoMongoDB.71 -lPocoNet.71 -lPocoRedis.71 -lPocoUtil.71\
+-lPocoXML.71 -lPocoZip.71
+
+INCLUDEPATH += $$PWD/../../poco/Foundation/include
+INCLUDEPATH += $$PWD/../../poco/Net/include
+INCLUDEPATH += $$PWD/../../poco/Util/include
+INCLUDEPATH += $$PWD/../../poco/JSON/include
+
+DEPENDPATH += $$PWD/../../poco/Foundation/include
+DEPENDPATH += $$PWD/../../poco/Net/include
+DEPENDPATH += $$PWD/../../poco/Util/include
+DEPENDPATH += $$PWD/../../poco/JSON/include
+

@@ -1,7 +1,4 @@
-#include <QCoreApplication>
+#include "applicationservice.h"
+#include <iostream>
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication a(argc, argv);
-    return a.exec();
-}
+POCO_SERVER_MAIN(ApplicationService)
