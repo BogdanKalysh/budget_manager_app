@@ -12,9 +12,10 @@
 
 class IHandler : public Poco::Net::HTTPRequestHandler
 {
-public:
-    std::shared_ptr <IDBManager> manager;
+private:
+    std::shared_ptr <IDBManager> _dbManager;
 
+public:
     virtual IHandler* getCopy() = 0;
     virtual QJsonObject convertIstreamToJson(std::istream &body) = 0;
 
