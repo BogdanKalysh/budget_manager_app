@@ -12,7 +12,7 @@
 
 class IHandler : public Poco::Net::HTTPRequestHandler
 {
-private:
+protected:
     std::shared_ptr <IDBManager> _dbManager;
 
 public:
