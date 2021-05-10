@@ -3,7 +3,7 @@
 
 #include "irepository.h"
 #include "category.h"
-
+#include <QColor>
 class CategoryRepository : public IRepository<Category>
 {
 public:

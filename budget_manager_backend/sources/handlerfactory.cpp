@@ -9,16 +9,19 @@ namespace handlers
 {
 
 HandlerFactory::HandlerFactory(){
-//    addHandler("/user", new UserHandler(manager));
+
+     manager.reset(new DBManager);
+     addHandler("/user", new UserHandler(manager));
 //    addHandler("/category", new CategoryHandler);
 //    addHandler("/transaction", new TransactionHandler);
 
-    manager.reset(new DBManager);
+   // manager.reset(new DBManager);
 }
 
 Poco::Net::HTTPRequestHandler* HandlerFactory::createRequestHandler(
     const Poco::Net::HTTPServerRequest& request)
 {
+    std::cout<<request.getURI();
     if(handlers[request.getURI()])
         return handlers[request.getURI()]->getCopy();
     return nullptr;

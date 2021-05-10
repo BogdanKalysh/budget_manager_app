@@ -39,7 +39,7 @@ bool CategoryRepository::update(const Category &object)
         QVector<QString> values;
         values << object.getName()
                << (object.getType() == 0?INCOME:EXPENSE)
-               << object.getColor().name();
+               << QColor(object.getColor()).name(QColor::NameFormat::HexRgb);
 
         query.exec(updateQueryBuilder(qMakePair(CATEGORY, object.getId()), fields, values));
         db.close();

@@ -11,7 +11,6 @@ QVector<User> UserRepository::select(const QString &query)
     if(db.open())
     {
         QSqlQuery result(query);
-
         while(result.next()){
             users.push_back(User(
                                 result.value(ID).toInt(),

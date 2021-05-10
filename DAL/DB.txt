@@ -1,5 +1,5 @@
 DB:QPSQL
-HOST:34.118.91.164
-USER:andriy
-PASSWORD:root
+HOST:localhost
+USER:postgres
+PASSWORD:1111
 DBNAME:budget-manager
