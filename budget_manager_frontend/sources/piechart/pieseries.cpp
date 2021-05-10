@@ -76,6 +76,7 @@ void PieSeries::append(QSharedPointer<PieSlice> slice)
         slice->setSpanAngle(spanAngle);
         startAngle+=spanAngle;
 
+        slice->resize(this->width(),this->height());
         slice->setPen(Qt::NoPen);                   // it sets the border of pislice to none
         slice->installEventFilter(this);
         slice->show();

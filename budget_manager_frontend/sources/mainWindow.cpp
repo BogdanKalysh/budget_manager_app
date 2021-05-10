@@ -211,7 +211,6 @@ void MainWindow::on_incomeRadioButton_clicked()
         if(cat.getType())
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
-    updatePiechart();
 }
 
 void MainWindow::on_expenceRadioButton_clicked()
@@ -221,7 +220,6 @@ void MainWindow::on_expenceRadioButton_clicked()
         if(!cat.getType())
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
-    updatePiechart();
 }
 
 void MainWindow::on_fromDateEdit_dateChanged(const QDate &date)
