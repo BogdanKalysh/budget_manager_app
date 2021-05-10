@@ -602,17 +602,17 @@ QListWidget::item::hover{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label">
-            <property name="minimumSize">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
              <size>
-              <width>0</width>
-              <height>0</height>
+              <width>20</width>
+              <height>20</height>
              </size>
             </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
+           </spacer>
           </item>
          </layout>
         </widget>
