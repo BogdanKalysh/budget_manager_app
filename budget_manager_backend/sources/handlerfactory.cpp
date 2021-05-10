@@ -9,11 +9,11 @@ namespace handlers
 {
 
 HandlerFactory::HandlerFactory(){
+      manager.reset(new DBManager);
+
 //    addHandler("/user", new UserHandler(manager));
 //    addHandler("/category", new CategoryHandler);
 //    addHandler("/transaction", new TransactionHandler);
-
-    manager.reset(new DBManager);
 }
 
 Poco::Net::HTTPRequestHandler* HandlerFactory::createRequestHandler(
