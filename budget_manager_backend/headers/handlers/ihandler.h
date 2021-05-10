@@ -16,7 +16,7 @@ public:
     std::shared_ptr <IDBManager> manager;
 
     virtual IHandler* getCopy() = 0;
-    virtual QJsonObject convertIsteamToJson(std::istream &body) = 0;
+    virtual QJsonObject convertIstreamToJson(std::istream &body) = 0;
 
     virtual void get(Poco::Net::HTTPServerRequest& request,
                      Poco::Net::HTTPServerResponse& response) = 0;
