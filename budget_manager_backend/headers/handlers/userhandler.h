@@ -1,12 +1,15 @@
 #ifndef USERHANDLER_H
 #define USERHANDLER_H
+
 #include "ihandler.h"
 #include "userparser.h"
 #include <QJsonDocument>
+
 class UserHandler: public IHandler
 {
 private:
     UserParser parser;
+    
 public:
     UserHandler(std::shared_ptr<IDBManager> manager);
     IHandler* getCopy() override;

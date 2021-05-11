@@ -3,3 +3,4 @@ HOST:localhost
 USER:postgres
 PASSWORD:postgresqlpass
 DBNAME:heavy_wallet
+

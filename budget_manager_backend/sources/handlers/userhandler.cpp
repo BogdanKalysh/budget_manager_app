@@ -156,3 +156,43 @@ void UserHandler::handleRequest(
         response.send();
     }
 }
+
+void UserHandler::get(Poco::Net::HTTPServerRequest& request,
+                       Poco::Net::HTTPServerResponse& response)
+{
+
+}
+
+void UserHandler::post(Poco::Net::HTTPServerRequest& request,
+                       Poco::Net::HTTPServerResponse& response)
+{
+    QJsonObject bodyObj = convertIstreamToJson(request.stream());
+
+    UserParser parser;
+    User user = parser.parse(bodyObj);
+
+    qDebug() << user.getName();
+
+
+    IRepository<User> * repository = _dbManager->getUserRepository();
+    repository->add(user);
+
+    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+    response.send();
+}
+
+void UserHandler::put(Poco::Net::HTTPServerRequest& request,
+                      Poco::Net::HTTPServerResponse& response)
+{
+
+}
+
+void UserHandler::del(Poco::Net::HTTPServerRequest& request,
+                      Poco::Net::HTTPServerResponse& response)
+{
+
+}
+
+//UserHandler::~UserHandler(){
+
+//}

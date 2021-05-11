@@ -102,47 +102,6 @@ win32: LIBS += -LC:/msys64/mingw64/bin/ \
     -llibPocoXML.dll\
     -llibPocoZip.dll
 
-
-#win32:CONFIG(release, debug|release): LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoData.dll \
-#-llibPocoFoundation.dll\
-#-llibPocoDataSQLite.dll\
-#-llibPocoDataPostgreSQL.dll\
-#-llibPocoDataPostgreSQL.dll\
-#-llibPocoEncodings.dll \
-#-llibPocoJSON.dll\
-#-llibPocoNet.dll\
-#-llibPocoRedis.dll\
-#-llibPocoUtil.dll\
-#-llibPocoXML.dll\
-#-llibPocoZip.dll
-
-#else:win32:CONFIG(debug, debug|release): LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoData.dll \
-#-llibPocoFoundation.dll\
-#-llibPocoDataSQLite.dll\
-#-llibPocoDataPostgreSQL.dll\
-#-llibPocoDataPostgreSQL.dll\
-#-llibPocoEncodings.dll \
-#-llibPocoJSON.dll\
-#-llibPocoNet.dll\
-#-llibPocoRedis.dll\
-#-llibPocoUtil.dll\
-#-llibPocoXML.dll\
-#-llibPocoZip.dll
-
-#else:unix: LIBS += -LE:/Programming/msys2/mingw64/bin/ -llibPocoData.dll \
-#-llibPocoFoundation.dll\
-#-llibPocoDataSQLite.dll\
-#-llibPocoDataPostgreSQL.dll\
-#-llibPocoDataPostgreSQL.dll\
-#-llibPocoEncodings.dll \
-#-llibPocoJSON.dll\
-#-llibPocoNet.dll\
-#-llibPocoRedis.dll\
-#-llibPocoUtil.dll\
-#-llibPocoXML.dll\
-#-llibPocoZip.dll
-
-
 INCLUDEPATH += C:/msys64/mingw64/include
 DEPENDPATH += C:/msys64/mingw64/include
 
