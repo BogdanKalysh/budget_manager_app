@@ -4,8 +4,8 @@
 
 CategoryHandler::CategoryHandler(std::shared_ptr<IDBManager> dbManager)
 {
-    manager = dbManager;
-    repository.reset(manager->getCategoryRepository());
+    _dbManager = dbManager;
+    repository.reset(_dbManager->getCategoryRepository());
 }
 
 
@@ -76,7 +76,7 @@ void CategoryHandler::del(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTP
 }
 
 IHandler *CategoryHandler::getCopy(){
-    return new CategoryHandler(manager);
+    return new CategoryHandler(_dbManager);
 }
 
 void CategoryHandler::handleRequest(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response)
