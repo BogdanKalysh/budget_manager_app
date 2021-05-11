@@ -7,8 +7,11 @@
 class UserHandler: public AbstractHandler
 {
 protected:
-    std::shared_ptr<IJsonParser<User>> parser;
-    std::shared_ptr<IRepository<User>> repository;
+    using parsPtr = std::shared_ptr<IJsonParser<User>>;
+    using reposPtr = std::shared_ptr<IRepository<User>>;
+
+    parsPtr parser;
+    reposPtr repository;
 
     void get(Poco::Net::HTTPServerRequest& request,
             Poco::Net::HTTPServerResponse& response) override;

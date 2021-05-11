@@ -7,8 +7,11 @@
 class CategoryHandler : public AbstractHandler
 {
 protected:
-    std::shared_ptr<IJsonParser<Category>> parser;
-    std::shared_ptr<IRepository<Category>> repository;
+    using parsPtr = std::shared_ptr<IJsonParser<Category>>;
+    using reposPtr = std::shared_ptr<IRepository<Category>>;
+
+    parsPtr parser;
+    reposPtr repository;
 
     void get(Poco::Net::HTTPServerRequest& request,
             Poco::Net::HTTPServerResponse& response) override;

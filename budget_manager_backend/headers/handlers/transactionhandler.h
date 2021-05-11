@@ -7,8 +7,11 @@
 class TransactionHandler : public AbstractHandler
 {
 protected:
-    std::shared_ptr<IJsonParser<Transaction>> parser;
-    std::shared_ptr<IRepository<Transaction>> repository;
+    using parsPtr = std::shared_ptr<IJsonParser<Transaction>>;
+    using reposPtr = std::shared_ptr<IRepository<Transaction>>;
+
+    parsPtr parser;
+    reposPtr repository;
 
     void get(Poco::Net::HTTPServerRequest& request,
             Poco::Net::HTTPServerResponse& response) override;
