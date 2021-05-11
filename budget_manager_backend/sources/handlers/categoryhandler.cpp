@@ -1,6 +1,109 @@
 #include "categoryhandler.h"
+#include "categoryparser.h"
+#include "categoryjsonbuilder.h"
 
-CategoryHandler::CategoryHandler()
+CategoryHandler::CategoryHandler(std::shared_ptr<IDBManager> dbManager)
 {
-
+    manager = dbManager;
+    repository.reset(manager->getCategoryRepository());
 }
+
+
+void CategoryHandler::get(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
+    QJsonObject bodyObj = convertIstreamToJson(request.stream());
+
+    Poco::JSON::Object obj;
+
+    int user_id = bodyObj.value(parser::USER_ID).toInt();
+
+    QString query(QString("SELECT * FROM %1 WHERE user_id = %2 ORDER BY %3 ASC").
+                  arg(dal::CATEGORY, QString::number(user_id), dal::ID));
+
+    QVector<Category> categories = repository->select(query);
+    CategoryJsonBuilder categoryJsonBuilder;
+    QJsonArray jsonArr;
+
+    for (const auto &category : categories){
+        jsonArr.append(categoryJsonBuilder.buildJson(category));
+    }
+
+    QJsonDocument doc;
+    doc.setArray(jsonArr);
+    QString jsonString = doc.toJson();
+
+    response.setContentType("application/json");
+
+    std::ostream& ostr = response.send();
+    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+    ostr<< jsonString.toStdString();
+}
+
+void CategoryHandler::post(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
+    QJsonObject bodyObj = convertIstreamToJson(request.stream());
+
+    CategoryParser parser;
+    Category category = parser.parse(bodyObj);
+
+    qDebug() << category.getName();
+
+    repository->add(category);
+
+    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+    response.send();
+}
+
+void CategoryHandler::put(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
+    QJsonObject bodyObj = convertIstreamToJson(request.stream());
+
+    CategoryParser parser;
+    Category category = parser.parse(bodyObj);
+
+    repository->update(category);
+
+    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+    response.send();
+}
+
+void CategoryHandler::del(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
+    QJsonObject bodyObj = convertIstreamToJson(request.stream());
+    CategoryParser parser;
+    Category category = parser.parse(bodyObj);
+
+    repository->deleteObject(category.getId());
+
+    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+    response.send();
+}
+
+IHandler *CategoryHandler::getCopy(){
+    return new CategoryHandler(manager);
+}
+
+void CategoryHandler::handleRequest(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response)
+{
+    if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_GET){
+        get(request, response);
+    }else if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_POST){
+        post(request, response);
+    }else if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_PUT){
+        put(request, response);
+    }else if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_DELETE){
+        del(request, response);
+    }
+}
+
+
+
+QJsonObject CategoryHandler::convertIstreamToJson(std::istream &body)
+{
+    std::string sBody;
+    sBody = std::string((std::istreambuf_iterator<char>(body)), std::istreambuf_iterator<char>());
+
+    QString qBody = QString::fromStdString(sBody);
+    QByteArray br = qBody.toUtf8();
+    QJsonDocument doc = QJsonDocument::fromJson(br);
+    QJsonObject obj = doc.object();
+
+    return obj;
+}
+
