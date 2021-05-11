@@ -8,7 +8,7 @@ Transaction TransactionParser::parse(QJsonObject json)
     QDate date = json.value(jsonbuilder::DATE).toVariant().toDate();
     QString description = json.value(jsonbuilder::DESCRIPTION).toString();
 
-    int categoryId = json.value(jsonbuilder::CATEGORYID).toInt();
+    int categoryId = json.value(jsonbuilder::CATEGORY_ID).toInt();
     QString categoryName = json.value(jsonbuilder::CATEGORYNAME).toString();
     QColor color(json.value(jsonbuilder::COLOR).toString());
     QString type = json.value(jsonbuilder::TYPE).toString();

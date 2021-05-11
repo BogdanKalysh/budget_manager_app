@@ -1,24 +1,14 @@
 #ifndef USERHANDLER_H
 #define USERHANDLER_H
 
-#include "ihandler.h"
+#include "abstracthandler.h"
 #include "userparser.h"
 
-class UserHandler: public IHandler
+class UserHandler: public AbstractHandler
 {
-private:
-    UserParser parser;
+protected:
+    std::shared_ptr<IJsonParser<User>> parser;
     std::shared_ptr<IRepository<User>> repository;
-
-public:
-    UserHandler(std::shared_ptr<IDBManager> manager);
-    IHandler* getCopy() override;
-
-//    QJsonObject convertIstreamToJson(std::istream &body) override;
-
-    void handleRequest(
-            Poco::Net::HTTPServerRequest& request,
-            Poco::Net::HTTPServerResponse& response) override;
 
     void get(Poco::Net::HTTPServerRequest& request,
             Poco::Net::HTTPServerResponse& response) override;
@@ -27,6 +17,14 @@ public:
     void put(Poco::Net::HTTPServerRequest& request,
             Poco::Net::HTTPServerResponse& response) override;
     void del(Poco::Net::HTTPServerRequest& request,
+            Poco::Net::HTTPServerResponse& response) override;
+
+public:
+    UserHandler(std::shared_ptr<IDBManager> dbManager, std::shared_ptr<IParserManager> parserManager);
+    AbstractHandler* getCopy() override;
+
+    void handleRequest(
+            Poco::Net::HTTPServerRequest& request,
             Poco::Net::HTTPServerResponse& response) override;
 };
 

@@ -22,7 +22,7 @@ QVector<Transaction> TransactionRepository::select(const QString &query)
                                 result.value(TYPE).toString()
                                 ));
            }
-
+        db.close();
     } else {
         qDebug() << db.lastError();
     }

@@ -19,24 +19,25 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,  QWidget *parent=nullptr);
-
     ~MainWindow();
+
 protected:
     void settingPiechart();
     qreal getCategoryTotalSum(QString categoryName);
+
 public slots:
+    void updateFromDb();
     void readCategories();
     void readTransactions();
     void finishedPostTransactions();
     void updatePiechart();
     void updateList();
+
 private slots:
     void on_addTransactionButton_clicked();
     void on_incomeRadioButton_clicked();
     void on_expenceRadioButton_clicked();
-
     void on_fromDateEdit_dateChanged(const QDate &date);
-
     void on_toDateEdit_dateChanged(const QDate &date);
 
 private:

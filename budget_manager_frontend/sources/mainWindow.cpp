@@ -4,6 +4,7 @@
 #include "transactionparser.h"
 #include "transactionJsonBuilder.h"
 #include "TransactionsListItem.h"
+#include "constants.h"
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QJsonArray>
@@ -22,9 +23,7 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
 
     piechart = ui->pieChartFrame->findChild<Piechart*>("donutPiechart");
     piechart->installEventFilter(this);
-
     series = new PieSeries();
-
     piechart->setSeries(series);
     settingPiechart();
 
@@ -38,16 +37,10 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
 
     ui->amountInputLine->setValidator(new QIntValidator(0, 10000000, this));
 
-    QString getCategoriesQuery = "http://127.0.0.1:5000/rating/getcategories?u_email=" + user.getEmail();
-    QNetworkReply *categoriesReply = manager->get(QNetworkRequest(QUrl(getCategoriesQuery)));
-    connect(categoriesReply, &QNetworkReply::readyRead, this, &MainWindow::readCategories);
-
-    QString getTransactionsQuery = "http://127.0.0.1:5000/rating/gettransactions?u_email=" + user.getEmail() + "&lim=10";
-    QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
-    connect(transactionsReply, &QNetworkReply::readyRead, this, &MainWindow::readTransactions);
-
     fromDateTransactions.setDate(0001,1,1);
     toDateTransactions.setDate(9999,12,31);
+
+    updateFromDb();
 }
 
 MainWindow::~MainWindow()
@@ -58,30 +51,28 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::settingPiechart()
+void MainWindow::updateFromDb()
 {
-    QFont font;
-    font.setStyleHint(QFont::Times, QFont::PreferAntialias);
+    QJsonObject jObj;
+    jObj.insert(jsonbuilder::USER_ID, QJsonValue::fromVariant(user.getId()));
+    QByteArray byteData = QJsonDocument(jObj).toJson();
 
-    series->setCentralTitleFont(font);
-    series->setHoleSize(0.8);
-    series->setHoleColor(QColor("#0a5074"));
-    series->setMarginY(0.18);
-    series->setHoleTextColor(QColor(255,255,255));
-    piechart->setTextColor(QColor(255,255,255));
+
+    QNetworkRequest request = QNetworkRequest(QUrl("http://localhost:5000/category?json=" + byteData));
+    request.setRawHeader("Content-Type", "application/json");
+    QNetworkReply* categoriesReply = manager->get(request);
+    connect(categoriesReply, &QNetworkReply::readyRead, this, &MainWindow::readCategories);
+
+//    QString getCategoriesQuery = "http://127.0.0.1:5000/rating/getcategories?u_email=" + user.getEmail();
+//    QNetworkReply *categoriesReply = manager->get(QNetworkRequest(QUrl(getCategoriesQuery)));
+//    connect(categoriesReply, &QNetworkReply::readyRead, this, &MainWindow::readCategories);
+
+//    QString getTransactionsQuery = "http://127.0.0.1:5000/rating/gettransactions?u_email=" + user.getEmail() + "&lim=10";
+//    QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
+//    connect(transactionsReply, &QNetworkReply::readyRead, this, &MainWindow::readTransactions);
+
 }
 
-qreal MainWindow::getCategoryTotalSum(QString categoryName)
-{
-    qreal totalsum = 0;
-
-    for(Transaction & transac:transactions){
-        if(transac.getCategoryName()==categoryName)
-            totalsum+= transac.getAmount();
-    }
-
-    return totalsum;
-}
 
 void MainWindow::readCategories()
 {
@@ -151,6 +142,32 @@ void MainWindow::finishedPostTransactions()
     postTranasactionReply->deleteLater();
 }
 
+
+void MainWindow::settingPiechart()
+{
+    QFont font;
+    font.setStyleHint(QFont::Times, QFont::PreferAntialias);
+
+    series->setCentralTitleFont(font);
+    series->setHoleSize(0.8);
+    series->setHoleColor(QColor("#0a5074"));
+    series->setMarginY(0.18);
+    series->setHoleTextColor(QColor(255,255,255));
+    piechart->setTextColor(QColor(255,255,255));
+}
+
+qreal MainWindow::getCategoryTotalSum(QString categoryName)
+{
+    qreal totalsum = 0;
+
+    for(Transaction & transac:transactions){
+        if(transac.getCategoryName()==categoryName)
+            totalsum+= transac.getAmount();
+    }
+
+    return totalsum;
+}
+
 void MainWindow::updatePiechart()
 {
     series->clear();
@@ -193,7 +210,7 @@ void MainWindow::on_addTransactionButton_clicked()
         QJsonDocument jsonDoc(builder->buildJson(Transaction (0, amount, description, categoryId)));
         QByteArray byteData = jsonDoc.toJson();
 
-        QNetworkRequest request = QNetworkRequest(QUrl("http://127.0.0.1:5000/rating/posttransaction"));
+        QNetworkRequest request = QNetworkRequest(QUrl("http://localhost:5000/transaction"));
         request.setRawHeader("Content-Type", "application/json");
         QNetworkReply* postTranasactionReply = manager->post(request, byteData);
         connect(postTranasactionReply, &QNetworkReply::finished, this, &MainWindow::finishedPostTransactions);
@@ -203,6 +220,7 @@ void MainWindow::on_addTransactionButton_clicked()
     }
     updatePiechart();
 }
+
 
 void MainWindow::on_incomeRadioButton_clicked()
 {
@@ -221,6 +239,7 @@ void MainWindow::on_expenceRadioButton_clicked()
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
 }
+
 
 void MainWindow::on_fromDateEdit_dateChanged(const QDate &date)
 {

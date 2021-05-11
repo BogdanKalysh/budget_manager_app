@@ -1,16 +1,17 @@
 #include "userhandler.h"
 #include "userjsonbuilder.h"
 
-UserHandler::UserHandler(std::shared_ptr<IDBManager> manager)
+UserHandler::UserHandler(std::shared_ptr<IDBManager> dbManager, std::shared_ptr<IParserManager> parserManager)
 {
-    this->_dbManager = manager;
-    parser = UserParser();
+    this->_dbManager = dbManager;
+    this->_parserManager = parserManager;
+    parser.reset(_parserManager->getUserParser());
     repository.reset(_dbManager->getUserRepository());
 }
 
-IHandler *UserHandler::getCopy()
+AbstractHandler *UserHandler::getCopy()
 {
-    return new UserHandler(this->_dbManager);
+    return new UserHandler(_dbManager, _parserManager);
 }
 
 void UserHandler::get(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response)
@@ -49,7 +50,7 @@ void UserHandler::post(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPSer
     try {
 
     QJsonObject json = convertIstreamToJson(request.stream());
-    User user = parser.parse(json);
+    User user = parser->parse(json);
 
     QVector<User> users = repository->select("SELECT * FROM users WHERE "+ dal::MAIL + "='"+user.getEmail()+"';" );
     if(users.empty()){
@@ -72,7 +73,7 @@ void UserHandler::put(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServ
 {
     try {
     QJsonObject json = convertIstreamToJson(request.stream());
-    User user = parser.parse(json);
+    User user = parser->parse(json);
 
     QVector<User> users = repository->select("SELECT * FROM users WHERE "+ dal::ID + "=" + std::to_string(user.getId()).c_str() + ";" );
 

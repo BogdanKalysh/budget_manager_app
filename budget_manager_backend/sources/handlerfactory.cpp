@@ -1,6 +1,7 @@
 #include "handlerfactory.h"
 #include <Poco/Net/HTTPServerRequest.h>
 #include "dbmanager.h"
+#include "parsermanager.h"
 #include "userhandler.h"
 #include "categoryhandler.h"
 #include "transactionhandler.h"
@@ -10,22 +11,22 @@ namespace handlers
 
 HandlerFactory::HandlerFactory(){
     _dbManager.reset(new DBManager);
+    _parserManager.reset(new ParserManager);
 
-    addHandler("/user", new UserHandler(_dbManager));
-    addHandler("/category", new CategoryHandler(_dbManager));
-    addHandler("/transaction", new TransactionHandler(_dbManager));
+    addHandler("/user", new UserHandler(_dbManager, _parserManager));
+    addHandler("/category", new CategoryHandler(_dbManager, _parserManager));
+    addHandler("/transaction", new TransactionHandler(_dbManager, _parserManager));
 }
 
 Poco::Net::HTTPRequestHandler* HandlerFactory::createRequestHandler(
     const Poco::Net::HTTPServerRequest& request)
 {
-    std::cout<<request.getURI();
     if(handlers[request.getURI()])
         return handlers[request.getURI()]->getCopy();
     return nullptr;
 }
 
-void HandlerFactory::addHandler(std::string uri, IHandler* handler)
+void HandlerFactory::addHandler(std::string uri, AbstractHandler* handler)
 {
     handlers[uri] = handler;
 }

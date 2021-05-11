@@ -1,15 +1,17 @@
 #include "categoryhandler.h"
 #include "categoryjsonbuilder.h"
 
-CategoryHandler::CategoryHandler(std::shared_ptr<IDBManager> dbManager)
+CategoryHandler::CategoryHandler(std::shared_ptr<IDBManager> dbManager, std::shared_ptr<IParserManager> parserManager)
 {
-    _dbManager = dbManager;
-    parser = CategoryParser();
+    this->_dbManager = dbManager;
+    this->_parserManager = parserManager;
+    parser.reset(_parserManager->getCategoryParser());
     repository.reset(_dbManager->getCategoryRepository());
 }
 
-IHandler *CategoryHandler::getCopy(){
-    return new CategoryHandler(_dbManager);
+AbstractHandler *CategoryHandler::getCopy()
+{
+    return new CategoryHandler(_dbManager, _parserManager);
 }
 
 
@@ -45,7 +47,7 @@ void CategoryHandler::get(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTP
 void CategoryHandler::put(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
     QJsonObject bodyObj = convertIstreamToJson(request.stream());
 
-    Category category = parser.parse(bodyObj);
+    Category category = parser->parse(bodyObj);
 
     repository->update(category);
 
@@ -57,7 +59,7 @@ void CategoryHandler::put(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTP
 void CategoryHandler::post(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
     QJsonObject bodyObj = convertIstreamToJson(request.stream());
 
-    Category category = parser.parse(bodyObj);
+    Category category = parser->parse(bodyObj);
 
     repository->add(category);
 
@@ -67,7 +69,7 @@ void CategoryHandler::post(Poco::Net::HTTPServerRequest& request, Poco::Net::HTT
 
 void CategoryHandler::del(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
     QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    Category category = parser.parse(bodyObj);
+    Category category = parser->parse(bodyObj);
 
     repository->deleteObject(category.getId());
 
