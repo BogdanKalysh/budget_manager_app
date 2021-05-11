@@ -48,7 +48,7 @@ void SignUpWindow::on_signUpButton_clicked()
     else
     {
         QByteArray hash = QCryptographicHash::hash(ui->passwordLine->text().toLocal8Bit(), QCryptographicHash::Sha224);
-        User user(ui->nameLine->text(), ui->emailLine->text(), hash.toHex().data());
+        User user(0, ui->nameLine->text(), ui->emailLine->text(), hash.toHex().data());
         QScopedPointer<IJsonBuilder<User>> builder (new UserJsonBuilder);
         QJsonObject jsonData =  builder->buildJson(user);
         QJsonDocument jsonDoc(jsonData);

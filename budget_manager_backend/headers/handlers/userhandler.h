@@ -2,31 +2,32 @@
 #define USERHANDLER_H
 
 #include "ihandler.h"
-#include "ijsonparser.h"
-#include "user.h"
+#include "userparser.h"
+#include <QJsonDocument>
 
-class UserHandler : public IHandler //<User>
+class UserHandler: public IHandler
 {
+private:
+    UserParser parser;
+    
 public:
-//    UserHandler();
-    UserHandler(std::shared_ptr <IDBManager> manager);
+    UserHandler(std::shared_ptr<IDBManager> manager);
     IHandler* getCopy() override;
-    QJsonObject convertIstreamToJson(std::istream &body) override;
-    void handleRequest(
-            Poco::Net::HTTPServerRequest& request,
-            Poco::Net::HTTPServerResponse& response) override;
 
+    QJsonObject convertIstreamToJson(std::istream &body) override;
+
+    void handleRequest(
+        Poco::Net::HTTPServerRequest& request,
+        Poco::Net::HTTPServerResponse& response) override;
 
     void get(Poco::Net::HTTPServerRequest& request,
-             Poco::Net::HTTPServerResponse& response) override;
+                     Poco::Net::HTTPServerResponse& response) override;
     void post(Poco::Net::HTTPServerRequest& request,
-              Poco::Net::HTTPServerResponse& response) override;
+                      Poco::Net::HTTPServerResponse& response) override;
     void put(Poco::Net::HTTPServerRequest& request,
-             Poco::Net::HTTPServerResponse& response) override;
+                     Poco::Net::HTTPServerResponse& response) override;
     void del(Poco::Net::HTTPServerRequest& request,
-             Poco::Net::HTTPServerResponse& response) override;
-
-//    ~UserHandler();
+                     Poco::Net::HTTPServerResponse& response) override;
 };
 
 #endif // USERHANDLER_H

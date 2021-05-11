@@ -84,11 +84,11 @@ DEPENDPATH += \
     ../DAL/headers/repositories
 
 
-win32:CONFIG(release, debug|release): LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoNet.dll
-else:win32:CONFIG(debug, debug|release): LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoNet.dll
-else:unix: LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoNet.dll
+win32:CONFIG(release, debug|release): LIBS += -LC:/msys64/mingw64/lib/ -llibPocoNet.dll
+else:win32:CONFIG(debug, debug|release): LIBS += -LC:/msys64/mingw64/lib/ -llibPocoNet.dll
+else:unix: LIBS += -LC:/Programming/msys2/mingw64/lib/ -llibPocoNet.dll
 
-win32: LIBS += -LE:/Programming/msys2/mingw64/bin/ \
+win32: LIBS += -LC:/msys64/mingw64/bin/ \
     -llibPocoData.dll \
     -llibPocoFoundation.dll\
     -llibPocoDataSQLite.dll\
@@ -102,7 +102,22 @@ win32: LIBS += -LE:/Programming/msys2/mingw64/bin/ \
     -llibPocoXML.dll\
     -llibPocoZip.dll
 
+INCLUDEPATH += C:/msys64/mingw64/include
+DEPENDPATH += C:/msys64/mingw64/include
 
-INCLUDEPATH += E:/Programming/msys2/mingw64/include
-DEPENDPATH += E:/Programming/msys2/mingw64/include
+#QMAKE_EXTRA_TARGETS += before_build makefilehook
+
+#makefilehook.target = $(MAKEFILE)
+#makefilehook.depends = .beforebuild
+
+#PRE_TARGETDEPS += .beforebuild
+
+
+#before_build.target = .beforebuild
+#before_build.depends = FORCE
+#before_build.commands = chcp 1251
+
+
+
+
 

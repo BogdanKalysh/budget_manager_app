@@ -4,11 +4,12 @@
 
 User UserParser::parse(QJsonObject json)
 {
+    int id = json.value(jsonbuilder::ID).toInt();
     QString name = json.value(jsonbuilder::NAME).toString();
     QString email = json.value(jsonbuilder::EMAIL).toString();
     QString password = json.value(jsonbuilder::PASSWORD).toString();
 
-    return User(name, email, password);
+    return User(id, name, email, password);
 }
 
 
