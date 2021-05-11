@@ -20,6 +20,15 @@ Transaction::Transaction(const int id, const int amount, const QDate &date, cons
     this->setCategoryId(categoryId);
 }
 
+Transaction::Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId, QString categoryName, QColor color, QString type)
+    :Transaction(id, amount, date, description, categoryId)
+{
+    this->setCategoryName(categoryName);
+    this->setColor(color);
+    this->setType(type);
+}
+
+
 int Transaction::getId() const
 {
     return this->id;
@@ -44,6 +53,22 @@ QString Transaction::getDescription() const
 {
     return this->description;
 }
+
+QString Transaction::getCategoryName()
+{
+    return this->categoryName;
+}
+
+QColor Transaction::getColor()
+{
+    return this->color;
+}
+
+QString Transaction::getType()
+{
+    return this->type;
+}
+
 
 QString Transaction::setId(const int id)
 {
@@ -77,5 +102,23 @@ QString Transaction::setCategoryId(const int categoryId)
 {
     // TODO: Validation logic; It may be realized with the help of QIntValidator
     this->categoryId = categoryId;
+    return "Success";
+}
+
+QString Transaction::setCategoryName(const QString &categoryName)
+{
+    this->categoryName = categoryName;
+    return "Success";
+}
+
+QString Transaction::setColor(const QColor &color)
+{
+    this->color = color;
+    return "Success";
+}
+
+QString Transaction::setType(const QString type)
+{
+    this->type = type;
     return "Success";
 }
