@@ -1,4 +1,8 @@
 #include "applicationservice.h"
 #include <iostream>
 
-POCO_SERVER_MAIN(ApplicationService)
+int main(int argc, char** argv)
+{
+    ApplicationService app;
+    return app.run(argc, argv);
+}

@@ -1,18 +1,17 @@
 #ifndef IHANDLER_H
 #define IHANDLER_H
-
+#include "ijsonparser.h"
+#include "idbmanager.h"
 #include <Poco/Net/HTTPRequestHandler.h>
 #include <Poco/Net/HTTPServerRequest.h>
 #include <Poco/Net/HTTPServerResponse.h>
 #include <Poco/JSON/Object.h>
-#include "ijsonparser.h"
-#include "idbmanager.h"
-#include <memory>
 #include <Poco/JSON/Object.h>
+#include <memory>
 
 class IHandler : public Poco::Net::HTTPRequestHandler
 {
-private:
+protected:
     std::shared_ptr <IDBManager> _dbManager;
 
 public:
