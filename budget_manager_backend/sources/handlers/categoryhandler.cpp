@@ -44,8 +44,6 @@ void CategoryHandler::post(Poco::Net::HTTPServerRequest& request, Poco::Net::HTT
     CategoryParser parser;
     Category category = parser.parse(bodyObj);
 
-    qDebug() << category.getName();
-
     repository->add(category);
 
     response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);

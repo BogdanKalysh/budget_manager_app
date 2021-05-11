@@ -6,6 +6,9 @@
 class ApplicationService : public Poco::Util::ServerApplication
 {
 public:
+    ApplicationService();
+    ~ApplicationService() override;
+protected:
     int main(const std::vector<std::string>& args) override;
 };
 

@@ -1,5 +1,6 @@
 DB:QPSQL
-HOST:34.118.91.164
-USER:andriy
-PASSWORD:root
-DBNAME:budget-manager
+HOST:localhost
+USER:postgres
+PASSWORD:postgresqlpass
+DBNAME:heavy_wallet
+

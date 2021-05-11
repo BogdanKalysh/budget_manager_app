@@ -12,7 +12,7 @@ namespace parser {
     const QString COLOR = "color";
     const QString AMOUNT = "amount";
     const QString DESCRIPTION = "description";
-    const QString CATEGORY_ID = "categoryId";
+    const QString CATEGORY_ID = "category_id";
     const QString DATE = "date";
     const QString EMAIL = "email";
     const QString PASSWORD = "password";

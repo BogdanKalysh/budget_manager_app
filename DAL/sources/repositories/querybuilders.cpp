@@ -22,6 +22,7 @@ QString insertQueryBuilder(QString table, QVector<QString> fields, QVector<QStri
                 queryValues += ")";
             }
         }
+        qDebug()<<queryInsert + queryValues;
         return queryInsert + queryValues;
     }
     return "";
