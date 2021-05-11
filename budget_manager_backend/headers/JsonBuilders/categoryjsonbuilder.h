@@ -1,11 +1,13 @@
 #ifndef CATEGORYJSONBUILDER_H
 #define CATEGORYJSONBUILDER_H
-
-
-class CategoryJsonBuilder
+#include "category.h"
+#include "IJsonBuilder.h"
+#include <QJsonObject>
+#include <QJsonValue>
+class CategoryJsonBuilder : IJsonBuilder<Category>
 {
 public:
-    CategoryJsonBuilder();
+    QJsonObject buildJson(Category category) override;
 };
 
 #endif // CATEGORYJSONBUILDER_H
