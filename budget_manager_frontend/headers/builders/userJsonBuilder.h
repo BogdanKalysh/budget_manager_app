@@ -1,5 +1,6 @@
 #ifndef USERJSONBUILDER_H
 #define USERJSONBUILDER_H
+
 #include "IJsonBuilder.h"
 #include <QJsonObject>
 #include <QJsonValue>

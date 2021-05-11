@@ -1,11 +1,8 @@
 #ifndef TRANSACTIONJSONBUILDER_H
 #define TRANSACTIONJSONBUILDER_H
 
-#include "IJsonBuilder.h"
-#include <QJsonObject>
-#include <QJsonValue>
 #include "transaction.h"
-
+#include "IJsonBuilder.h"
 
 class TransactionJsonBuilder: public IJsonBuilder<Transaction>
 {

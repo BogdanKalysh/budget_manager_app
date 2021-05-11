@@ -1,76 +1,60 @@
 #include "userhandler.h"
-#include "Poco/JSON/Object.h"
 #include "userjsonbuilder.h"
+
 UserHandler::UserHandler(std::shared_ptr<IDBManager> manager)
 {
-    this->manager = manager;
+    this->_dbManager = manager;
     parser = UserParser();
+    repository.reset(_dbManager->getUserRepository());
 }
 
 IHandler *UserHandler::getCopy()
 {
-    return new UserHandler(this->manager);
-}
-
-QJsonObject UserHandler::convertIstreamToJson(std::istream &body)
-{
-    std::string sBody;
-    sBody = std::string((std::istreambuf_iterator<char>(body)), std::istreambuf_iterator<char>());
-
-    QString qBody = QString::fromStdString(sBody);
-    QByteArray br = qBody.toUtf8();
-    QJsonDocument doc = QJsonDocument::fromJson(br);
-    QJsonObject obj = doc.object();
-
-    return obj;
+    return new UserHandler(this->_dbManager);
 }
 
 void UserHandler::get(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response)
 {
-    IRepository<User> *userRepository;
-
     try {
     QJsonObject json = convertIstreamToJson(request.stream());
 
     QString mail = json.value(parser::EMAIL).toString();
     QString password = json.value(parser::PASSWORD).toString();
 
-    userRepository = (manager.get()->getUserRepository());
-
     QString query = "SELECT * FROM users WHERE " + dal::MAIL + "='" + mail+ "'AND " + dal::PASSWORD + "='" +password + "';" ;
-    QVector<User> users = userRepository->select(query);
+    QVector<User> users = repository->select(query);
     UserJsonBuilder builder;
 
-    QJsonObject jsonObject =builder.buildJson(users.first());
-    QString jsonString = QJsonDocument(jsonObject).toJson(QJsonDocument::Compact);
+    if(!users.isEmpty()){
+        QJsonObject jsonObject =builder.buildJson(users.first());
+        QString jsonString = QJsonDocument(jsonObject).toJson(QJsonDocument::Compact);
 
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-    response.setContentType("application/json");
+        response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+        response.setContentType("application/json");
 
-    std::ostream& ostr =response.send();
-    ostr<< jsonString.toStdString();
+        std::ostream& ostr = response.send();
+        ostr<< jsonString.toStdString();
+    }else{
+        response.setStatus(Poco::Net::HTTPServerResponse::HTTP_NOT_FOUND);
+        response.send();
+    }
 
     } catch (...) {
         response.setStatus(Poco::Net::HTTPServerResponse::HTTP_BAD_GATEWAY);
     }
-    delete userRepository;
 }
 
 void UserHandler::post(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response)
 {
-    IRepository<User> *userRepository;
-
     try {
 
     QJsonObject json = convertIstreamToJson(request.stream());
     User user = parser.parse(json);
 
-    userRepository = (manager.get()->getUserRepository());
-
-    QVector<User> users = userRepository->select("SELECT * FROM users WHERE "+ dal::MAIL + "='"+user.getEmail()+"';" );
+    QVector<User> users = repository->select("SELECT * FROM users WHERE "+ dal::MAIL + "='"+user.getEmail()+"';" );
     if(users.empty()){
 
-        userRepository->add(user);
+        repository->add(user);
         response.setStatus(Poco::Net::HTTPServerResponse::HTTP_CREATED);
     }
     else{
@@ -82,24 +66,24 @@ void UserHandler::post(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPSer
     }
 
     response.send();
-    delete userRepository;
 }
 
 void UserHandler::put(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response)
 {
-    IRepository<User> *userRepository;
-
     try {
     QJsonObject json = convertIstreamToJson(request.stream());
     User user = parser.parse(json);
 
-    userRepository = (manager.get()->getUserRepository());
-
-    QVector<User> users = userRepository->select("SELECT * FROM users WHERE "+ dal::MAIL + "='"+user.getEmail()+"';" );
+    QVector<User> users = repository->select("SELECT * FROM users WHERE "+ dal::ID + "=" + std::to_string(user.getId()).c_str() + ";" );
 
     if(!users.empty()){
-        userRepository->update(user);
-        response.setStatus(Poco::Net::HTTPServerResponse::HTTP_ACCEPTED);
+        users = repository->select("SELECT * FROM users WHERE "+ dal::MAIL + "='" + user.getEmail() + "';" );
+        if(users.isEmpty() || users[0].getId() == user.getId()){
+            repository->update(user);
+            response.setStatus(Poco::Net::HTTPServerResponse::HTTP_ACCEPTED);
+        }else{
+            response.setStatus(Poco::Net::HTTPServerResponse::HTTP_FORBIDDEN);
+        }
     }
     else{
         response.setStatus(Poco::Net::HTTPServerResponse::HTTP_NOT_FOUND);
@@ -110,29 +94,29 @@ void UserHandler::put(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServ
     }
 
     response.send();
-    delete userRepository;
 }
 
 void UserHandler::del(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response)
 {
-    IRepository<User> *userRepository;
     try {
 
     QJsonObject json = convertIstreamToJson(request.stream());
     int id = json.value(parser::ID).toInt();
 
-    userRepository = (manager.get()->getUserRepository());
+    QVector<User> users = repository->select("SELECT * FROM users WHERE "+ dal::ID + "=" + std::to_string(id).c_str() + ";" );
 
-    userRepository->deleteObject(id);
+    if(!users.isEmpty()){
+        repository->deleteObject(id);
+        response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+    }else{
+        response.setStatus(Poco::Net::HTTPServerResponse::HTTP_NOT_FOUND);
+    }
 
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-
-     } catch (...) {
+    } catch (...) {
         response.setStatus(Poco::Net::HTTPServerResponse::HTTP_BAD_GATEWAY);
     }
 
     response.send();
-    delete userRepository;
 }
 
 void UserHandler::handleRequest(
@@ -156,43 +140,3 @@ void UserHandler::handleRequest(
         response.send();
     }
 }
-
-void UserHandler::get(Poco::Net::HTTPServerRequest& request,
-                       Poco::Net::HTTPServerResponse& response)
-{
-
-}
-
-void UserHandler::post(Poco::Net::HTTPServerRequest& request,
-                       Poco::Net::HTTPServerResponse& response)
-{
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-
-    UserParser parser;
-    User user = parser.parse(bodyObj);
-
-    qDebug() << user.getName();
-
-
-    IRepository<User> * repository = _dbManager->getUserRepository();
-    repository->add(user);
-
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-    response.send();
-}
-
-void UserHandler::put(Poco::Net::HTTPServerRequest& request,
-                      Poco::Net::HTTPServerResponse& response)
-{
-
-}
-
-void UserHandler::del(Poco::Net::HTTPServerRequest& request,
-                      Poco::Net::HTTPServerResponse& response)
-{
-
-}
-
-//UserHandler::~UserHandler(){
-
-//}

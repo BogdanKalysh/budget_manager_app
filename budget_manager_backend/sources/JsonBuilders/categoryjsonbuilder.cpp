@@ -1,5 +1,6 @@
 #include "categoryjsonbuilder.h"
 #include "constants.h"
+#include <QJsonValue>
 
 QJsonObject CategoryJsonBuilder::buildJson(Category category){
     QJsonObject jObj;

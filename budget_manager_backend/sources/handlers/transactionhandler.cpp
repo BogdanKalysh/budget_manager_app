@@ -1,13 +1,12 @@
 #include "transactionhandler.h"
-#include "transactionparser.h"
 #include "transactionjsonbuilder.h"
-#include "transaction.h"
-#include <QJsonDocument>
 
 
 TransactionHandler::TransactionHandler(std::shared_ptr<IDBManager> manager)
 {
     this->_dbManager = manager;
+    parser = TransactionParser();
+    repository.reset(_dbManager->getTransactionRepository());
 }
 
 IHandler *TransactionHandler::getCopy()
@@ -15,17 +14,70 @@ IHandler *TransactionHandler::getCopy()
     return new TransactionHandler(_dbManager);
 }
 
-QJsonObject TransactionHandler::convertIstreamToJson(std::istream &body)
+void TransactionHandler::get(Poco::Net::HTTPServerRequest& request,
+                       Poco::Net::HTTPServerResponse& response)
 {
-    std::string sBody;
-    sBody = std::string((std::istreambuf_iterator<char>(body)), std::istreambuf_iterator<char>());
+    QJsonObject bodyObj = convertIstreamToJson(request.stream());
+    std::string user_id = std::to_string(bodyObj.value("user_id").toInt());
+    QString start_date = bodyObj.value("start_date").toVariant().toString();
+    QString end_date = bodyObj.value("end_date").toVariant().toString();
+    QString select = "SELECT transaction.*, category.name, category.color, category.type FROM category INNER JOIN "
+                     "transaction ON category.id = transaction.category_id WHERE category.user_id = "+ QString(user_id.c_str()) +
+                     " AND transaction.date > '"+start_date+"'::date AND transaction.date < '"+end_date+"'::date";
 
-    QString qBody = QString::fromStdString(sBody);
-    QByteArray br = qBody.toUtf8();
-    QJsonDocument doc = QJsonDocument::fromJson(br);
-    QJsonObject obj = doc.object();
+    QVector<Transaction> transactions = repository->select(select);
+    TransactionJsonBuilder transactionJsonBuilder;
 
-    return obj;
+    QJsonArray jsonArr;
+    for(const auto &transaction : transactions){
+        jsonArr.append(transactionJsonBuilder.buildJson(transaction));
+    }
+
+    QJsonDocument doc;
+    doc.setArray(jsonArr);
+    QString jsonString = doc.toJson();
+
+
+    response.setContentType("application/json");
+
+    std::ostream& ostr = response.send();
+    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+    ostr<< jsonString.toStdString();
+
+
+}
+
+void TransactionHandler::post(Poco::Net::HTTPServerRequest& request,
+                       Poco::Net::HTTPServerResponse& response)
+{
+    QJsonObject bodyObj = convertIstreamToJson(request.stream());
+    Transaction transaction = parser.parse(bodyObj);
+    repository->add(transaction);
+
+    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+    response.send();
+}
+
+void TransactionHandler::put(Poco::Net::HTTPServerRequest& request,
+                      Poco::Net::HTTPServerResponse& response)
+{
+    QJsonObject bodyObj = convertIstreamToJson(request.stream());
+    Transaction transaction = parser.parse(bodyObj);
+    repository->update(transaction);
+
+    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+    response.send();
+}
+
+void TransactionHandler::del(Poco::Net::HTTPServerRequest& request,
+                      Poco::Net::HTTPServerResponse& response)
+{
+    QJsonObject bodyObj = convertIstreamToJson(request.stream());
+    int user_id = bodyObj.value("id").toInt();
+    repository->deleteObject(user_id);
+
+    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+    response.send();
 }
 
 void TransactionHandler::handleRequest(
@@ -41,83 +93,4 @@ void TransactionHandler::handleRequest(
     }else if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_DELETE){
         del(request, response);
     }
-}
-
-
-void TransactionHandler::get(Poco::Net::HTTPServerRequest& request,
-                       Poco::Net::HTTPServerResponse& response)
-{
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    std::string user_id = std::to_string(bodyObj.value("id").toInt());
-    QString start_date = bodyObj.value("start_date").toVariant().toString();
-    QString end_date = bodyObj.value("end_date").toVariant().toString();
-//    QString select = "SELECT transaction.*, category.name, category.color, category.type FROM category INNER JOIN "
-//                     "transaction ON category.id = transaction.category_id WHERE category.user_id = "+ QString(user_id.c_str()) +
-//                     " AND transaction.date > '"+start_date+"'::date AND transaction.date < '"+end_date+"'::date";
-    QString select (QString("SELECT %1.*, %2, %3, %4 FROM %5 INNER JOIN %1 ON %5.id = %1.category_id WHERE %5.user_id"
-    " = %6 AND %1.date > '%7'::date AND %1.date < '%8'::date").arg(dal::TRANSACTION, dal::NAME, dal::COLOR, dal::TYPE,
-                                                                   dal::CATEGORY, QString(user_id.c_str()), start_date, end_date));
-    qDebug()<<select;
-    IRepository<Transaction> * repository = _dbManager->getTransactionRepository();
-
-    QVector<Transaction> transactions = repository->select(select);
-    TransactionJsonBuilder transactionJsonBuilder;
-
-    QJsonArray jsonArr;
-    for(const auto &transaction : transactions){
-        jsonArr.append(transactionJsonBuilder.buildJson(transaction));
-    }
-
-    QJsonDocument doc;
-    doc.setArray(jsonArr);
-    QString jsonString = doc.toJson();
-
-    //qDebug()<<jsonString;
-
-    response.setContentType("application/json");
-
-    std::ostream& ostr = response.send();
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-    ostr<< jsonString.toStdString();
-
-
-}
-
-void TransactionHandler::post(Poco::Net::HTTPServerRequest& request,
-                       Poco::Net::HTTPServerResponse& response)
-{
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    TransactionParser parser;
-    Transaction transaction = parser.parse(bodyObj);
-    IRepository<Transaction> * repository = _dbManager->getTransactionRepository();
-    repository->add(transaction);
-
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-    response.send();
-}
-
-void TransactionHandler::put(Poco::Net::HTTPServerRequest& request,
-                      Poco::Net::HTTPServerResponse& response)
-{
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    TransactionParser parser;
-    Transaction transaction = parser.parse(bodyObj);
-    IRepository<Transaction> * repository = _dbManager->getTransactionRepository();
-    repository->update(transaction);
-
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-    response.send();
-}
-
-void TransactionHandler::del(Poco::Net::HTTPServerRequest& request,
-                      Poco::Net::HTTPServerResponse& response)
-{
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    TransactionParser parser;
-    Transaction transaction = parser.parse(bodyObj);
-    IRepository<Transaction> * repository = _dbManager->getTransactionRepository();
-    repository->deleteObject(transaction.getId());
-
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-    response.send();
 }

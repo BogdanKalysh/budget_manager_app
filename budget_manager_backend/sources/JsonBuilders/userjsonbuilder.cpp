@@ -1,5 +1,6 @@
 #include "userjsonbuilder.h"
 #include "constants.h"
+#include <QJsonValue>
 
 
 QJsonObject UserJsonBuilder::buildJson(User user){

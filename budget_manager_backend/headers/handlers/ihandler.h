@@ -1,11 +1,10 @@
 #ifndef IHANDLER_H
 #define IHANDLER_H
-#include "ijsonparser.h"
+
 #include "idbmanager.h"
 #include <Poco/Net/HTTPRequestHandler.h>
 #include <Poco/Net/HTTPServerRequest.h>
 #include <Poco/Net/HTTPServerResponse.h>
-#include <Poco/JSON/Object.h>
 #include <Poco/JSON/Object.h>
 #include <memory>
 
@@ -16,7 +15,8 @@ protected:
 
 public:
     virtual IHandler* getCopy() = 0;
-    virtual QJsonObject convertIstreamToJson(std::istream &body) = 0;
+
+    QJsonObject convertIstreamToJson(std::istream &body);
 
     virtual void get(Poco::Net::HTTPServerRequest& request,
                      Poco::Net::HTTPServerResponse& response) = 0;

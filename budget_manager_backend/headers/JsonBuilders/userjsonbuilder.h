@@ -1,10 +1,8 @@
 #ifndef USERJSONBUILDER_H
 #define USERJSONBUILDER_H
-#include "IJsonBuilder.h"
-#include <QJsonObject>
-#include <QJsonValue>
-#include "user.h"
 
+#include "user.h"
+#include "IJsonBuilder.h"
 
 class UserJsonBuilder: public IJsonBuilder<User>
 {

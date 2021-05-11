@@ -1,5 +1,4 @@
 #include "transactionparser.h"
-#include "categoryparser.h"
 #include "constants.h"
 
 
@@ -10,8 +9,6 @@ Transaction TransactionParser::parse(QJsonObject json)
     QDate date = json.value(parser::DATE).toVariant().toDate();
     QString description = json.value(parser::DESCRIPTION).toString();
     int categoryId = json.value(parser::CATEGORY_ID).toInt();
-//    CategoryParcer<Category> parcer;
-//    Category category = parcer.parce(json.value("category").toObject());
 
     return Transaction(id, amount, date, description, categoryId);
 }
