@@ -8,23 +8,26 @@
 namespace handlers
 {
 
-HandlerFactory::HandlerFactory(){
-      manager.reset(new DBManager);
-
-//    addHandler("/user", new UserHandler(manager));
+HandlerFactory::HandlerFactory()
+{
+     manager.reset(new DBManager);
+     addHandler("/user", new UserHandler(manager));
 //    addHandler("/category", new CategoryHandler);
 //    addHandler("/transaction", new TransactionHandler);
+
 }
 
 Poco::Net::HTTPRequestHandler* HandlerFactory::createRequestHandler(
     const Poco::Net::HTTPServerRequest& request)
 {
+    std::cout<<request.getURI();
     if(handlers[request.getURI()])
         return handlers[request.getURI()]->getCopy();
     return nullptr;
 }
 
-void HandlerFactory::addHandler(std::string uri, IHandler* handler){
+void HandlerFactory::addHandler(std::string uri, IHandler* handler)
+{
     handlers[uri] = handler;
 }
 

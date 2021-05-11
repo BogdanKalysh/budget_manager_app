@@ -31,13 +31,23 @@ public:
 }
 
 
+ApplicationService::ApplicationService()
+{
+
+}
+
+ApplicationService::~ApplicationService()
+{
+
+}
+
 int ApplicationService::main(const std::vector<std::string>& args){
     Poco::Net::HTTPServerParams::Ptr parameters = new Poco::Net::HTTPServerParams();
     parameters->setTimeout(10000);
     parameters->setMaxQueued(100);
     parameters->setMaxThreads(4);
 
-    const Poco::Net::ServerSocket socket(Socket("localhost:5849"));
+    const Poco::Net::ServerSocket socket(Socket("localhost:5000"));
 
     Poco::Net::HTTPServer server(new handlers::HandlerFactory(), socket, parameters);
 
@@ -47,3 +57,4 @@ int ApplicationService::main(const std::vector<std::string>& args){
 
     return 0;
 }
+
