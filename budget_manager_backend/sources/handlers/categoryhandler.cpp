@@ -1,6 +1,7 @@
 #include "categoryhandler.h"
 #include "categoryjsonbuilder.h"
 
+
 CategoryHandler::CategoryHandler(std::shared_ptr<IDBManager> dbManager, std::shared_ptr<IParserManager> parserManager)
 {
     this->_dbManager = dbManager;
@@ -16,11 +17,11 @@ AbstractHandler *CategoryHandler::getCopy()
 
 
 void CategoryHandler::get(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
+    try {
+    QMap<QString,QString> map = getParametrsFromUrl(Poco::URI(request.getURI()));
+    int user_id;
 
-    Poco::JSON::Object obj;
-
-    int user_id = bodyObj.value(parser::USER_ID).toInt();
+    user_id = std::stoi(map[dal::USER_ID].toStdString());
 
     QString query(QString("SELECT * FROM %1 WHERE user_id = %2 ORDER BY %3 ASC").
                   arg(dal::CATEGORY, QString::number(user_id), dal::ID));
@@ -42,6 +43,10 @@ void CategoryHandler::get(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTP
     std::ostream& ostr = response.send();
     response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
     ostr<< jsonString.toStdString();
+    }
+    catch (...) {
+        response.setStatus(Poco::Net::HTTPServerResponse::HTTP_BAD_GATEWAY);
+    }
 }
 
 void CategoryHandler::put(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
