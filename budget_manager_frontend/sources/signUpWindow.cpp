@@ -53,7 +53,7 @@ void SignUpWindow::on_signUpButton_clicked()
         QJsonObject jsonData =  builder->buildJson(user);
         QJsonDocument jsonDoc(jsonData);
         QByteArray byteData = jsonDoc.toJson();
-        QNetworkRequest request = QNetworkRequest(QUrl("http://127.0.0.1:5000/setuser"));
+        QNetworkRequest request = QNetworkRequest(QUrl("http://localhost:5000/user"));
         request.setRawHeader("Content-Type", "application/json");
         QNetworkReply *postUserReply = manager->post(request, byteData);
         connect(postUserReply, &QNetworkReply::finished, this, &SignUpWindow::postUser);

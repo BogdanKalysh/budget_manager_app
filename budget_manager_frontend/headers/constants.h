@@ -19,6 +19,8 @@ namespace jsonbuilder {
     const QString INCOME = "income";
     const QString EXPENCE = "expence";
     const QString USER_ID = "user_id";
+    const QString START_DATE = "start_date";
+    const QString END_DATE = "end_date";
 
 }
 

@@ -26,7 +26,8 @@ protected:
 //    qreal getCategoryTotalSum(QString categoryName);
 
 public slots:
-    void updateFromDb();
+    void updateTransactions();
+    void updateCategories();
     void readCategories();
     void readTransactions();
     void finishedPostTransactions();

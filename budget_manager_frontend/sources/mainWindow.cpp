@@ -39,13 +39,13 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
     ui->settingsIcon->setPixmap(settingsPixMap.scaled(w, h, Qt::KeepAspectRatio));
     ui->userIcon->setPixmap(userPixMap.scaled(w, h, Qt::KeepAspectRatio));
 
-    ui->amountInputLine->setValidator(new QIntValidator(0, 10000000, this));
+    ui->amountInputLine->setValidator(new QIntValidator(0, 1000000000, this));
 
     fromDateTransactions.setDate(0001,1,1);
     toDateTransactions.setDate(9999,12,31);
 
-    updateFromDb();
-
+    updateTransactions();
+    updateCategories();
 
     QPieSeries *series = new QPieSeries();
     series->setHoleSize(0.75);
@@ -79,26 +79,21 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::updateFromDb()
+void MainWindow::updateTransactions()
 {
-    QJsonObject jObj;
-    jObj.insert(jsonbuilder::USER_ID, QJsonValue::fromVariant(user.getId()));
-    QByteArray byteData = QJsonDocument(jObj).toJson();
+    QString getTransactionsQuery = "http://localhost:5000/transaction?" + jsonbuilder::USER_ID + "=" +
+            QString::number(user.getId()) + "&" + jsonbuilder::START_DATE + "=" + fromDateTransactions.toString("yyyy-MM-dd") +
+            "&" + jsonbuilder::END_DATE + "=" + toDateTransactions.toString("yyyy-MM-dd");
+    QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
+    connect(transactionsReply, &QNetworkReply::readyRead, this, &MainWindow::readTransactions);
+}
 
 
-    QNetworkRequest request = QNetworkRequest(QUrl("http://localhost:5000/category?json=" + byteData));
-    request.setRawHeader("Content-Type", "application/json");
-    QNetworkReply* categoriesReply = manager->get(request);
+void MainWindow::updateCategories()
+{
+    QString getCategoriesQuery = "http://localhost:5000/category?" + jsonbuilder::USER_ID + "=" + QString::number(user.getId());
+    QNetworkReply *categoriesReply = manager->get(QNetworkRequest(QUrl(getCategoriesQuery)));
     connect(categoriesReply, &QNetworkReply::readyRead, this, &MainWindow::readCategories);
-
-//    QString getCategoriesQuery = "http://127.0.0.1:5000/rating/getcategories?u_email=" + user.getEmail();
-//    QNetworkReply *categoriesReply = manager->get(QNetworkRequest(QUrl(getCategoriesQuery)));
-//    connect(categoriesReply, &QNetworkReply::readyRead, this, &MainWindow::readCategories);
-
-//    QString getTransactionsQuery = "http://127.0.0.1:5000/rating/gettransactions?u_email=" + user.getEmail() + "&lim=10";
-//    QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
-//    connect(transactionsReply, &QNetworkReply::readyRead, this, &MainWindow::readTransactions);
-
 }
 
 
@@ -166,6 +161,9 @@ void MainWindow::finishedPostTransactions()
         qDebug() << error;
         QMessageBox::about(this, "info", "Error: " + error);
     }
+
+    updateTransactions();
+
     postTranasactionReply->close();
     postTranasactionReply->deleteLater();
 }
@@ -246,7 +244,6 @@ void MainWindow::on_addTransactionButton_clicked()
         ui->amountInputLine->clear();
         ui->descriptionInputLine->clear();
     }
-//    updatePiechart();
 }
 
 
@@ -272,11 +269,13 @@ void MainWindow::on_expenceRadioButton_clicked()
 void MainWindow::on_fromDateEdit_dateChanged(const QDate &date)
 {
     fromDateTransactions = date;
-    updateList();
+    updateTransactions();
+    updateCategories();
 }
 
 void MainWindow::on_toDateEdit_dateChanged(const QDate &date)
 {
     toDateTransactions = date;
-    updateList();
+    updateTransactions();
+    updateCategories();
 }
