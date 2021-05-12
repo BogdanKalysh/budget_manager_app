@@ -16,31 +16,30 @@ AbstractHandler *TransactionHandler::getCopy()
 }
 
 void TransactionHandler::get(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response)
-{
-    Poco::URI uri(request.getURI());
-    Poco::URI::QueryParameters queryParametrs = uri.getQueryParameters();
+{    
+    QMap<QString,QString> uri_map =getParametrsFromUrl(Poco::URI(request.getURI()));
 
-    QString user_id =QString(queryParametrs[0].second.c_str());
-    QString start_date = QString(queryParametrs[1].second.c_str());
-    QString end_date = QString(queryParametrs[2].second.c_str());
+    QString user_id = QString(uri_map[parser::USER_ID].toStdString().c_str());
+    QString start_date = QString(uri_map[parser::START_DATE].toStdString().c_str());
+    QString end_date = QString(uri_map[parser::END_DATE].toStdString().c_str());
+
     QString select = "SELECT transaction.*, category.name, category.color, category.type FROM category INNER JOIN "
                      "transaction ON category.id = transaction.category_id WHERE category.user_id = "+ user_id +
                      " AND transaction.date > '"+start_date+"'::date AND transaction.date < '"+end_date+"'::date";
 
     QVector<Transaction> transactions = repository->select(select);
     TransactionJsonBuilder transactionJsonBuilder;
-
     QJsonArray jsonArr;
-    for(const auto &transaction : transactions){
+    for(const auto &transaction : transactions)
+    {
         jsonArr.append(transactionJsonBuilder.buildJson(transaction));
     }
-
     QJsonDocument doc;
     doc.setArray(jsonArr);
     QString jsonString = doc.toJson();
     response.setContentType("application/json");
-    std::ostream& ostr = response.send();
     response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+    std::ostream& ostr = response.send();
     ostr<< jsonString.toStdString();
 }
 

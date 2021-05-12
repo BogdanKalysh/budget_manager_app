@@ -43,6 +43,7 @@ void UserHandler::get(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServ
 
     } catch (...) {
         response.setStatus(Poco::Net::HTTPServerResponse::HTTP_BAD_GATEWAY);
+        response.send();
     }
 }
 
