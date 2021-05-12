@@ -1,8 +1,8 @@
-#include "ihandler.h"
+#include "abstracthandler.h"
 #include <QJsonObject>
 #include <QJsonDocument>
 
-QJsonObject IHandler::convertIstreamToJson(std::istream &body)
+QJsonObject AbstractHandler::convertIstreamToJson(std::istream &body)
 {
     std::string sBody;
     sBody = std::string((std::istreambuf_iterator<char>(body)), std::istreambuf_iterator<char>());

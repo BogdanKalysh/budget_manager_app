@@ -1,21 +1,20 @@
 #include "transactionhandler.h"
 #include "transactionjsonbuilder.h"
 
-
-TransactionHandler::TransactionHandler(std::shared_ptr<IDBManager> manager)
+TransactionHandler::TransactionHandler(std::shared_ptr<IDBManager> dbManager, std::shared_ptr<IParserManager> parserManager)
 {
-    this->_dbManager = manager;
-    parser = TransactionParser();
+    this->_dbManager = dbManager;
+    this->_parserManager = parserManager;
+    parser.reset(_parserManager->getTransactionParser());
     repository.reset(_dbManager->getTransactionRepository());
 }
 
-IHandler *TransactionHandler::getCopy()
+AbstractHandler *TransactionHandler::getCopy()
 {
-    return new TransactionHandler(_dbManager);
+    return new TransactionHandler(_dbManager, _parserManager);
 }
 
-void TransactionHandler::get(Poco::Net::HTTPServerRequest& request,
-                       Poco::Net::HTTPServerResponse& response)
+void TransactionHandler::get(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response)
 {
     QJsonObject bodyObj = convertIstreamToJson(request.stream());
     std::string user_id = std::to_string(bodyObj.value("user_id").toInt());
@@ -51,7 +50,7 @@ void TransactionHandler::post(Poco::Net::HTTPServerRequest& request,
                        Poco::Net::HTTPServerResponse& response)
 {
     QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    Transaction transaction = parser.parse(bodyObj);
+    Transaction transaction = parser->parse(bodyObj);
     repository->add(transaction);
 
     response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
@@ -62,7 +61,7 @@ void TransactionHandler::put(Poco::Net::HTTPServerRequest& request,
                       Poco::Net::HTTPServerResponse& response)
 {
     QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    Transaction transaction = parser.parse(bodyObj);
+    Transaction transaction = parser->parse(bodyObj);
     repository->update(transaction);
 
     response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);

@@ -16,20 +16,24 @@ INCLUDEPATH += \
     $$PWD/sources/handlers \
     $$PWD/sources/dbManager \
     $$PWD/sources/JsonBuilders \
+    $$PWD/sources/ParserManager \
     $$PWD/headers/parsers \
     $$PWD/headers/handlers \
     $$PWD/headers/dbManager \
-    $$PWD/headers/JsonBuilders
+    $$PWD/headers/JsonBuilders \
+    $$PWD/headers/ParserManager
 
 HEADERS += \
     headers/dbManager/idbmanager.h \
+    headers/handlers/abstracthandler.h \
+    headers/parserManager/iparsermanager.h \
+    headers/parserManager/parsermanager.h \
     headers/parsers/categoryparser.h \
     headers/parsers/ijsonparser.h \
     headers/parsers/transactionparser.h \
     headers/parsers/userparser.h \
     headers/applicationservice.h \
     headers/handlerfactory.h \
-    headers/handlers/ihandler.h \
     headers/handlers/transactionhandler.h \
     headers/handlers/userhandler.h\
     headers/handlers/categoryhandler.h\
@@ -41,10 +45,11 @@ HEADERS += \
 
 SOURCES += \
     main.cpp \
-    sources/handlers/ihandler.cpp \
+    sources/handlers/abstracthandler.cpp \
     sources/parsers/userparser.cpp \
     sources/parsers/categoryparser.cpp \
     sources/parsers/transactionparser.cpp \
+    sources/parserManager/parsermanager.cpp \
     sources/applicationservice.cpp \
     sources/handlerfactory.cpp \
     sources/handlers/transactionhandler.cpp \

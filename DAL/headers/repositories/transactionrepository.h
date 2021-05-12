@@ -7,6 +7,8 @@
 class TransactionRepository : public IRepository<Transaction>
 {
 public:
+    using ptr = std::shared_ptr<IRepository<Transaction>>;
+
     QVector<Transaction> select(const QString &query) override;
     bool update(const Transaction &object) override;
     bool add(const Transaction &object) override;
