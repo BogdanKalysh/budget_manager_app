@@ -2,6 +2,7 @@
 #define HANDLERFACTORY_H
 
 #include <Poco/Net/HTTPRequestHandlerFactory.h>
+#include <Poco/URI.h>
 #include <map>
 #include <memory>
 #include "idbmanager.h"

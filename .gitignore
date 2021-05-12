@@ -75,7 +75,13 @@ build-budget_manager_frontend-Desktop_Qt_6_0_2_clang_64bit-Debug/
 # --------
 *.dll
 *.exe
-
+*.pro
+/DAL/DAL.lnk
+/DAL/DB.txt
+/build-budget_manager_backend-Desktop_Qt_6_0_2_MSVC2019_64bit-Debug
+/build-budget_manager_backend-Desktop_Qt_6_0_2_MinGW_64_bit-Debug
+/build-budget_manager_backend-Desktop_Qt_6_0_2_MinGW_64_bit-Profile
+/build-budget_manager_backend-Desktop_Qt_6_0_2_MinGW_64_bit-Release
 /build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug
 /build-budget_manager_frontend-Desktop_Qt_6_0_2_MinGW_64_bit-Debug
 

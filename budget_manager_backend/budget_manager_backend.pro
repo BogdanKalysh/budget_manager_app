@@ -60,13 +60,24 @@ SOURCES += \
     sources/JsonBuilders/userjsonbuilder.cpp \
     sources/JsonBuilders/categoryjsonbuilder.cpp \
 
+
+    sources/JsonBuilders/categoryjsonbuilder.cpp \
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-LIBS += \
-    -L../build-DAL-Desktop_Qt_6_0_2_clang_64bit-Debug -lDAL \
+#LIBS += \
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/release/ -lDAL
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/debug/ -lDAL
+else:unix: LIBS += -L$$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/ -lDAL
+
+INCLUDEPATH += $$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/debug
+DEPENDPATH += $$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/debug
+
+MinGW_64_bit-Debug/libDAL.a
 
 INCLUDEPATH += \
     ../DAL/headers \
@@ -78,22 +89,65 @@ DEPENDPATH += \
     ../DAL/headers/repositories
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../poco/cmake-build/lib/release/ -lPocoData.71 -lPocoDataPostgreSQL.71 -lPocoDataSQLite.71\
--lPocoEncodings.71 -lPocoFoundation.71 -lPocoJSON.71 -lPocoMongoDB.71 -lPocoNet.71 -lPocoRedis.71 -lPocoUtil.71\
--lPocoXML.71 -lPocoZip.71
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../poco/cmake-build/lib/debug/ -lPocoData.71 -lPocoDataPostgreSQL.71 -lPocoDataSQLite.71\
--lPocoEncodings.71 -lPocoFoundation.71 -lPocoJSON.71 -lPocoMongoDB.71 -lPocoNet.71 -lPocoRedis.71 -lPocoUtil.71\
--lPocoXML.71 -lPocoZip.71
-else:unix: LIBS += -L$$PWD/../../poco/cmake-build/lib/ -lPocoData.71 -lPocoDataPostgreSQL.71 -lPocoDataSQLite.71\
--lPocoEncodings.71 -lPocoFoundation.71 -lPocoJSON.71 -lPocoMongoDB.71 -lPocoNet.71 -lPocoRedis.71 -lPocoUtil.71\
--lPocoXML.71 -lPocoZip.71
+win32:CONFIG(release, debug|release): LIBS += -LC:/msys64/mingw64/lib/ -llibPocoNet.dll
+else:win32:CONFIG(debug, debug|release): LIBS += -LC:/msys64/mingw64/lib/ -llibPocoNet.dll
+else:unix: LIBS += -LC:/Programming/msys2/mingw64/lib/ -llibPocoNet.dll
 
-INCLUDEPATH += $$PWD/../../poco/Foundation/include
-INCLUDEPATH += $$PWD/../../poco/Net/include
-INCLUDEPATH += $$PWD/../../poco/Util/include
-INCLUDEPATH += $$PWD/../../poco/JSON/include
+win32: LIBS += -LC:/msys64/mingw64/bin/ \
+    -llibPocoData.dll \
+    -llibPocoFoundation.dll\
+    -llibPocoDataSQLite.dll\
+    -llibPocoDataPostgreSQL.dll\
+    -llibPocoDataPostgreSQL.dll\
+    -llibPocoEncodings.dll \
+    -llibPocoJSON.dll\
+    -llibPocoNet.dll\
+    -llibPocoRedis.dll\
+    -llibPocoUtil.dll\
+    -llibPocoXML.dll\
+    -llibPocoZip.dll
 
-DEPENDPATH += $$PWD/../../poco/Foundation/include
-DEPENDPATH += $$PWD/../../poco/Net/include
-DEPENDPATH += $$PWD/../../poco/Util/include
-DEPENDPATH += $$PWD/../../poco/JSON/include
+
+win32:CONFIG(release, debug|release): LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoData.dll \
+-llibPocoFoundation.dll\
+-llibPocoDataSQLite.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoEncodings.dll \
+-llibPocoJSON.dll\
+-llibPocoNet.dll\
+-llibPocoRedis.dll\
+-llibPocoUtil.dll\
+-llibPocoXML.dll\
+-llibPocoZip.dll
+
+else:win32:CONFIG(debug, debug|release): LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoData.dll \
+-llibPocoFoundation.dll\
+-llibPocoDataSQLite.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoEncodings.dll \
+-llibPocoJSON.dll\
+-llibPocoNet.dll\
+-llibPocoRedis.dll\
+-llibPocoUtil.dll\
+-llibPocoXML.dll\
+-llibPocoZip.dll
+
+else:unix: LIBS += -LE:/Programming/msys2/mingw64/bin/ -llibPocoData.dll \
+-llibPocoFoundation.dll\
+-llibPocoDataSQLite.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoEncodings.dll \
+-llibPocoJSON.dll\
+-llibPocoNet.dll\
+-llibPocoRedis.dll\
+-llibPocoUtil.dll\
+-llibPocoXML.dll\
+-llibPocoZip.dll
+
+
+INCLUDEPATH += C:/msys64/mingw64/include
+DEPENDPATH += C:/msys64/mingw64/include
+

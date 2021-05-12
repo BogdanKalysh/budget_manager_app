@@ -8,6 +8,8 @@
 #include <Poco/Net/HTTPServerRequest.h>
 #include <Poco/Net/HTTPServerResponse.h>
 #include <Poco/JSON/Object.h>
+#include <Poco/URI.h>
+#include <QMap>
 #include <memory>
 
 class AbstractHandler : public Poco::Net::HTTPRequestHandler
@@ -29,6 +31,7 @@ public:
     virtual AbstractHandler* getCopy() = 0;
 
     QJsonObject convertIstreamToJson(std::istream &body);
+    QMap<QString,QString> getParametrsFromUrl(const Poco::URI &uri);
 };
 
 #endif // ABSTRACTHANDLER_H

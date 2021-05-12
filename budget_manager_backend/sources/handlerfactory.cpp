@@ -21,8 +21,8 @@ HandlerFactory::HandlerFactory(){
 Poco::Net::HTTPRequestHandler* HandlerFactory::createRequestHandler(
     const Poco::Net::HTTPServerRequest& request)
 {
-    if(handlers[request.getURI()])
-        return handlers[request.getURI()]->getCopy();
+    if(handlers[Poco::URI(request.getURI()).getPath()])
+        return handlers[Poco::URI(request.getURI()).getPath()]->getCopy();
     return nullptr;
 }
 

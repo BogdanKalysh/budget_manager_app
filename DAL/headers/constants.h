@@ -26,7 +26,7 @@ namespace dal {
     const QString USER = "USER";
     const QString USER_PASSWORD = "PASSWORD";
     const QString DBNAME = "DBNAME";
-
+    const QString DBCONFIGPATH = "../DAL/DB.txt";
     const QString USERS = "users";
     const QString CATEGORY = "category";
     const QString TRANSACTION = "transaction";
