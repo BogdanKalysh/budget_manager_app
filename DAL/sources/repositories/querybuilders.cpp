@@ -61,7 +61,7 @@ QString deleteQueryBuilder(QPair<QString, int> tableCredentials)
 
 QSqlDatabase setUpDatabase()
 {
-    QFile dbFile("DB.txt");
+    QFile dbFile(dal::DBCONFIGPATH);
     //QFile dbFile("../../../../DAL/DB.txt");
 
     if(!dbFile.open(QIODevice::ReadOnly)) {
