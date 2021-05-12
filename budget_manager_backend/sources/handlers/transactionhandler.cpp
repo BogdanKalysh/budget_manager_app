@@ -20,8 +20,6 @@ void TransactionHandler::get(Poco::Net::HTTPServerRequest& request, Poco::Net::H
     Poco::URI uri(request.getURI());
     Poco::URI::QueryParameters queryParametrs = uri.getQueryParameters();
 
-    qDebug()<<QString(uri.toString().c_str());
-
     QString user_id =QString(queryParametrs[0].second.c_str());
     QString start_date = QString(queryParametrs[1].second.c_str());
     QString end_date = QString(queryParametrs[2].second.c_str());
