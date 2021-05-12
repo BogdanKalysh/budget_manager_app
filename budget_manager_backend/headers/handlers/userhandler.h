@@ -3,15 +3,13 @@
 
 #include "abstracthandler.h"
 #include "userparser.h"
+#include "userrepository.h"
 
 class UserHandler: public AbstractHandler
 {
 protected:
-    using parsPtr = std::shared_ptr<IJsonParser<User>>;
-    using reposPtr = std::shared_ptr<IRepository<User>>;
-
-    parsPtr parser;
-    reposPtr repository;
+    UserParser::ptr parser;
+    UserRepository::ptr repository;
 
     void get(Poco::Net::HTTPServerRequest& request,
             Poco::Net::HTTPServerResponse& response) override;

@@ -3,15 +3,13 @@
 
 #include "abstracthandler.h"
 #include "transactionparser.h"
+#include "transactionrepository.h"
 
 class TransactionHandler : public AbstractHandler
 {
 protected:
-    using parsPtr = std::shared_ptr<IJsonParser<Transaction>>;
-    using reposPtr = std::shared_ptr<IRepository<Transaction>>;
-
-    parsPtr parser;
-    reposPtr repository;
+    TransactionParser::ptr parser;
+    TransactionRepository::ptr repository;
 
     void get(Poco::Net::HTTPServerRequest& request,
             Poco::Net::HTTPServerResponse& response) override;
