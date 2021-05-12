@@ -22,8 +22,6 @@ void UserHandler::get(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServ
     QString mail = uriValue.constFind(parser::EMAIL).value();
     QString password = uriValue.constFind(parser::PASSWORD).value();
 
-    qDebug()<<mail;
-    qDebug()<<password;
 
     QString query = "SELECT * FROM users WHERE " + dal::MAIL + "='" + mail+ "'AND " + dal::PASSWORD + "='" +password + "';" ;
     QVector<User> users = repository->select(query);
