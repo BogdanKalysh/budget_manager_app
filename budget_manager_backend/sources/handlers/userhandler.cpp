@@ -17,10 +17,11 @@ AbstractHandler *UserHandler::getCopy()
 void UserHandler::get(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response)
 {
     try {
-    QJsonObject json = convertIstreamToJson(request.stream());
+    QMap<QString,QString> uriValue =getParametrsFromUrl(Poco::URI(request.getURI()));
 
-    QString mail = json.value(parser::EMAIL).toString();
-    QString password = json.value(parser::PASSWORD).toString();
+    QString mail = uriValue.constFind(parser::EMAIL).value();
+    QString password = uriValue.constFind(parser::PASSWORD).value();
+
 
     QString query = "SELECT * FROM users WHERE " + dal::MAIL + "='" + mail+ "'AND " + dal::PASSWORD + "='" +password + "';" ;
     QVector<User> users = repository->select(query);

@@ -1,14 +1,6 @@
 #include "transaction.h"
 
-/*
-Transaction::Transaction(int amount, QDate date, QString description, Category category)
-{
-    this->setAmount(amount);
-    this->setDate(date);
-    this->setDescription(description);
-    this->setCategory(category);
-}
-*/
+
 
 
 Transaction::Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId)
