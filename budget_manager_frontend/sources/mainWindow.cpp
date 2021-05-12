@@ -12,6 +12,10 @@
 #include <QJsonObject>
 #include <QMessageBox>
 
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+
 MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,  QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -21,11 +25,11 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
     this->user = user;
     this->manager = manager;
 
-    piechart = ui->pieChartFrame->findChild<Piechart*>("donutPiechart");
-    piechart->installEventFilter(this);
-    series = new PieSeries();
-    piechart->setSeries(series);
-    settingPiechart();
+//    piechart = ui->pieChartFrame->findChild<Piechart*>("donutPiechart");
+//    piechart->installEventFilter(this);
+//    series = new PieSeries();
+//    piechart->setSeries(series);
+//    settingPiechart();
 
     ui->userName->setText(user.getName());
 
@@ -41,12 +45,36 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
     toDateTransactions.setDate(9999,12,31);
 
     updateFromDb();
+
+
+    QPieSeries *series = new QPieSeries();
+    series->setHoleSize(0.75);
+    series->setPieSize(1);
+//    series->append("Protein 4.2%", 4.2);
+    QPieSlice *slice = series->append("Fat 15.6%", 15.6);
+    slice->setBorderWidth(0);
+    slice->setPen(Qt::NoPen);
+//    slice->setColor(QColor(210,210,210));
+//    series->append("Other 23.8%", 23.8);
+//    series->append("Carbs 56.4%", 56.4);
+
+//    QChart *chart = new QChart;
+//    chart->addSeries(series);
+
+    QChartView *chartView = new QChartView();
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->chart()->addSeries(series);
+    chartView->chart()->legend()->setVisible(false);
+    chartView->chart()->setBackgroundVisible(false);
+
+    ui->pieChart->addWidget(chartView, 0);
+
 }
 
 MainWindow::~MainWindow()
 {
-    delete series;
-    delete piechart;
+//    delete series;
+//    delete piechart;
     delete ui;
 }
 
@@ -98,7 +126,7 @@ void MainWindow::readCategories()
     }
 
     updateList();
-    updatePiechart();
+//    updatePiechart();
 
     categoriesReply->close();
     categoriesReply->deleteLater();
@@ -118,7 +146,7 @@ void MainWindow::readTransactions()
     }
 
     updateList();
-    updatePiechart();
+//    updatePiechart();
 
     transactionsReply->close();
     transactionsReply->deleteLater();
@@ -143,40 +171,40 @@ void MainWindow::finishedPostTransactions()
 }
 
 
-void MainWindow::settingPiechart()
-{
-    QFont font;
-    font.setStyleHint(QFont::Times, QFont::PreferAntialias);
+//void MainWindow::settingPiechart()
+//{
+//    QFont font;
+//    font.setStyleHint(QFont::Times, QFont::PreferAntialias);
 
-    series->setCentralTitleFont(font);
-    series->setHoleSize(0.8);
-    series->setHoleColor(QColor("#0a5074"));
-    series->setMarginY(0.18);
-    series->setHoleTextColor(QColor(255,255,255));
-    piechart->setTextColor(QColor(255,255,255));
-}
+//    series->setCentralTitleFont(font);
+//    series->setHoleSize(0.8);
+//    series->setHoleColor(QColor("#0a5074"));
+//    series->setMarginY(0.18);
+//    series->setHoleTextColor(QColor(255,255,255));
+//    piechart->setTextColor(QColor(255,255,255));
+//}
 
-qreal MainWindow::getCategoryTotalSum(QString categoryName)
-{
-    qreal totalsum = 0;
+//qreal MainWindow::getCategoryTotalSum(QString categoryName)
+//{
+//    qreal totalsum = 0;
 
-    for(Transaction & transac:transactions){
-        if(transac.getCategoryName()==categoryName)
-            totalsum+= transac.getAmount();
-    }
+//    for(Transaction & transac:transactions){
+//        if(transac.getCategoryName()==categoryName)
+//            totalsum+= transac.getAmount();
+//    }
 
-    return totalsum;
-}
+//    return totalsum;
+//}
 
-void MainWindow::updatePiechart()
-{
-    series->clear();
-    for(Category& cat: categories){
-        series->append(getCategoryTotalSum(cat.getName()),cat.getName(),cat.getColor());
-    }
+//void MainWindow::updatePiechart()
+//{
+//    series->clear();
+//    for(Category& cat: categories){
+//        series->append(getCategoryTotalSum(cat.getName()),cat.getName(),cat.getColor());
+//    }
 
-    piechart->update();
-}
+//    piechart->update();
+//}
 
 void MainWindow::updateList()
 {
@@ -218,7 +246,7 @@ void MainWindow::on_addTransactionButton_clicked()
         ui->amountInputLine->clear();
         ui->descriptionInputLine->clear();
     }
-    updatePiechart();
+//    updatePiechart();
 }
 
 
