@@ -22,15 +22,15 @@ public:
     ~MainWindow();
 
 protected:
-    void settingPiechart();
-    qreal getCategoryTotalSum(QString categoryName);
+//    void settingPiechart();
+//    qreal getCategoryTotalSum(QString categoryName);
 
 public slots:
     void updateFromDb();
     void readCategories();
     void readTransactions();
     void finishedPostTransactions();
-    void updatePiechart();
+//    void updatePiechart();
     void updateList();
 
 private slots:
@@ -42,8 +42,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Piechart *piechart;
-    PieSeries *series;
+//    Piechart *piechart;
+//    PieSeries *series;
     User user;
     QVector<Category> categories;
     QVector<Transaction> transactions;
