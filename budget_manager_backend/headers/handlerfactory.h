@@ -5,7 +5,8 @@
 #include <map>
 #include <memory>
 #include "idbmanager.h"
-#include "ihandler.h"
+#include "iparsermanager.h"
+#include "abstracthandler.h"
 
 namespace handlers
 {
@@ -13,13 +14,14 @@ class HandlerFactory : public Poco::Net::HTTPRequestHandlerFactory
 {
 private:
     std::shared_ptr <IDBManager> _dbManager;
-    std::map <std::string, IHandler*> handlers;
+    std::shared_ptr <IParserManager> _parserManager;
+    std::map <std::string, AbstractHandler*> handlers;
 
     Poco::Net::HTTPRequestHandler* createRequestHandler(const Poco::Net::HTTPServerRequest& request) override;
 public:
     HandlerFactory();
 
-    void addHandler(std::string uri, IHandler* handler);
+    void addHandler(std::string uri, AbstractHandler* handler);
 };
 
 }

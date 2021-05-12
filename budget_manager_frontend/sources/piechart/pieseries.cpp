@@ -83,6 +83,7 @@ void PieSeries::append(QSharedPointer<PieSlice> slice)
     }
 
     hole->setLabelText(QString::number(totalSum) + " ₴");//Label in the center of our widget is total sum of pieslices value
+    hole->raise();
 }
 
 QPoint PieSeries::getCenter() const

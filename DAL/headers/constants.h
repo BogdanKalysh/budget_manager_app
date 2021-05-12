@@ -36,6 +36,7 @@ namespace dal {
     const QString PASSWORD = "password";
     const QString CREATED_ON = "created_on";
     const QString ROLE = "role";
+    const QString CATEGORY_NAME = "category_name";
     const QString NAME = "name";
     const QString BALANCE = "balance";
     const QString USER_ID = "user_id";

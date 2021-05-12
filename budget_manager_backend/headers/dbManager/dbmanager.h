@@ -1,7 +1,6 @@
 #ifndef DBMANAGER_H
 #define DBMANAGER_H
 
-
 #include "idbmanager.h"
 
 class DBManager : public IDBManager

@@ -9,11 +9,17 @@ User:: User(QString email, QString password)
     this->password = password;
 }
 
-User:: User(QString name, QString email, QString password):User(email, password)
+User:: User(int id, QString name, QString email, QString password):User(email, password)
 {
+    this->id = id;
     this->name = name;
 }
 
+
+int User::getId()
+{
+    return this->id;
+}
 
 QString User::getName()
 {
@@ -28,6 +34,12 @@ QString User::getPassword()
 QString User::getEmail()
 {
     return this->email;
+}
+
+
+void User::setId(int id)
+{
+    this->id = id;
 }
 
 void User::setName(QString name)

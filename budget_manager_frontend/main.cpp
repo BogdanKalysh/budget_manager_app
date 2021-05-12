@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 //    LoginWindow loginWindow;
 //    loginWindow.show();
 
-    User usr("Петро Моставчук" ,"p_mostav@gmail.com", "password");
+    User usr(1, "Петро Моставчук" ,"p_mostav@gmail.com", "password");
     QSharedPointer<QNetworkAccessManager> manager;
     manager.reset(new QNetworkAccessManager);
     MainWindow mainW(usr, manager);

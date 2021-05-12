@@ -11,13 +11,14 @@ namespace jsonbuilder {
     const QString COLOR = "color";
     const QString AMOUNT = "amount";
     const QString DESCRIPTION = "description";
-    const QString CATEGORYID = "categoryId";
+    const QString CATEGORY_ID = "category_id";
     const QString DATE = "date";
     const QString EMAIL = "email";
     const QString PASSWORD = "password";
     const QString CATEGORYNAME = "category_name";
     const QString INCOME = "income";
     const QString EXPENCE = "expence";
+    const QString USER_ID = "user_id";
 
 }
 

@@ -22,7 +22,6 @@ QString insertQueryBuilder(QString table, QVector<QString> fields, QVector<QStri
                 queryValues += ")";
             }
         }
-        qDebug()<<queryInsert + queryValues;
         return queryInsert + queryValues;
     }
     return "";
@@ -62,7 +61,8 @@ QString deleteQueryBuilder(QPair<QString, int> tableCredentials)
 
 QSqlDatabase setUpDatabase()
 {
-    QFile dbFile("../DAL/DB.txt");
+//    QFile dbFile("../DAL/DB.txt");
+    QFile dbFile("../../../../DAL/DB.txt");
 
     if(!dbFile.open(QIODevice::ReadOnly)) {
         qDebug() << "Error: Opening file DB.txt";
