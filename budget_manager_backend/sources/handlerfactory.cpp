@@ -1,5 +1,6 @@
 #include "handlerfactory.h"
 #include <Poco/Net/HTTPServerRequest.h>
+#include <Poco/URI.h>
 #include "dbmanager.h"
 #include "parsermanager.h"
 #include "userhandler.h"
@@ -22,7 +23,7 @@ Poco::Net::HTTPRequestHandler* HandlerFactory::createRequestHandler(
     const Poco::Net::HTTPServerRequest& request)
 {
     if(handlers[Poco::URI(request.getURI()).getPath()])
-        return handlers[Poco::URI(request.getURI()).getPath()]->getCopy();
+            return handlers[Poco::URI(request.getURI()).getPath()]->getCopy();
     return nullptr;
 }
 

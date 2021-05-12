@@ -60,6 +60,9 @@ SOURCES += \
     sources/JsonBuilders/userjsonbuilder.cpp \
     sources/JsonBuilders/categoryjsonbuilder.cpp \
 
+
+    sources/JsonBuilders/categoryjsonbuilder.cpp \
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
@@ -74,11 +77,7 @@ else:unix: LIBS += -L$$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/ -lD
 INCLUDEPATH += $$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/debug
 DEPENDPATH += $$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/debug
 
-#win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/release/libDAL.a
-#else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/debug/libDAL.a
-#else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/release/DAL.lib
-#else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/debug/DAL.lib
-#else:unix: PRE_TARGETDEPS += $$PWD/../build-DAL-Desktop_Qt_6_0_2_MinGW_64_bit-Debug/libDAL.a
+MinGW_64_bit-Debug/libDAL.a
 
 INCLUDEPATH += \
     ../DAL/headers \
@@ -90,11 +89,11 @@ DEPENDPATH += \
     ../DAL/headers/repositories
 
 
-win32:CONFIG(release, debug|release): LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoNet.dll
-else:win32:CONFIG(debug, debug|release): LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoNet.dll
-else:unix: LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoNet.dll
+win32:CONFIG(release, debug|release): LIBS += -LC:/msys64/mingw64/lib/ -llibPocoNet.dll
+else:win32:CONFIG(debug, debug|release): LIBS += -LC:/msys64/mingw64/lib/ -llibPocoNet.dll
+else:unix: LIBS += -LC:/Programming/msys2/mingw64/lib/ -llibPocoNet.dll
 
-win32: LIBS += -LE:/Programming/msys2/mingw64/bin/ \
+win32: LIBS += -LC:/msys64/mingw64/bin/ \
     -llibPocoData.dll \
     -llibPocoFoundation.dll\
     -llibPocoDataSQLite.dll\
@@ -109,6 +108,46 @@ win32: LIBS += -LE:/Programming/msys2/mingw64/bin/ \
     -llibPocoZip.dll
 
 
-INCLUDEPATH += E:/Programming/msys2/mingw64/include
-DEPENDPATH += E:/Programming/msys2/mingw64/include
+win32:CONFIG(release, debug|release): LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoData.dll \
+-llibPocoFoundation.dll\
+-llibPocoDataSQLite.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoEncodings.dll \
+-llibPocoJSON.dll\
+-llibPocoNet.dll\
+-llibPocoRedis.dll\
+-llibPocoUtil.dll\
+-llibPocoXML.dll\
+-llibPocoZip.dll
+
+else:win32:CONFIG(debug, debug|release): LIBS += -LE:/Programming/msys2/mingw64/lib/ -llibPocoData.dll \
+-llibPocoFoundation.dll\
+-llibPocoDataSQLite.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoEncodings.dll \
+-llibPocoJSON.dll\
+-llibPocoNet.dll\
+-llibPocoRedis.dll\
+-llibPocoUtil.dll\
+-llibPocoXML.dll\
+-llibPocoZip.dll
+
+else:unix: LIBS += -LE:/Programming/msys2/mingw64/bin/ -llibPocoData.dll \
+-llibPocoFoundation.dll\
+-llibPocoDataSQLite.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoDataPostgreSQL.dll\
+-llibPocoEncodings.dll \
+-llibPocoJSON.dll\
+-llibPocoNet.dll\
+-llibPocoRedis.dll\
+-llibPocoUtil.dll\
+-llibPocoXML.dll\
+-llibPocoZip.dll
+
+
+INCLUDEPATH += C:/msys64/mingw64/include
+DEPENDPATH += C:/msys64/mingw64/include
 
