@@ -153,6 +153,21 @@ QListWidget::item::hover{
 	background: rgba(255,255,255,0.2);
 	border: 1px solid rgba( 255, 255, 255, 0.18 );
 	border-radius: 3px;
+}
+
+#addCategoryButton{
+ 	height: 47px;
+ 	width: 50px;
+ 	border-radius: 25px;
+ 	background: transparent;
+ 	border: 1px solid white;
+	font-size: 25px;
+	padding-bottom:3px;
+}
+
+#addCategoryButton::hover{
+ background: rgb(88, 153, 255);
+ border-style: none;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -564,6 +579,13 @@ QListWidget::item::hover{
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="addCategoryButton">
+               <property name="text">
+                <string>+</string>
                </property>
               </widget>
              </item>
