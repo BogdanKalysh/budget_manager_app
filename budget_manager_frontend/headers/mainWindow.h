@@ -7,7 +7,10 @@
 #include "transaction.h"
 #include <QNetworkAccessManager>
 #include <QSharedPointer>
-#include<piechart.h>
+//#include <piechart.h>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,7 +26,7 @@ public:
 
 protected:
 //    void settingPiechart();
-//    qreal getCategoryTotalSum(QString categoryName);
+    qreal getCategoryTotalSum(QString categoryName);
 
 public slots:
     void updateTransactions();
@@ -31,7 +34,7 @@ public slots:
     void readCategories();
     void readTransactions();
     void finishedPostTransactions();
-//    void updatePiechart();
+    void updatePiechart();
     void updateList();
 
 private slots:
@@ -43,8 +46,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-//    Piechart *piechart;
-//    PieSeries *series;
+    QPieSeries *series;
+    QChartView *chartView;
     User user;
     QVector<Category> categories;
     QVector<Transaction> transactions;
