@@ -11,6 +11,7 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,6 +27,7 @@ public:
 
 protected:
 //    void settingPiechart();
+    void configWindowItems();
     qreal getCategoryTotalSum(QString categoryName);
 
 public slots:
@@ -43,6 +45,7 @@ private slots:
     void on_expenceRadioButton_clicked();
     void on_fromDateEdit_dateChanged(const QDate &date);
     void on_toDateEdit_dateChanged(const QDate &date);
+    void resizeEvent(QResizeEvent *event);
 
 private:
     Ui::MainWindow *ui;
@@ -54,5 +57,6 @@ private:
     QSharedPointer<QNetworkAccessManager> manager;
     QDate fromDateTransactions;
     QDate toDateTransactions;
+    QLabel *sumAmountLabel;
 };
 #endif // MAINWINDOW_H

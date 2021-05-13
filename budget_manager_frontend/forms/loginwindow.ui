@@ -196,7 +196,7 @@
           <string notr="true"/>
          </property>
          <property name="text">
-          <string/>
+          <string>bohdan@gmail.com</string>
          </property>
          <property name="placeholderText">
           <string>Email</string>
@@ -221,7 +221,7 @@
           <enum>Qt::ClickFocus</enum>
          </property>
          <property name="text">
-          <string/>
+          <string>qwerty123</string>
          </property>
          <property name="echoMode">
           <enum>QLineEdit::Password</enum>
