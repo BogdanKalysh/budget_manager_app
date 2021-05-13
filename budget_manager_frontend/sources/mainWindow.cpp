@@ -5,6 +5,7 @@
 #include "transactionJsonBuilder.h"
 #include "TransactionsListItem.h"
 #include "constants.h"
+#include "addcategorydialog.h"
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QJsonArray>
@@ -46,10 +47,9 @@ void MainWindow::resizeEvent(QResizeEvent *event)
                         (ui->pieChartDonut->height()-sumAmountLabel->height())/2);
 }
 
-
 void MainWindow::updateTransactions()
 {
-    QString getTransactionsQuery = "http://localhost:5000/transaction?" + jsonbuilder::USER_ID + "=" +
+    QString getTransactionsQuery = jsonbuilder::TRANSACTIONURL + "?" + jsonbuilder::USER_ID + "=" +
             QString::number(user.getId()) + "&" + jsonbuilder::START_DATE + "=" + fromDateTransactions.toString("yyyy-MM-dd") +
             "&" + jsonbuilder::END_DATE + "=" + toDateTransactions.toString("yyyy-MM-dd");
     QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
@@ -58,7 +58,7 @@ void MainWindow::updateTransactions()
 
 void MainWindow::updateCategories()
 {
-    QString getCategoriesQuery = "http://localhost:5000/category?" + jsonbuilder::USER_ID + "=" + QString::number(user.getId());
+    QString getCategoriesQuery = jsonbuilder::CATEGORYURL + "?" + jsonbuilder::USER_ID + "=" + QString::number(user.getId());
     QNetworkReply *categoriesReply = manager->get(QNetworkRequest(QUrl(getCategoriesQuery)));
     connect(categoriesReply, &QNetworkReply::readyRead, this, &MainWindow::readCategories);
 }
@@ -147,8 +147,8 @@ void MainWindow::configWindowItems()
 
     sumAmountLabel->setStyleSheet("font-size: 33px; color:white;");
 
-    QPixmap settingsPixMap(":/new/img/settings_icon.png");
-    QPixmap userPixMap(":/new/img/user_icon.png");
+    QPixmap settingsPixMap(jsonbuilder::SETTINGSICONPATH);
+    QPixmap userPixMap(jsonbuilder::USERICONPATH);
     int w(40), h(40);
     ui->settingsIcon->setPixmap(settingsPixMap.scaled(w, h, Qt::KeepAspectRatio));
     ui->userIcon->setPixmap(userPixMap.scaled(w, h, Qt::KeepAspectRatio));
@@ -187,19 +187,28 @@ void MainWindow::updatePiechart()
     series->clear();
     if(transactions.size() != 0){
         for(Category& cat: categories){
-            amountSum += getCategoryTotalSum(cat.getName());
-            QPieSlice *slice = series->append(cat.getName(), getCategoryTotalSum(cat.getName()));
-            slice->setBorderWidth(0);
-            slice->setPen(Qt::NoPen);
-            slice->setColor(QColor(cat.getColor()));
+            if(cat.getType() == ui->incomeRadioButton->isChecked()){
+                amountSum += getCategoryTotalSum(cat.getName());
+                QPieSlice *slice = series->append(cat.getName(), getCategoryTotalSum(cat.getName()));
+                slice->setBorderWidth(0);
+                slice->setPen(Qt::NoPen);
+                slice->setColor(QColor(cat.getColor()));
+            }
         }
-    }else{
+    }
+
+    if(series->isEmpty()){
         QPieSlice *slice = series->append("0", 1);
         slice->setBorderWidth(0);
         slice->setPen(Qt::NoPen);
-        slice->setColor(QColor("#528bba"));
+        slice->setColor(QColor(jsonbuilder::PIECHARTCOLOR));
     }
-    sumAmountLabel->setText(QString::number(amountSum) + " ₴");
+
+    if(ui->expenceRadioButton->isChecked())
+        sumAmountLabel->setText("-" + QString::number(amountSum) + " ₴");
+    else
+        sumAmountLabel->setText(QString::number(amountSum) + " ₴");
+
     sumAmountLabel->adjustSize();
 
     sumAmountLabel->move((ui->pieChartDonut->width()-sumAmountLabel->width())/2,
@@ -238,7 +247,7 @@ void MainWindow::on_addTransactionButton_clicked()
         QJsonDocument jsonDoc(builder->buildJson(Transaction (0, amount, description, categoryId)));
         QByteArray byteData = jsonDoc.toJson();
 
-        QNetworkRequest request = QNetworkRequest(QUrl("http://localhost:5000/transaction"));
+        QNetworkRequest request = QNetworkRequest(QUrl(jsonbuilder::TRANSACTIONURL));
         request.setRawHeader("Content-Type", "application/json");
         QNetworkReply* postTranasactionReply = manager->post(request, byteData);
         connect(postTranasactionReply, &QNetworkReply::finished, this, &MainWindow::finishedPostTransactions);
@@ -248,7 +257,6 @@ void MainWindow::on_addTransactionButton_clicked()
     }
 }
 
-
 void MainWindow::on_incomeRadioButton_clicked()
 {
     ui->categoryComboBox->clear();
@@ -256,6 +264,7 @@ void MainWindow::on_incomeRadioButton_clicked()
         if(cat.getType())
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
+    updatePiechart();
 }
 
 void MainWindow::on_expenceRadioButton_clicked()
@@ -265,6 +274,7 @@ void MainWindow::on_expenceRadioButton_clicked()
         if(!cat.getType())
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
+    updatePiechart();
 }
 
 void MainWindow::on_fromDateEdit_dateChanged(const QDate &date)
@@ -277,4 +287,13 @@ void MainWindow::on_toDateEdit_dateChanged(const QDate &date)
 {
     toDateTransactions = date;
     updateTransactions();
+}
+
+void MainWindow::on_addCategoryButton_clicked()
+{
+    AddCategoryDialog categoryDialog(user.getId(), Type(ui->expenceRadioButton->isChecked()), manager);
+    categoryDialog.setModal(true);
+    categoryDialog.exec();
+
+    updateCategories();
 }

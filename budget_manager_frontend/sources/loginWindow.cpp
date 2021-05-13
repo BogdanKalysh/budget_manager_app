@@ -34,7 +34,7 @@ void LoginWindow::on_loginButton_clicked()
     QByteArray passwordHash = QCryptographicHash::hash(ui->password_line->text().toLocal8Bit(), QCryptographicHash::Sha224);
     User user(ui->email_line->text(), passwordHash.toHex().data());
 
-    QNetworkReply *getUserReply = manager->get(QNetworkRequest(QUrl("http://localhost:5000/user?" + jsonbuilder::EMAIL +
+    QNetworkReply *getUserReply = manager->get(QNetworkRequest(QUrl(jsonbuilder::USERURL + "?" + jsonbuilder::EMAIL +
                                                                     "=" + user.getEmail() + "&" + jsonbuilder::PASSWORD +
                                                                     "=" + user.getPassword())));
 

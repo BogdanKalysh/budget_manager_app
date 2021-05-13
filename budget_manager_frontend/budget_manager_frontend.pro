@@ -31,6 +31,7 @@ DEPENDPATH += \
 
 
 HEADERS += \
+    forms/addcategorydialog.h \
     headers/TransactionsListItem.h \
     headers/builders/IJsonBuilder.h \
     headers/builders/userJsonBuilder.h \
@@ -56,6 +57,7 @@ HEADERS += \
 
 
 SOURCES += \
+    forms/addcategorydialog.cpp \
     sources/TransactionsListItem.cpp \
     sources/builders/userJsonBuilder.cpp \
     sources/parsers/categoryparser.cpp \
@@ -77,6 +79,7 @@ SOURCES += \
     sources/piechart/pieslicedata.cpp
 
 FORMS += \
+    forms/addcategorydialog.ui \
     forms/mainwindow.ui \
     forms/loginwindow.ui \
     forms/signupwindow.ui \

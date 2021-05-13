@@ -7,7 +7,6 @@
 #include "transaction.h"
 #include <QNetworkAccessManager>
 #include <QSharedPointer>
-//#include <piechart.h>
 #include <QtCharts/QChartView>
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
@@ -26,9 +25,9 @@ public:
     ~MainWindow();
 
 protected:
-//    void settingPiechart();
     void configWindowItems();
     qreal getCategoryTotalSum(QString categoryName);
+    void setUpUrls();
 
 public slots:
     void updateTransactions();
@@ -46,6 +45,8 @@ private slots:
     void on_fromDateEdit_dateChanged(const QDate &date);
     void on_toDateEdit_dateChanged(const QDate &date);
     void resizeEvent(QResizeEvent *event);
+
+    void on_addCategoryButton_clicked();
 
 private:
     Ui::MainWindow *ui;
