@@ -32,18 +32,18 @@ void SignUpWindow::on_signUpButton_clicked()
 
 
     if(ui->nameLine->text().isEmpty() || ui->emailLine->text().isEmpty() || ui->passwordLine->text().isEmpty()){
-         QMessageBox::information(this, "Check", "Please, fill in all fields");
+         QMessageBox::information(this, "Check", "Будь ласка, заповніть усі поля");
     }
     else if(ui->passwordLine->text() != ui->repeatPasswordLine->text())
     {
         ui->passwordLine->clear();
         ui->repeatPasswordLine->clear();
-        QMessageBox::information(this, "Check", "Passwords do not match");
+        QMessageBox::information(this, "Check", "Паролі не збігаються");
     }
     else if(!emailRegExp.match(ui->emailLine->text()).hasMatch() ||
            !passwordRegExp.match(ui->passwordLine->text()).hasMatch())
     {
-         QMessageBox::information(this, "Check", "Not valid login or password (Password must contain minimum eight characters, at least one letter and one number)");
+         QMessageBox::information(this, "Check", "Не валідний логін чи пароль (Пароль має містити щонайменш 8 символів, хоча б 1 букву та 1 цифру)");
     }
     else
     {
@@ -73,7 +73,11 @@ void SignUpWindow::postUser()
    QNetworkReply *postUserReply = qobject_cast<QNetworkReply*>(sender());
    if(!postUserReply->error())
    {
-       qDebug() << postUserReply->readAll();
+       ui->emailLine->clear();
+       ui->nameLine->clear();
+       ui->passwordLine->clear();
+       ui->repeatPasswordLine->clear();
+
        this->clearMask();
        this->close();
        emit loginWindow();
@@ -81,6 +85,7 @@ void SignUpWindow::postUser()
    else
    {
        qDebug()<<postUserReply->error();
+       QMessageBox::information(this, "Check", "Не можливо створити користувача");
    }
     postUserReply->close();
 }

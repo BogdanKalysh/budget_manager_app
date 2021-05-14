@@ -53,7 +53,7 @@
 QLabel{
  font-size: 25px;
 }
-
+	
 #addTransactionFrameBottom, #addTransactionFrameTop{
  border-style: none;
 }
@@ -118,13 +118,13 @@ QListWidget{
 	border-style: none;
 }
 
-QListWidget::item{
+#TransactionsList::item{
 	background: rgba(255,255,255,0.2);
 	border-radius: 20px;
 	border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
-QListWidget::item::hover{
+#TransactionsList::item::hover{
 	background: rgba(255,255,255,0.5) ;
 }
 
@@ -168,6 +168,20 @@ QListWidget::item::hover{
 #addCategoryButton::hover{
  background: rgb(88, 153, 255);
  border-style: none;
+}
+
+#legendList,  #legend{
+	background: transparent;
+	border-style: none;
+}
+
+#legendList::item{
+	background: transparent;
+	font-size: 15px;
+}
+
+#legendList::item::hover{
+	background: rgba(255,255,255,0.5) ;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -343,6 +357,12 @@ QListWidget::item::hover{
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QListWidget" name="TransactionsList">
+            <property name="verticalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="spacing">
              <number>8</number>
             </property>
@@ -500,7 +520,43 @@ QListWidget::item::hover{
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
             </property>
-            <layout class="QGridLayout" name="gridLayout_3"/>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>10</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <item row="1" column="1">
+              <widget class="QRadioButton" name="expencesLegendRadioButton">
+               <property name="text">
+                <string>Витрати</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QRadioButton" name="incomesLegendRadioButton">
+               <property name="text">
+                <string>Прибутки</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" rowspan="2">
+              <widget class="QListWidget" name="legendList"/>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>

@@ -37,6 +37,7 @@ public slots:
     void finishedPostTransactions();
     void updatePiechart();
     void updateList();
+    void updateLegend();
 
 private slots:
     void on_addTransactionButton_clicked();
@@ -47,6 +48,10 @@ private slots:
     void resizeEvent(QResizeEvent *event);
 
     void on_addCategoryButton_clicked();
+
+    void on_incomesLegendRadioButton_clicked();
+
+    void on_expencesLegendRadioButton_clicked();
 
 private:
     Ui::MainWindow *ui;

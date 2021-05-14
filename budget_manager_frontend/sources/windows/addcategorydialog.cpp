@@ -28,8 +28,8 @@ void AddCategoryDialog::on_addCategoryButton_clicked()
 {
     name = ui->categoryNameInput->text();
 
-    if(name == ""){
-        QMessageBox::about(this, "info", "Заповніть назву");
+    if(name == "" || color == "white"){
+        QMessageBox::about(this, "info", "Заповніть всі дані");
     }
     else
     {

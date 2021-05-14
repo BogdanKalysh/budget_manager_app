@@ -4,6 +4,7 @@
 #include "transactionparser.h"
 #include "transactionJsonBuilder.h"
 #include "TransactionsListItem.h"
+#include "legendlistitem.h"
 #include "constants.h"
 #include "addcategorydialog.h"
 #include <QNetworkReply>
@@ -144,6 +145,8 @@ void MainWindow::configWindowItems()
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->chart()->legend()->setVisible(false);
     chartView->chart()->setBackgroundVisible(false);
+//    chartView->chart()->legend()->setAlignment(Qt::AlignBottom);
+//    chartView->chart()->legend()->set
 
     sumAmountLabel->setStyleSheet("font-size: 33px; color:white;");
 
@@ -187,7 +190,7 @@ void MainWindow::updatePiechart()
     series->clear();
     if(transactions.size() != 0){
         for(Category& cat: categories){
-            if(cat.getType() == ui->incomeRadioButton->isChecked()){
+            if(cat.getType() == ui->incomesLegendRadioButton->isChecked()){
                 amountSum += getCategoryTotalSum(cat.getName());
                 QPieSlice *slice = series->append(cat.getName(), getCategoryTotalSum(cat.getName()));
                 slice->setBorderWidth(0);
@@ -204,7 +207,7 @@ void MainWindow::updatePiechart()
         slice->setColor(QColor(jsonbuilder::PIECHARTCOLOR));
     }
 
-    if(ui->expenceRadioButton->isChecked())
+    if(ui->expencesLegendRadioButton->isChecked() && amountSum != 0)
         sumAmountLabel->setText("-" + QString::number(amountSum) + " ₴");
     else
         sumAmountLabel->setText(QString::number(amountSum) + " ₴");
@@ -213,20 +216,35 @@ void MainWindow::updatePiechart()
 
     sumAmountLabel->move((ui->pieChartDonut->width()-sumAmountLabel->width())/2,
                         (ui->pieChartDonut->height()-sumAmountLabel->height())/2);
+
+    updateLegend();
 }
 
 void MainWindow::updateList()
 {
     ui->TransactionsList->clear();
-    for (Transaction& transaction : transactions)
+    for (Transaction &transaction : transactions)
     {
-        if (transaction.getDate() >= fromDateTransactions && transaction.getDate() <= toDateTransactions)
-        {
-            QListWidgetItem* item = new QListWidgetItem( ui->TransactionsList );
-            TransactionsItem *transactionsItem = new TransactionsItem(transaction);
+        QListWidgetItem* item = new QListWidgetItem( ui->TransactionsList );
+        TransactionsItem *transactionsItem = new TransactionsItem(transaction);
 
-            item->setSizeHint(transactionsItem->sizeHint());
-            ui->TransactionsList->setItemWidget(item, transactionsItem);
+        item->setSizeHint(transactionsItem->sizeHint());
+        ui->TransactionsList->setItemWidget(item, transactionsItem);
+    }
+}
+
+void MainWindow::updateLegend()
+{
+    ui->legendList->clear();
+    for (Category &category : categories)
+    {
+        if (category.getType() == ui->incomesLegendRadioButton->isChecked())
+        {
+            QListWidgetItem* item = new QListWidgetItem( ui->legendList );
+            LegendListItem *categoryItem = new LegendListItem(category);
+
+            item->setSizeHint(QSize(1,37));
+            ui->legendList->setItemWidget(item, categoryItem);
         }
     }
 }
@@ -264,7 +282,6 @@ void MainWindow::on_incomeRadioButton_clicked()
         if(cat.getType())
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
-    updatePiechart();
 }
 
 void MainWindow::on_expenceRadioButton_clicked()
@@ -274,7 +291,6 @@ void MainWindow::on_expenceRadioButton_clicked()
         if(!cat.getType())
             ui->categoryComboBox->addItem(cat.getName(), cat.getId());
     }
-    updatePiechart();
 }
 
 void MainWindow::on_fromDateEdit_dateChanged(const QDate &date)
@@ -296,4 +312,16 @@ void MainWindow::on_addCategoryButton_clicked()
     categoryDialog.exec();
 
     updateCategories();
+}
+
+void MainWindow::on_incomesLegendRadioButton_clicked()
+{
+    updatePiechart();
+    updateLegend();
+}
+
+void MainWindow::on_expencesLegendRadioButton_clicked()
+{
+    updatePiechart();
+    updateLegend();
 }

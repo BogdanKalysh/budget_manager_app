@@ -3,7 +3,7 @@
 
 #include <QDate>
 #include <QString>
-#include "category.h"
+#include <QColor>
 
 class Transaction
 {
