@@ -16,7 +16,7 @@ QVector<Category> CategoryRepository::select(const QString &query)
                                 result.value(NAME).toString(),
                                 (Type)(result.value(TYPE) == INCOME),
                                 QColor(result.value(COLOR).toString()),
-                                result.value(CATEGORY_ID).toInt()
+                                result.value(USER_ID).toInt()
                                 ));
         }
     } else {
