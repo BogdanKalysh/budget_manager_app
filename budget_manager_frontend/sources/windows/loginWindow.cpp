@@ -30,15 +30,15 @@ LoginWindow::~LoginWindow()
 
 
 void LoginWindow::on_loginButton_clicked()
-{
-    //connect to db
+{   
     QByteArray passwordHash = QCryptographicHash::hash(ui->password_line->text().toLocal8Bit(), QCryptographicHash::Sha224);
     User user(ui->email_line->text(), passwordHash.toHex().data());
 
-    QString query = "SELECT * FROM user WHERE mail = " + ui->email_line->text() + " AND password = " + ui->password_line->text();
-    qDebug()<<query;
-    QNetworkReply *getUserReply = manager->get(QNetworkRequest(QUrl("http://127.0.0.1:5000/rating/getuser")));
-    connect(getUserReply, &QIODevice::readyRead, this, &LoginWindow::onResult);
+    QNetworkReply *getUserReply = manager->get(QNetworkRequest(QUrl(jsonbuilder::USERURL + "?" + jsonbuilder::EMAIL +
+                                                                    "=" + user.getEmail() + "&" + jsonbuilder::PASSWORD +
+                                                                    "=" + user.getPassword())));
+
+    connect(getUserReply, &QIODevice::readChannelFinished, this, &LoginWindow::onResult);
 }
 
 
@@ -52,6 +52,7 @@ void LoginWindow::on_signUpLoginButton_clicked()
 void LoginWindow::onResult()
 {
     QNetworkReply *getUserReply = qobject_cast<QNetworkReply*>(sender());
+
     if(!getUserReply->error())
     {
         QJsonDocument jsonResponse = QJsonDocument::fromJson(getUserReply->readAll());
@@ -69,13 +70,16 @@ void LoginWindow::onResult()
         else
         {
             qDebug()<<user.getName().length();
-            QMessageBox::critical(this, "Failed", "Wrong login or password");
+            QMessageBox::critical(this, "Failed", "Не правильний Email чи пароль");
         }
     }
     else
     {
         qDebug()<<getUserReply->error();
+        qDebug()<<user.getName().length();
+        QMessageBox::critical(this, "Failed", "Не правильний Email чи пароль");
     }
 
     getUserReply->close();
+    getUserReply->deleteLater();
 }

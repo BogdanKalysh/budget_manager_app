@@ -18,6 +18,8 @@ namespace parser {
     const QString PASSWORD = "password";
     const QString BALANCE = "balance";
     const QString USER_ID = "user_id";
+    const QString START_DATE = "start_date";
+    const QString END_DATE = "end_date";
 }
 
 namespace dal {

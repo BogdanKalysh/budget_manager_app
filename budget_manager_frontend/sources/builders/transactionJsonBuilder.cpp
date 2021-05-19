@@ -1,5 +1,5 @@
 #include "transactionJsonBuilder.h"
-
+#include "constants.h"
 
 QJsonObject TransactionJsonBuilder::buildJson(Transaction transaction){
     QJsonObject jObj;

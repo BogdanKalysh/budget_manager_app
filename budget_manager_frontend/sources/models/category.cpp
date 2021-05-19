@@ -9,12 +9,13 @@ Category::Category()
     this->color = QColor();
 }
 
-Category::Category(int id, QString name, Type type, QColor color)
+Category::Category(int id, QString name, Type type, QColor color, int userId)
 {
     this->id = id;
     this->name = name;
     this->type = type;
     this->color = color;
+    this->userId = userId;
 }
 
 Category::Category(const Category &other)
@@ -29,6 +30,11 @@ Category::Category(const Category &other)
 int Category::getId()
 {
     return this->id;
+}
+
+int Category::getUserId()
+{
+    return this->userId;
 }
 
 QString Category::getName()
@@ -64,4 +70,9 @@ void Category::setType(Type type)
 void Category::setColor(QColor color)
 {
     this->color = color;
+}
+
+void Category::setUserId(int userId)
+{
+    this->userId = userId;
 }

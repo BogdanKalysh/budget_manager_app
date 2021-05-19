@@ -24,6 +24,7 @@ public:
     void setName(QString name);
     void setPassword(QString password);
     void setEmail(QString email);
+    void setUserId(int userId);
 };
 
 

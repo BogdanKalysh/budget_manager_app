@@ -8,8 +8,9 @@ Category CategoryParser::parse(QJsonObject json)
     QString name = json.value(jsonbuilder::NAME).toString();
     int type = json.value(jsonbuilder::TYPE).toInt();
     QColor color(json.value(jsonbuilder::COLOR).toString());
+    int userId = json.value(jsonbuilder::USER_ID).toInt();
 
-    return Category(id, name, (Type)type, color);
+    return Category(id, name, (Type)type, color, userId);
 }
 
 

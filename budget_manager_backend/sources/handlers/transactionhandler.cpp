@@ -25,7 +25,7 @@ void TransactionHandler::get(Poco::Net::HTTPServerRequest& request, Poco::Net::H
 
     QString select = "SELECT transaction.*, category.name, category.color, category.type FROM category INNER JOIN "
                      "transaction ON category.id = transaction.category_id WHERE category.user_id = "+ user_id +
-                     " AND transaction.date > '"+start_date+"'::date AND transaction.date < '"+end_date+"'::date";
+                     " AND transaction.date >= '"+start_date+"'::date AND transaction.date <= '"+end_date+"'::date ORDER BY transaction.id DESC";
 
     QVector<Transaction> transactions = repository->select(select);
     TransactionJsonBuilder transactionJsonBuilder;

@@ -7,7 +7,10 @@
 #include "transaction.h"
 #include <QNetworkAccessManager>
 #include <QSharedPointer>
-#include<piechart.h>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,16 +25,19 @@ public:
     ~MainWindow();
 
 protected:
-//    void settingPiechart();
-//    qreal getCategoryTotalSum(QString categoryName);
+    void configWindowItems();
+    qreal getCategoryTotalSum(QString categoryName);
+    void setUpUrls();
 
 public slots:
-    void updateFromDb();
+    void updateTransactions();
+    void updateCategories();
     void readCategories();
     void readTransactions();
     void finishedPostTransactions();
-//    void updatePiechart();
+    void updatePiechart();
     void updateList();
+    void updateLegend();
 
 private slots:
     void on_addTransactionButton_clicked();
@@ -39,16 +45,24 @@ private slots:
     void on_expenceRadioButton_clicked();
     void on_fromDateEdit_dateChanged(const QDate &date);
     void on_toDateEdit_dateChanged(const QDate &date);
+    void resizeEvent(QResizeEvent *event);
+
+    void on_addCategoryButton_clicked();
+
+    void on_incomesLegendRadioButton_clicked();
+
+    void on_expencesLegendRadioButton_clicked();
 
 private:
     Ui::MainWindow *ui;
-//    Piechart *piechart;
-//    PieSeries *series;
+    QPieSeries *series;
+    QChartView *chartView;
     User user;
     QVector<Category> categories;
     QVector<Transaction> transactions;
     QSharedPointer<QNetworkAccessManager> manager;
     QDate fromDateTransactions;
     QDate toDateTransactions;
+    QLabel *sumAmountLabel;
 };
 #endif // MAINWINDOW_H

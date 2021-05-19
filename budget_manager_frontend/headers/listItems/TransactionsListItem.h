@@ -12,7 +12,7 @@ class TransactionsItem : public QDialog
     Q_OBJECT
 
 public:
-    TransactionsItem(Transaction transaction, QWidget *parent=0);
+    TransactionsItem(Transaction transaction, QWidget *parent = nullptr);
 private:
     QLabel *Description;
     QFrame *line;

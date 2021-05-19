@@ -14,7 +14,7 @@ QVector<Category> CategoryRepository::select(const QString &query)
             categories.push_back(Category(
                                 result.value(ID).toInt(),
                                 result.value(NAME).toString(),
-                                (Type)result.value(TYPE).toInt(),
+                                (Type)(result.value(TYPE) == INCOME),
                                 QColor(result.value(COLOR).toString()),
                                 result.value(CATEGORY_ID).toInt()
                                 ));
