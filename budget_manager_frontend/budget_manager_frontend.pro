@@ -50,7 +50,8 @@ HEADERS += \
     headers/parsers/userparser.h \
     headers/parsers/categoryparser.h \
     headers/parsers/transactionparser.h\
-    headers/listItems/legendlistitem.h
+    headers/listItems/legendlistitem.h \
+    headers/windows/usersettingsdialog.h
 
 
 SOURCES += \
@@ -70,12 +71,14 @@ SOURCES += \
     sources/parsers/userparser.cpp \
     sources/windows/signUpWindow.cpp \
     sources/builders/transactionJsonBuilder.cpp \
+    sources/windows/usersettingsdialog.cpp
 
 FORMS += \
     forms/addcategorydialog.ui \
     forms/mainwindow.ui \
     forms/loginwindow.ui \
     forms/signupwindow.ui \
+    forms/usersettingsdialog.ui
 
 RESOURCES += \
     resources/src.qrc

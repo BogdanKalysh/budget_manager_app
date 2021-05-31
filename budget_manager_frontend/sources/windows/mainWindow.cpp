@@ -121,7 +121,7 @@ void MainWindow::finishedPostTransactions()
 
     if(postTranasactionReply->error() == QNetworkReply::NoError){
         QString contents = QString::fromUtf8(postTranasactionReply->readAll());
-        qDebug() << contents;
+
     }
     else
     {
@@ -145,15 +145,11 @@ void MainWindow::configWindowItems()
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->chart()->legend()->setVisible(false);
     chartView->chart()->setBackgroundVisible(false);
-//    chartView->chart()->legend()->setAlignment(Qt::AlignBottom);
-//    chartView->chart()->legend()->set
 
     sumAmountLabel->setStyleSheet("font-size: 33px; color:white;");
 
-    QPixmap settingsPixMap(jsonbuilder::SETTINGSICONPATH);
     QPixmap userPixMap(jsonbuilder::USERICONPATH);
     int w(40), h(40);
-    ui->settingsIcon->setPixmap(settingsPixMap.scaled(w, h, Qt::KeepAspectRatio));
     ui->userIcon->setPixmap(userPixMap.scaled(w, h, Qt::KeepAspectRatio));
 
     ui->amountInputLine->setValidator(new QIntValidator(0, 1000000000, this));
@@ -200,7 +196,7 @@ void MainWindow::updatePiechart()
         }
     }
 
-    if(series->isEmpty()){
+    if(amountSum == 0){
         QPieSlice *slice = series->append("0", 1);
         slice->setBorderWidth(0);
         slice->setPen(Qt::NoPen);
@@ -226,10 +222,12 @@ void MainWindow::updateList()
     for (Transaction &transaction : transactions)
     {
         QListWidgetItem* item = new QListWidgetItem( ui->TransactionsList );
-        TransactionsItem *transactionsItem = new TransactionsItem(transaction);
+        TransactionsItem *transactionsItem = new TransactionsItem(transaction, manager);
 
-        item->setSizeHint(transactionsItem->sizeHint());
+        item->setSizeHint(QSize(0, 55));
         ui->TransactionsList->setItemWidget(item, transactionsItem);
+
+        connect(transactionsItem, &TransactionsItem::transactionDeleted, this, &MainWindow::updateTransactions);
     }
 }
 

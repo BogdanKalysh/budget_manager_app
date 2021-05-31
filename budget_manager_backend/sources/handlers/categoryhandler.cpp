@@ -73,10 +73,14 @@ void CategoryHandler::post(Poco::Net::HTTPServerRequest& request, Poco::Net::HTT
 }
 
 void CategoryHandler::del(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    Category category = parser->parse(bodyObj);
+//    QJsonObject bodyObj = convertIstreamToJson(request.stream());
+//    Category category = parser->parse(bodyObj);
 
-    repository->deleteObject(category.getId());
+    QMap<QString,QString> uri_map = getParametrsFromUrl(Poco::URI(request.getURI()));
+    int id = uri_map[parser::ID].toInt();
+
+//    repository->deleteObject(category.getId());
+    repository->deleteObject(id);
 
     response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
     response.send();
