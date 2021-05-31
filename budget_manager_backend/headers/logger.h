@@ -13,7 +13,7 @@ private:
      * it's our messageHandler
      *
      * after we install this messageHandler
-     * using qDebug, qInfo, etc. will write info in file instead of concole
+     * using qDebug, qInfo, etc. will write info in file instead of console
      */
     static void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 public:
