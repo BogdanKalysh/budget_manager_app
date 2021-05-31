@@ -41,11 +41,13 @@ HEADERS += \
     headers/JsonBuilders/IJsonBuilder.h \
     headers/JsonBuilders/categoryjsonbuilder.h \
     headers/JsonBuilders/transactionjsonbuilder.h \
-    headers/JsonBuilders/userjsonbuilder.h
+    headers/JsonBuilders/userjsonbuilder.h \
+    headers/logger.h
 
 SOURCES += \
     main.cpp \
     sources/handlers/abstracthandler.cpp \
+    sources/logger.cpp \
     sources/parsers/userparser.cpp \
     sources/parsers/categoryparser.cpp \
     sources/parsers/transactionparser.cpp \
