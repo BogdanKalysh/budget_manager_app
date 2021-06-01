@@ -169,12 +169,19 @@ void MainWindow::configWindowItems()
 }
 
 
-qreal MainWindow::getCategoryTotalSum(QString categoryName)
+qreal MainWindow::getCategoryTotalSum(QString categoryName, Type type)
 {
+    QString typestr;
+    if(type)
+        typestr = jsonbuilder::INCOME;
+    else
+        typestr = jsonbuilder::EXPENSE;
+
     qreal totalsum = 0;
 
     for(Transaction &transac : transactions){
-        if(transac.getCategoryName() == categoryName)
+        qDebug() << typestr;
+        if(transac.getCategoryName() == categoryName && transac.getType() == typestr)
             totalsum += transac.getAmount();
     }
 
@@ -188,8 +195,8 @@ void MainWindow::updatePiechart()
     if(transactions.size() != 0){
         for(Category& cat: categories){
             if(cat.getType() == ui->incomesLegendRadioButton->isChecked()){
-                amountSum += getCategoryTotalSum(cat.getName());
-                QPieSlice *slice = series->append(cat.getName(), getCategoryTotalSum(cat.getName()));
+                amountSum += getCategoryTotalSum(cat.getName(), cat.getType());
+                QPieSlice *slice = series->append(cat.getName(), getCategoryTotalSum(cat.getName(),cat.getType()));
                 slice->setBorderWidth(0);
                 slice->setPen(Qt::NoPen);
                 slice->setColor(QColor(cat.getColor()));
@@ -247,12 +254,6 @@ void MainWindow::updateLegend()
         }
     }
 }
-
-void MainWindow::openUserSettings()
-{
-
-}
-
 
 void MainWindow::on_addTransactionButton_clicked()
 {

@@ -26,7 +26,7 @@ public:
 
 protected:
     void configWindowItems();
-    qreal getCategoryTotalSum(QString categoryName);
+    qreal getCategoryTotalSum(QString categoryName, Type type);
     void setUpUrls();
 
 public slots:
@@ -38,7 +38,6 @@ public slots:
     void updatePiechart();
     void updateList();
     void updateLegend();
-    void openUserSettings();
 
 private slots:
     void on_addTransactionButton_clicked();
