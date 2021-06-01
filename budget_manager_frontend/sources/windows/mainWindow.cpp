@@ -7,6 +7,7 @@
 #include "legendlistitem.h"
 #include "constants.h"
 #include "addcategorydialog.h"
+#include "usersettingsdialog.h"
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QJsonArray>
@@ -150,7 +151,7 @@ void MainWindow::configWindowItems()
 
     QPixmap userPixMap(jsonbuilder::USERICONPATH);
     int w(40), h(40);
-    ui->userIcon->setPixmap(userPixMap.scaled(w, h, Qt::KeepAspectRatio));
+    ui->userIcon->setPixmap(userPixMap.scaled(w, h, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     ui->amountInputLine->setValidator(new QIntValidator(0, 1000000000, this));
 
@@ -247,6 +248,11 @@ void MainWindow::updateLegend()
     }
 }
 
+void MainWindow::openUserSettings()
+{
+
+}
+
 
 void MainWindow::on_addTransactionButton_clicked()
 {
@@ -308,7 +314,6 @@ void MainWindow::on_addCategoryButton_clicked()
     AddCategoryDialog categoryDialog(user.getId(), Type(ui->expenceRadioButton->isChecked()), manager);
     categoryDialog.setModal(true);
     categoryDialog.exec();
-
     updateCategories();
 }
 
@@ -322,4 +327,17 @@ void MainWindow::on_expencesLegendRadioButton_clicked()
 {
     updatePiechart();
     updateLegend();
+}
+
+void MainWindow::on_userName_clicked()
+{
+        UserSettingsDialog settd(user, manager);
+        settd.exec();
+
+        user = settd.getUser();
+
+        ui->userName->setText(user.getName());
+
+        updateCategories();
+        updateTransactions();
 }

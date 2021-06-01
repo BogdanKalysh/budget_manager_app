@@ -51,7 +51,6 @@ void TransactionsItem::emitTransactionDeleted()
 void TransactionsItem::on_delButton_clicked()
 {
     QNetworkRequest request = QNetworkRequest(QUrl(jsonbuilder::TRANSACTIONURL + "?" + jsonbuilder::ID + "=" + QString::number(id)));
-    request.setRawHeader("Content-Type", "application/json");
     QNetworkReply* delTranasactionReply = manager->deleteResource(request);
 
     connect(delTranasactionReply, &QNetworkReply::finished, this, &TransactionsItem::emitTransactionDeleted);

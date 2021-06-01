@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>UserSettingsDialog</class>
  <widget class="QDialog" name="UserSettingsDialog">
@@ -5,13 +6,215 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>561</width>
+    <height>341</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <widget class="QFrame" name="userSettingsFrame">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>341</width>
+     <height>231</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="changePasswordText">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>30</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Зміна пароля</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="newPasswordInput">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>120</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="nametext">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>60</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ім'я</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="emailText">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>100</y>
+      <width>60</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Пошта</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="saveButton">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>190</y>
+      <width>80</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Зберегти</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="oldPasswordInput">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>50</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="emailInputField">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>120</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="nameInputField">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>50</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="logoutButton">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>190</y>
+      <width>80</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Вийти</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="deleteCategoriesFrame">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>100</y>
+     <width>191</width>
+     <height>231</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="deleteCategoriesText">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Видалення категорій</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="categoritesComboBox">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>100</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deleteCategoryButton">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>180</y>
+      <width>80</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Видалити</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="headerFrame">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>541</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="headerText">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>241</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Налаштування користувача</string>
+    </property>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>

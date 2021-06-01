@@ -69,14 +69,12 @@ void LoginWindow::onResult()
         }
         else
         {
-            qDebug()<<user.getName().length();
             QMessageBox::critical(this, "Failed", "Не правильний Email чи пароль");
         }
     }
     else
     {
         qDebug()<<getUserReply->error();
-        qDebug()<<user.getName().length();
         QMessageBox::critical(this, "Failed", "Не правильний Email чи пароль");
     }
 

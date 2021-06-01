@@ -34,7 +34,9 @@
 }
 
 #userName, #settingsIcon{
-	margin: 0 10px;
+	margin: 0 15px;
+	font-size: 25px;
+	border-style: none;
 }
 
 #addTransactionFrame, #pieChartFrame, #transactionListFrame{
@@ -276,12 +278,15 @@ QListWidget{
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="userName">
+        <widget class="QPushButton" name="userName">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="text">
           <string>Ім'я Користувача</string>
