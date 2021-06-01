@@ -92,6 +92,7 @@ QLineEdit[text=&quot;&quot;]{
 	color: rgba(255,255,255,0.6);
 }
 
+
 #categoryComboBox{
  	height: 50px;
  	width: 200px;
@@ -99,6 +100,17 @@ QLineEdit[text=&quot;&quot;]{
  	background: transparent;
  	border: 1px solid white;
 	font-size: 20px;
+}
+
+QComboBox::item{
+	background-color: rgb(8, 68, 117);
+	color:rgb(218, 218, 218);
+}
+
+QComboBox::item:selected
+{
+    background-color: rgb(218, 218, 218);
+    color: rgb(8, 68, 117);
 }
 
 #categoryComboBox::drop-down{
