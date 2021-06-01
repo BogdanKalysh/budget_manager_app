@@ -32,6 +32,8 @@ namespace dal {
     const QString USERS = "users";
     const QString CATEGORY = "category";
     const QString TRANSACTION = "transaction";
+    const QString KEY = "budget_manager";
+    const QString AES = "aes-256-ecb";
 
     const QString ID = "id";
     const QString MAIL = "mail";

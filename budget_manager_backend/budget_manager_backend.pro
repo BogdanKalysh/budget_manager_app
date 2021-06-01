@@ -66,7 +66,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 LIBS += \
-    -L../build-DAL-Desktop_Qt_6_0_2_clang_64bit-Debug -lDAL \
+    -L../build-DAL-Desktop_Qt_6_1_0_MinGW_64_bit-Debug/debug -lDAL \
 
 INCLUDEPATH += \
     ../DAL/headers \
@@ -78,22 +78,27 @@ DEPENDPATH += \
     ../DAL/headers/repositories
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../poco/cmake-build/lib/release/ -lPocoData.71 -lPocoDataPostgreSQL.71 -lPocoDataSQLite.71\
--lPocoEncodings.71 -lPocoFoundation.71 -lPocoJSON.71 -lPocoMongoDB.71 -lPocoNet.71 -lPocoRedis.71 -lPocoUtil.71\
--lPocoXML.71 -lPocoZip.71
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../poco/cmake-build/lib/debug/ -lPocoData.71 -lPocoDataPostgreSQL.71 -lPocoDataSQLite.71\
--lPocoEncodings.71 -lPocoFoundation.71 -lPocoJSON.71 -lPocoMongoDB.71 -lPocoNet.71 -lPocoRedis.71 -lPocoUtil.71\
--lPocoXML.71 -lPocoZip.71
-else:unix: LIBS += -L$$PWD/../../poco/cmake-build/lib/ -lPocoData.71 -lPocoDataPostgreSQL.71 -lPocoDataSQLite.71\
--lPocoEncodings.71 -lPocoFoundation.71 -lPocoJSON.71 -lPocoMongoDB.71 -lPocoNet.71 -lPocoRedis.71 -lPocoUtil.71\
--lPocoXML.71 -lPocoZip.71
 
-INCLUDEPATH += $$PWD/../../poco/Foundation/include
-INCLUDEPATH += $$PWD/../../poco/Net/include
-INCLUDEPATH += $$PWD/../../poco/Util/include
-INCLUDEPATH += $$PWD/../../poco/JSON/include
+win32:CONFIG(release, debug|release): LIBS += -LC:/msys64/mingw64/lib/ -llibPocoNet.dll
+else:win32:CONFIG(debug, debug|release): LIBS += -LC:/msys64/mingw64/lib/ -llibPocoNet.dll
+else:unix: LIBS += -LC:/msys64/mingw64/lib/ -llibPocoNet.dll
 
-DEPENDPATH += $$PWD/../../poco/Foundation/include
-DEPENDPATH += $$PWD/../../poco/Net/include
-DEPENDPATH += $$PWD/../../poco/Util/include
-DEPENDPATH += $$PWD/../../poco/JSON/include
+win32: LIBS += -LC:/msys64/mingw64/bin/ \
+    -llibPocoData.dll \
+    -llibPocoFoundation.dll\
+    -llibPocoDataSQLite.dll\
+    -llibPocoDataPostgreSQL.dll\
+    -llibPocoDataPostgreSQL.dll\
+    -llibPocoEncodings.dll \
+    -llibPocoJSON.dll\
+    -llibPocoNet.dll\
+    -llibPocoRedis.dll\
+    -llibPocoUtil.dll\
+    -llibPocoXML.dll\
+    -llibPocoZip.dll\
+    -llibPocoCrypto.dll
+
+
+INCLUDEPATH += C:/msys64/mingw64/include
+DEPENDPATH += C:/msys64/mingw64/include
+
