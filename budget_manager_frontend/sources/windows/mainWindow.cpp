@@ -180,7 +180,6 @@ qreal MainWindow::getCategoryTotalSum(QString categoryName, Type type)
     qreal totalsum = 0;
 
     for(Transaction &transac : transactions){
-        qDebug() << typestr;
         if(transac.getCategoryName() == categoryName && transac.getType() == typestr)
             totalsum += transac.getAmount();
     }

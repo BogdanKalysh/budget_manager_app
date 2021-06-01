@@ -27,8 +27,9 @@ TransactionsItem::TransactionsItem(Transaction transaction, QSharedPointer<QNetw
     sum = new QLabel(QString::number(transaction.getAmount())+"₴");
     sum->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    delButton = new QPushButton("x");
+    delButton = new QPushButton("×");
     delButton->setVisible(false);
+    delButton->setStyleSheet("*::hover{background:tomato;}\n*{background:rgba(50,50,50,0.5); padding-bottom:3px;font-size: 20px; border-style: none; height:30px; width:30px; border-radius: 14px;}");
 
     connect(delButton, &QPushButton::clicked, this, &TransactionsItem::on_delButton_clicked);
 

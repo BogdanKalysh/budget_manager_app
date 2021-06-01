@@ -32,14 +32,14 @@ private slots:
     void updateUser(User& user);
 
     void on_deleteCategoryButton_clicked();
+    void finishedUpdateUser();
+    void finishedDeleteCategory();
 
 private:
     Ui::UserSettingsDialog *ui;
     User user;
     QSharedPointer<QNetworkAccessManager> manager;
     QVector<Category> categories;
-
-    void finishedUpdateUser();
 };
 
 #endif // USERSETTINGSDIALOG_H

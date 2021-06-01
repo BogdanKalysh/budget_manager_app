@@ -54,10 +54,10 @@ void UserSettingsDialog::readCategories()
         categories = parser->parseVector(json_array);
     }
 
-    ui->categoritesComboBox->clear();
+    ui->categoriesComboBox->clear();
 
     for (Category& cat: categories){
-        ui->categoritesComboBox->addItem(cat.getName(), cat.getId());
+        ui->categoriesComboBox->addItem(cat.getName(), cat.getId());
     }
 
     categoriesReply->close();
@@ -67,7 +67,7 @@ void UserSettingsDialog::readCategories()
 void UserSettingsDialog::on_saveButton_clicked()
 {
 
-    if(!ui->oldPasswordInput->text().isEmpty()){
+    if(!ui->oldPasswordInput->text().isEmpty() || !ui->newPasswordInput->text().isEmpty() ){
         QString oldPasswordHash = QCryptographicHash::hash(ui->oldPasswordInput->text().toLocal8Bit(), QCryptographicHash::Sha224).toHex().data();
 
         QNetworkRequest request = QNetworkRequest(QUrl(jsonbuilder::USERURL + "?" + jsonbuilder::EMAIL + "="
@@ -105,6 +105,8 @@ void UserSettingsDialog::updatePassword()
         User newuser(user.getId(), newName, newEmail, newPassword);
 
         updateUser(newuser);
+    }else if(getUserReply->error() == QNetworkReply::ConnectionRefusedError){
+        QMessageBox::about(this, "info", "Немає зв'язку з сервером");
     }else{
         QMessageBox::about(this, "info", "Неправильний старий пароль");
     }
@@ -144,23 +146,56 @@ void UserSettingsDialog::finishedUpdateUser()
 {
     QNetworkReply *getUserReply = qobject_cast<QNetworkReply*>(sender());
 
-    if(getUserReply->error() == QNetworkReply::NoError){
+    if(getUserReply->error() == QNetworkReply::NoError)
+    {
         user.setEmail(ui->emailInputField->text());
         user.setName(ui->nameInputField->text());
         if(ui->newPasswordInput->text() != ""){
-            user.setPassword(ui->newPasswordInput->text());
+            user.setPassword(QCryptographicHash::hash(ui->newPasswordInput->text().toLocal8Bit(), QCryptographicHash::Sha224).toHex().data());
         }
-    }else{
+        ui->oldPasswordInput->clear();
+        ui->newPasswordInput->clear();
+        QMessageBox::about(this, "info", "Дані змінено");
+    }
+    else if(getUserReply->error() == QNetworkReply::ConnectionRefusedError)
+    {
+        QMessageBox::about(this, "info", "Немає зв'язку з сервером");
+    }
+    else
+    {
         qDebug() << getUserReply->error();
         QMessageBox::about(this, "info", getUserReply->errorString());
     }
 }
 
+void UserSettingsDialog::finishedDeleteCategory()
+{
+    QNetworkReply *getUserReply = qobject_cast<QNetworkReply*>(sender());
+
+    if(getUserReply->error() == QNetworkReply::NoError){
+        updateCategories();
+        QMessageBox::about(this, "info", "Категорію видалено");
+    }else if(getUserReply->error() == QNetworkReply::ConnectionRefusedError)
+    {
+        QMessageBox::about(this, "info", "Немає зв'язку з сервером");
+    }
+    else
+    {
+        qDebug() << getUserReply->error();
+        QMessageBox::about(this, "info", getUserReply->errorString());
+    }
+
+}
+
 void UserSettingsDialog::on_deleteCategoryButton_clicked()
 {
-    QNetworkRequest request = QNetworkRequest(QUrl(jsonbuilder::CATEGORYURL + "?"
-        + jsonbuilder::ID + "=" + ui->categoritesComboBox->currentData().toString()));
-    QNetworkReply* delTranasactionReply = manager->deleteResource(request);
+    if(ui->categoriesComboBox->currentData().isNull()){
+        QMessageBox::about(this, "info", "Не обрано категорії");
+    }else {
+        QNetworkRequest request = QNetworkRequest(QUrl(jsonbuilder::CATEGORYURL + "?"
+            + jsonbuilder::ID + "=" + ui->categoriesComboBox->currentData().toString()));
+        QNetworkReply* delTranasactionReply = manager->deleteResource(request);
 
-    connect(delTranasactionReply, &QNetworkReply::finished, this, &UserSettingsDialog::updateCategories);
+        connect(delTranasactionReply, &QNetworkReply::finished, this, &UserSettingsDialog::finishedDeleteCategory);
+    }
 }
