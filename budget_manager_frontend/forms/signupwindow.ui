@@ -65,13 +65,17 @@
  	border-top-color: rgba(0,0,0,0.1);
 }
 
-#emailLine, #nameLine,#passwordLine,#repeatPasswordLine{	
+QLineEdit{	
 	border: 1px solid rgba(255,255,255,0.3);
  	background: rgba(255,255,255,0.1);
  	border-radius: 15px;
  	font-size: 20px;
  	padding: 0 20px;
- 	color: rgba(255,255,255,0.6);
+	color: rgb(218, 218,218);
+}
+
+QLineEdit[text=&quot;&quot;]{
+	color: rgba(255,255,255,0.6);
 }
 
 #heavyWalletName{
@@ -266,6 +270,9 @@
            <italic>false</italic>
            <bold>false</bold>
           </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="styleSheet">
           <string notr="true"/>

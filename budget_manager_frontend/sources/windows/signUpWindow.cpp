@@ -3,6 +3,7 @@
 #include "constants.h"
 #include "userJsonBuilder.h"
 #include <QCryptographicHash>
+#include <QStyle>
 
 #include <QScopedPointer>
 #include <QDebug>
@@ -17,6 +18,11 @@ SignUpWindow::SignUpWindow(QSharedPointer<QNetworkAccessManager> manager, QWidge
     ui->setupUi(this);
 
     this->manager = manager;
+
+    connect(ui->nameLine, &QLineEdit::textChanged, [=]{ style()->polish(ui->nameLine); });
+    connect(ui->emailLine, &QLineEdit::textChanged, [=]{ style()->polish(ui->emailLine); });
+    connect(ui->passwordLine, &QLineEdit::textChanged, [=]{ style()->polish(ui->passwordLine); });
+    connect(ui->repeatPasswordLine, &QLineEdit::textChanged, [=]{ style()->polish(ui->repeatPasswordLine); });
 }
 
 SignUpWindow::~SignUpWindow()

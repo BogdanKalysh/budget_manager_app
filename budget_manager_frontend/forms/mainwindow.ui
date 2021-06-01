@@ -85,7 +85,11 @@ QLineEdit{
  	border-radius: 25px;
  	font-size: 20px;
  	padding: 0 20px;
- 	color: rgba(255,255,255,0.6);
+ 	color: rgba(218,218,218);
+}
+
+QLineEdit[text=&quot;&quot;]{
+	color: rgba(255,255,255,0.6);
 }
 
 #categoryComboBox{
@@ -405,6 +409,9 @@ QListWidget{
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="calendarPopup">
                 <bool>true</bool>
                </property>
@@ -445,6 +452,9 @@ QListWidget{
                  <horstretch>1</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="dateTime">
                 <datetime>
@@ -528,6 +538,9 @@ QListWidget{
              </property>
              <item row="1" column="1">
               <widget class="QRadioButton" name="expencesLegendRadioButton">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="text">
                 <string>Витрати</string>
                </property>
@@ -535,6 +548,9 @@ QListWidget{
              </item>
              <item row="0" column="1">
               <widget class="QRadioButton" name="incomesLegendRadioButton">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="text">
                 <string>Прибутки</string>
                </property>
@@ -584,6 +600,9 @@ QListWidget{
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="text">
                 <string>Прибуток</string>
                </property>
@@ -626,10 +645,16 @@ QListWidget{
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QPushButton" name="addCategoryButton">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="text">
                 <string>+</string>
                </property>
@@ -654,6 +679,9 @@ QListWidget{
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
                 <string>Витрата</string>
@@ -683,6 +711,9 @@ QListWidget{
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
                 <string>Додати</string>

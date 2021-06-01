@@ -6,6 +6,7 @@
 
 #include <QCryptographicHash>
 #include <QDebug>
+#include <QStyle>
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QJsonDocument>
@@ -21,6 +22,8 @@ LoginWindow::LoginWindow(QWidget *parent) :
     signUpWindow = new SignUpWindow(manager);
 
     connect(signUpWindow, &SignUpWindow::loginWindow, this, &LoginWindow::show);
+    connect(ui->email_line, &QLineEdit::textChanged, [=]{ style()->polish(ui->email_line); });
+    connect(ui->password_line, &QLineEdit::textChanged, [=]{ style()->polish(ui->password_line); });
 }
 
 LoginWindow::~LoginWindow()

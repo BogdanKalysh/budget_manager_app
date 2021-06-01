@@ -21,6 +21,11 @@ UserSettingsDialog::UserSettingsDialog(User& user, QSharedPointer<QNetworkAccess
     this->ui->nameInputField->setText(user.getName());
     this->ui->emailInputField->setText(user.getEmail());
 
+    connect(ui->emailInputField, &QLineEdit::textChanged, [=]{ style()->polish(ui->emailInputField); });
+    connect(ui->nameInputField, &QLineEdit::textChanged, [=]{ style()->polish(ui->nameInputField); });
+    connect(ui->oldPasswordInput, &QLineEdit::textChanged, [=]{ style()->polish(ui->oldPasswordInput); });
+    connect(ui->newPasswordInput, &QLineEdit::textChanged, [=]{ style()->polish(ui->newPasswordInput); });
+
     updateCategories();
 }
 
@@ -156,6 +161,9 @@ void UserSettingsDialog::finishedUpdateUser()
         ui->oldPasswordInput->clear();
         ui->newPasswordInput->clear();
         QMessageBox::about(this, "info", "Дані змінено");
+    }
+    else if(getUserReply->error() == QNetworkReply::ContentAccessDenied){
+        QMessageBox::about(this, "info", "Така пошта вже зайнята");
     }
     else if(getUserReply->error() == QNetworkReply::ConnectionRefusedError)
     {

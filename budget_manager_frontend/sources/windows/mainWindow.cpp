@@ -164,6 +164,9 @@ void MainWindow::configWindowItems()
     ui->fromDateEdit->setDate(fromDateTransactions);
     ui->toDateEdit->setDate(toDateTransactions);
 
+    connect(ui->amountInputLine, &QLineEdit::textChanged, [=]{ style()->polish(ui->amountInputLine); });
+    connect(ui->descriptionInputLine, &QLineEdit::textChanged, [=]{ style()->polish(ui->descriptionInputLine); });
+
     updateTransactions();
     updateCategories();
 }

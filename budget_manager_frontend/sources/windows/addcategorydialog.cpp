@@ -4,6 +4,7 @@
 #include "categoryJsonBuilder.h"
 #include <QMessageBox>
 #include <QJsonDocument>
+#include <QStyle>
 #include <QColorDialog>
 #include <category.h>
 
@@ -17,6 +18,8 @@ AddCategoryDialog::AddCategoryDialog(int userId, Type type, QSharedPointer<QNetw
     this->color = "white";
 
     ui->setupUi(this);
+
+    connect(ui->categoryNameInput, &QLineEdit::textChanged, [=]{ style()->polish(ui->categoryNameInput); });
 }
 
 AddCategoryDialog::~AddCategoryDialog()

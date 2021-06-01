@@ -55,7 +55,11 @@ QLineEdit{
  	border-radius: 25px;
  	font-size: 20px;
  	padding: 0 20px;
- 	color: rgba(255,255,255,0.6);
+	color: rgb(218, 218, 218);
+}
+
+QLineEdit[text=&quot;&quot;]{
+	color: rgba(255,255,255,0.6);
 }
 
 #colorPicker{
@@ -85,6 +89,9 @@ QLineEdit{
    </item>
    <item>
     <widget class="QPushButton" name="addCategoryButton">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="text">
       <string>Додати</string>
      </property>
