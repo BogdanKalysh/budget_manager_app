@@ -105,11 +105,11 @@ void UserSettingsDialog::updatePassword()
         if(!passwordRegExp.match(ui->newPasswordInput->text()).hasMatch())
         {
             QMessageBox::about(this, "info", "Введено некоректний новий пароль.");
+        }else{
+            User newuser(user.getId(), newName, newEmail, newPassword);
+
+            updateUser(newuser);
         }
-
-        User newuser(user.getId(), newName, newEmail, newPassword);
-
-        updateUser(newuser);
     }else if(getUserReply->error() == QNetworkReply::ConnectionRefusedError){
         QMessageBox::about(this, "info", "Немає зв'язку з сервером");
     }else{
