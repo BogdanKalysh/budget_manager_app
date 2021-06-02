@@ -76,7 +76,7 @@ QSqlDatabase setUpDatabase()
         qDebug() << "Error: Opening file DB.txt";
         return QSqlDatabase();
     }
-    qDebug() << "Fuck!!!";
+
     CipherFactory& factory = CipherFactory::defaultFactory();
     Cipher* pCipher = factory.createCipher(CipherKey(dal::AES.toStdString(), dal::KEY.toStdString()));
 
