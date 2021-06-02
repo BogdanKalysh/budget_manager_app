@@ -7,6 +7,7 @@
 #include "legendlistitem.h"
 #include "constants.h"
 #include "addcategorydialog.h"
+#include "usersettingsdialog.h"
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QJsonArray>
@@ -121,7 +122,7 @@ void MainWindow::finishedPostTransactions()
 
     if(postTranasactionReply->error() == QNetworkReply::NoError){
         QString contents = QString::fromUtf8(postTranasactionReply->readAll());
-        qDebug() << contents;
+
     }
     else
     {
@@ -145,16 +146,12 @@ void MainWindow::configWindowItems()
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->chart()->legend()->setVisible(false);
     chartView->chart()->setBackgroundVisible(false);
-//    chartView->chart()->legend()->setAlignment(Qt::AlignBottom);
-//    chartView->chart()->legend()->set
 
     sumAmountLabel->setStyleSheet("font-size: 33px; color:white;");
 
-    QPixmap settingsPixMap(jsonbuilder::SETTINGSICONPATH);
     QPixmap userPixMap(jsonbuilder::USERICONPATH);
     int w(40), h(40);
-    ui->settingsIcon->setPixmap(settingsPixMap.scaled(w, h, Qt::KeepAspectRatio));
-    ui->userIcon->setPixmap(userPixMap.scaled(w, h, Qt::KeepAspectRatio));
+    ui->userIcon->setPixmap(userPixMap.scaled(w, h, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     ui->amountInputLine->setValidator(new QIntValidator(0, 1000000000, this));
 
@@ -167,17 +164,22 @@ void MainWindow::configWindowItems()
     ui->fromDateEdit->setDate(fromDateTransactions);
     ui->toDateEdit->setDate(toDateTransactions);
 
+    connect(ui->amountInputLine, &QLineEdit::textChanged, [=]{ style()->polish(ui->amountInputLine); });
+    connect(ui->descriptionInputLine, &QLineEdit::textChanged, [=]{ style()->polish(ui->descriptionInputLine); });
+
     updateTransactions();
     updateCategories();
 }
 
 
-qreal MainWindow::getCategoryTotalSum(QString categoryName)
+qreal MainWindow::getCategoryTotalSum(QString categoryName, Type type)
 {
+    QString typestr = type ? jsonbuilder::INCOME : jsonbuilder::EXPENSE;
+
     qreal totalsum = 0;
 
     for(Transaction &transac : transactions){
-        if(transac.getCategoryName() == categoryName)
+        if(transac.getCategoryName() == categoryName && transac.getType() == typestr)
             totalsum += transac.getAmount();
     }
 
@@ -191,8 +193,8 @@ void MainWindow::updatePiechart()
     if(transactions.size() != 0){
         for(Category& cat: categories){
             if(cat.getType() == ui->incomesLegendRadioButton->isChecked()){
-                amountSum += getCategoryTotalSum(cat.getName());
-                QPieSlice *slice = series->append(cat.getName(), getCategoryTotalSum(cat.getName()));
+                amountSum += getCategoryTotalSum(cat.getName(), cat.getType());
+                QPieSlice *slice = series->append(cat.getName(), getCategoryTotalSum(cat.getName(),cat.getType()));
                 slice->setBorderWidth(0);
                 slice->setPen(Qt::NoPen);
                 slice->setColor(QColor(cat.getColor()));
@@ -200,7 +202,7 @@ void MainWindow::updatePiechart()
         }
     }
 
-    if(series->isEmpty()){
+    if(amountSum == 0){
         QPieSlice *slice = series->append("0", 1);
         slice->setBorderWidth(0);
         slice->setPen(Qt::NoPen);
@@ -226,10 +228,12 @@ void MainWindow::updateList()
     for (Transaction &transaction : transactions)
     {
         QListWidgetItem* item = new QListWidgetItem( ui->TransactionsList );
-        TransactionsItem *transactionsItem = new TransactionsItem(transaction);
+        TransactionsItem *transactionsItem = new TransactionsItem(transaction, manager);
 
-        item->setSizeHint(transactionsItem->sizeHint());
+        item->setSizeHint(QSize(0, 55));
         ui->TransactionsList->setItemWidget(item, transactionsItem);
+
+        connect(transactionsItem, &TransactionsItem::transactionDeleted, this, &MainWindow::updateTransactions);
     }
 }
 
@@ -248,7 +252,6 @@ void MainWindow::updateLegend()
         }
     }
 }
-
 
 void MainWindow::on_addTransactionButton_clicked()
 {
@@ -310,7 +313,6 @@ void MainWindow::on_addCategoryButton_clicked()
     AddCategoryDialog categoryDialog(user.getId(), Type(ui->expenceRadioButton->isChecked()), manager);
     categoryDialog.setModal(true);
     categoryDialog.exec();
-
     updateCategories();
 }
 
@@ -324,4 +326,17 @@ void MainWindow::on_expencesLegendRadioButton_clicked()
 {
     updatePiechart();
     updateLegend();
+}
+
+void MainWindow::on_userName_clicked()
+{
+        UserSettingsDialog settd(user, manager);
+        settd.exec();
+
+        user = settd.getUser();
+
+        ui->userName->setText(user.getName());
+
+        updateCategories();
+        updateTransactions();
 }

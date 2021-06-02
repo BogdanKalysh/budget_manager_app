@@ -21,7 +21,11 @@
    <double>1.000000000000000</double>
   </property>
   <property name="styleSheet">
-   <string notr="true">#centralwidget{
+   <string notr="true">*{
+	color:rgb(218, 218, 218);
+}
+
+#centralwidget{
 	background: qlineargradient(spread:pad, x1:0, y1:0.960227, x2:1, y2:0, stop:0 rgba(13, 189, 217, 255), stop:1 rgba(0, 75, 230, 255))
 }
 
@@ -34,7 +38,9 @@
 }
 
 #userName, #settingsIcon{
-	margin: 0 10px;
+	margin: 0 15px;
+	font-size: 25px;
+	border-style: none;
 }
 
 #addTransactionFrame, #pieChartFrame, #transactionListFrame{
@@ -79,8 +85,13 @@ QLineEdit{
  	border-radius: 25px;
  	font-size: 20px;
  	padding: 0 20px;
- 	color: rgba(255,255,255,0.6);
+ 	color: rgba(218,218,218);
 }
+
+QLineEdit[text=&quot;&quot;]{
+	color: rgba(255,255,255,0.6);
+}
+
 
 #categoryComboBox{
  	height: 50px;
@@ -89,6 +100,17 @@ QLineEdit{
  	background: transparent;
  	border: 1px solid white;
 	font-size: 20px;
+}
+
+QComboBox::item{
+	background-color: rgb(8, 68, 117);
+	color:rgb(218, 218, 218);
+}
+
+QComboBox::item:selected
+{
+    background-color: rgb(218, 218, 218);
+    color: rgb(8, 68, 117);
 }
 
 #categoryComboBox::drop-down{
@@ -276,34 +298,18 @@ QListWidget{
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="userName">
+        <widget class="QPushButton" name="userName">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string>Ім'я Користувача</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="settingsIcon">
-         <property name="maximumSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="../resources/src.qrc">:/new/img/settings_icon.png</pixmap>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -415,6 +421,9 @@ QListWidget{
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="calendarPopup">
                 <bool>true</bool>
                </property>
@@ -455,6 +464,9 @@ QListWidget{
                  <horstretch>1</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="dateTime">
                 <datetime>
@@ -538,6 +550,9 @@ QListWidget{
              </property>
              <item row="1" column="1">
               <widget class="QRadioButton" name="expencesLegendRadioButton">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="text">
                 <string>Витрати</string>
                </property>
@@ -545,6 +560,9 @@ QListWidget{
              </item>
              <item row="0" column="1">
               <widget class="QRadioButton" name="incomesLegendRadioButton">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="text">
                 <string>Прибутки</string>
                </property>
@@ -594,6 +612,9 @@ QListWidget{
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="text">
                 <string>Прибуток</string>
                </property>
@@ -636,10 +657,16 @@ QListWidget{
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QPushButton" name="addCategoryButton">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="text">
                 <string>+</string>
                </property>
@@ -664,6 +691,9 @@ QListWidget{
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
                 <string>Витрата</string>
@@ -693,6 +723,9 @@ QListWidget{
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
                 <string>Додати</string>

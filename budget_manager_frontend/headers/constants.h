@@ -17,7 +17,7 @@ namespace jsonbuilder {
     const QString PASSWORD = "password";
     const QString CATEGORYNAME = "category_name";
     const QString INCOME = "income";
-    const QString EXPENCE = "expence";
+    const QString EXPENSE = "expense";
     const QString USER_ID = "user_id";
     const QString START_DATE = "start_date";
     const QString END_DATE = "end_date";
@@ -30,6 +30,9 @@ namespace jsonbuilder {
     const QString USERICONPATH = ":/new/img/user_icon.png";
 
     const QString PIECHARTCOLOR = "#528bba";
+
+    const QString CONTENTTYPE = "Content-Type";
+    const QString APPLICATIONJSON = "application/json";
 
 }
 

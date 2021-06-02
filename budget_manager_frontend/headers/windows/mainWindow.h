@@ -26,7 +26,7 @@ public:
 
 protected:
     void configWindowItems();
-    qreal getCategoryTotalSum(QString categoryName);
+    qreal getCategoryTotalSum(QString categoryName, Type type);
     void setUpUrls();
 
 public slots:
@@ -48,10 +48,10 @@ private slots:
     void resizeEvent(QResizeEvent *event);
 
     void on_addCategoryButton_clicked();
-
     void on_incomesLegendRadioButton_clicked();
-
     void on_expencesLegendRadioButton_clicked();
+
+    void on_userName_clicked();
 
 private:
     Ui::MainWindow *ui;
