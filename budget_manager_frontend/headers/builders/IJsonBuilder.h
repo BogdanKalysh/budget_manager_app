@@ -4,7 +4,6 @@
 #include <QJsonObject>
 #include <QVector>
 
-
 template <typename  T>
 class IJsonBuilder
 {

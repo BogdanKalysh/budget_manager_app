@@ -1,15 +1,17 @@
 #include "category.h"
 
+using namespace models;
+
 Category::Category()
 {
     // Attention! Not valid data!
     this->id = -1;
     this->name = QString();
-    this->type = income;
+    this->type = INCOME;
     this->color = QColor();
 }
 
-Category::Category(int id, QString name, Type type, QColor color, int userId)
+Category::Category(int id, QString name, QString type, QColor color, int userId)
 {
     this->id = id;
     this->name = name;
@@ -42,7 +44,7 @@ QString Category::getName()
     return this->name;
 }
 
-Type Category::getType()
+QString Category::getType()
 {
     return this->type;
 }
@@ -62,7 +64,7 @@ void Category::setName(QString name)
     this->name = name;
 }
 
-void Category::setType(Type type)
+void Category::setType(QString type)
 {
     this->type = type;
 }

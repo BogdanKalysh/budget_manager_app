@@ -30,7 +30,6 @@ private slots:
     void on_saveButton_clicked();
     void updatePassword();
     void updateUser(User& user);
-
     void on_deleteCategoryButton_clicked();
     void finishedUpdateUser();
     void finishedDeleteCategory();

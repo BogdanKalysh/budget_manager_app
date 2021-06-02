@@ -1,6 +1,5 @@
 #ifndef ABSTRACTHANDLER_H
 #define ABSTRACTHANDLER_H
-
 #include "idbmanager.h"
 #include "iparsermanager.h"
 #include "ijsonparser.h"
@@ -12,20 +11,24 @@
 #include <QMap>
 #include <memory>
 
+using namespace Poco::Net;
+using namespace models;
+using namespace handlers;
+
 class AbstractHandler : public Poco::Net::HTTPRequestHandler
 {
 protected:
     std::shared_ptr <IDBManager> _dbManager;
     std::shared_ptr <IParserManager> _parserManager;
 
-    virtual void get(Poco::Net::HTTPServerRequest& request,
-                     Poco::Net::HTTPServerResponse& response) = 0;
-    virtual void post(Poco::Net::HTTPServerRequest& request,
-                      Poco::Net::HTTPServerResponse& response) = 0;
-    virtual void put(Poco::Net::HTTPServerRequest& request,
-                     Poco::Net::HTTPServerResponse& response) = 0;
-    virtual void del(Poco::Net::HTTPServerRequest& request,
-                     Poco::Net::HTTPServerResponse& response) = 0;
+    virtual void get(HTTPServerRequest& request,
+                     HTTPServerResponse& response) = 0;
+    virtual void post(HTTPServerRequest& request,
+                     HTTPServerResponse& response) = 0;
+    virtual void put(HTTPServerRequest& request,
+                     HTTPServerResponse& response) = 0;
+    virtual void del(HTTPServerRequest& request,
+                     HTTPServerResponse& response) = 0;
 
 public:
     virtual AbstractHandler* getCopy() = 0;

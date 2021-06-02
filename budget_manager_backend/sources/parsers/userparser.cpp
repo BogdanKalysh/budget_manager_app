@@ -1,22 +1,24 @@
 #include "userparser.h"
 #include "constants.h"
 
+using namespace models;
 
 User UserParser::parse(QJsonObject json)
 {
-    int id = json.value(parser::ID).toInt();
-    QString name = json.value(parser::NAME).toString();
-    QString email = json.value(parser::EMAIL).toString();
-    QString password = json.value(parser::PASSWORD).toString();
-    int balance = json.value(parser::BALANCE).toInt();
-    return User(id, name, email, password, balance);
+    int id = json.value(ID).toInt();
+    QString name = json.value(NAME).toString();
+    QString email = json.value(MAIL).toString();
+    QString password = json.value(PASSWORD).toString();
+
+    return User(id, name, email, password);
 }
 
 
 QVector<User> UserParser::parseVector(QJsonArray jsonArray)
 {
     QVector<User> users;
-    foreach(QJsonValue json, jsonArray)
+
+    for (auto json : jsonArray)
         users.append(this->parse(json.toObject()));
 
     return users;

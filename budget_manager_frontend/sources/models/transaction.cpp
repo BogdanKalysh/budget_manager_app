@@ -92,10 +92,12 @@ void Transaction::setCategoryName(QString categoryName)
     this->categoryName = categoryName;
 }
 
-void Transaction::setColor(QColor color){
+void Transaction::setColor(QColor color)
+{
     this->color = color;
 }
 
-void Transaction::setType(QString type) {
+void Transaction::setType(QString type)
+{
     this->type = type;
 }

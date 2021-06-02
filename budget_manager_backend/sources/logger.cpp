@@ -1,3 +1,4 @@
+#include "constants.h"
 #include "logger.h"
 #include <QDateTime>
 #include <QDebug>
@@ -19,11 +20,21 @@ void Logger::messageHandler(QtMsgType type,
     QString stringType;
     switch (type)
     {
-    case QtInfoMsg:     stringType = "INF "; break;
-    case QtDebugMsg:    stringType = "DBG "; break;
-    case QtWarningMsg:  stringType = "WRN "; break;
-    case QtCriticalMsg: stringType = "CRT "; break;
-    case QtFatalMsg:    stringType = "FTL "; break;
+    case QtInfoMsg:
+        stringType = "INF ";
+        break;
+    case QtDebugMsg:
+        stringType = "DBG ";
+        break;
+    case QtWarningMsg:
+        stringType = "WRN ";
+        break;
+    case QtCriticalMsg:
+        stringType = "CRT ";
+        break;
+    case QtFatalMsg:
+        stringType = "FTL ";
+        break;
     }
 
     QString log = QString("%1 | %2 | line %3 | %4 | %5 | %6\n").
@@ -44,13 +55,13 @@ void Logger::messageHandler(QtMsgType type,
 
 void Logger::init()
 {
-    if(isInit){
+    if (isInit) {
         return;
     }
 
-    logFile.reset(new QFile("../budget_manager_backend/logfile.log"));
+    logFile.reset(new QFile(logger::LOGFILEPATH));
 
-    if(!logFile.data()->open(QFile::Append | QFile::Text)){
+    if (!logFile.data()->open(QFile::Append | QFile::Text)) {
         qDebug()<<"file is not open";
         return;
     }

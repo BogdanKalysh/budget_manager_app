@@ -26,7 +26,7 @@ public:
 
 protected:
     void configWindowItems();
-    qreal getCategoryTotalSum(QString categoryName, Type type);
+    qreal getCategoryTotalSum(QString categoryName, QString type);
     void setUpUrls();
 
 public slots:
@@ -46,11 +46,9 @@ private slots:
     void on_fromDateEdit_dateChanged(const QDate &date);
     void on_toDateEdit_dateChanged(const QDate &date);
     void resizeEvent(QResizeEvent *event);
-
     void on_addCategoryButton_clicked();
     void on_incomesLegendRadioButton_clicked();
     void on_expencesLegendRadioButton_clicked();
-
     void on_userName_clicked();
 
 private:

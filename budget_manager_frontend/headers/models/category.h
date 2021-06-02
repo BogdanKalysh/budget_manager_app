@@ -9,23 +9,23 @@ class Category
 {
     int id;
     QString name;
-    Type type;
+    QString type;
     QColor color;
     int userId;
 public:
     Category();
-    Category(int id, QString name, Type type, QColor color, int userId);
+    Category(int id, QString name, QString type, QColor color, int userId);
     Category (const Category &other);
 
     int getId();
     int getUserId();
     QString getName();
-    Type getType();
+    QString getType();
     QColor getColor();
 
     void setId(int id);
     void setName(QString name);
-    void setType(Type type);
+    void setType(QString type);
     void setColor(QColor color);
     void setUserId(int userId);
 };

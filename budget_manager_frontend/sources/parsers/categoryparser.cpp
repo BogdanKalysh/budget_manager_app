@@ -4,15 +4,14 @@
 
 Category CategoryParser::parse(QJsonObject json)
 {
-    int id = json.value(jsonbuilder::ID).toInt();
-    QString name = json.value(jsonbuilder::NAME).toString();
-    int type = json.value(jsonbuilder::TYPE).toInt();
-    QColor color(json.value(jsonbuilder::COLOR).toString());
-    int userId = json.value(jsonbuilder::USER_ID).toInt();
+    int id = json.value(models::ID).toInt();
+    QString name = json.value(models::NAME).toString();
+    QString type = json.value(models::TYPE).toString();
+    QColor color(json.value(models::COLOR).toString());
+    int userId = json.value(models::USER_ID).toInt();
 
-    return Category(id, name, (Type)type, color, userId);
+    return Category(id, name, type, color, userId);
 }
-
 
 QVector<Category> CategoryParser::parseVector(QJsonArray jsonArray)
 {

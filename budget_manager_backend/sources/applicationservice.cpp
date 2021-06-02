@@ -13,10 +13,10 @@ public:
 };
 
 
-class Socket: public Poco::Net::Socket
+class HWSocket: public Poco::Net::Socket
 {
 public:
-    Socket(const std::string & address)
+    HWSocket(const std::string & address)
         : Poco::Net::Socket(new ServerSocketImpl())
     {
         const Poco::Net::SocketAddress socket_address(address);
@@ -30,24 +30,24 @@ public:
 };
 }
 
+//ApplicationService::ApplicationService()
+//{
 
-ApplicationService::ApplicationService()
+//}
+
+//ApplicationService::~ApplicationService()
+//{
+
+//}
+
+int ApplicationService::main(const std::vector<std::string>& args)
 {
-
-}
-
-ApplicationService::~ApplicationService()
-{
-
-}
-
-int ApplicationService::main(const std::vector<std::string>& args){
     Poco::Net::HTTPServerParams::Ptr parameters = new Poco::Net::HTTPServerParams();
     parameters->setTimeout(10000);
     parameters->setMaxQueued(100);
     parameters->setMaxThreads(1);
 
-    const Poco::Net::ServerSocket socket(Socket("localhost:5000"));
+    const Poco::Net::ServerSocket socket(HWSocket("localhost:5000"));
 
     Poco::Net::HTTPServer server(new handlers::HandlerFactory(), socket, parameters);
 

@@ -8,14 +8,16 @@
 #include <QColorDialog>
 #include <category.h>
 
-AddCategoryDialog::AddCategoryDialog(int userId, Type type, QSharedPointer<QNetworkAccessManager> manager, QWidget *parent) :
+using namespace messagebox;
+
+AddCategoryDialog::AddCategoryDialog(int userId, QString type, QSharedPointer<QNetworkAccessManager> manager, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddCategoryDialog)
 {
     this->userId = userId;
     this->type = type;
     this->manager = manager;
-    this->color = "white";
+    this->color = colors::WHITE;
 
     ui->setupUi(this);
 
@@ -31,17 +33,14 @@ void AddCategoryDialog::on_addCategoryButton_clicked()
 {
     name = ui->categoryNameInput->text();
 
-    if(name == "" || color == "white"){
-        QMessageBox::about(this, "info", "Заповніть всі дані");
-    }
-    else
-    {
-
+    if (name.isEmpty() || color == colors::WHITE) {
+        QMessageBox::about(this, INFO , FILLIN);
+    } else {
         QSharedPointer<IJsonBuilder<Category>> builder (new CategoryJsonBuilder);
         QJsonDocument jsonDoc(builder->buildJson(Category (0, name, type, QColor(color), userId)));
         QByteArray byteData = jsonDoc.toJson();
 
-        QNetworkRequest request = QNetworkRequest(QUrl(jsonbuilder::CATEGORYURL));
+        QNetworkRequest request = QNetworkRequest(QUrl(urls::CATEGORYURL));
         request.setRawHeader("Content-Type", "application/json");
         QNetworkReply* postCategoryReply = manager->post(request, byteData);
         connect(postCategoryReply, &QNetworkReply::finished, this, &AddCategoryDialog::finishedPostCategory);
@@ -54,15 +53,13 @@ void AddCategoryDialog::finishedPostCategory()
 {
     QNetworkReply *postCategoryReply = qobject_cast<QNetworkReply*>(sender());
 
-    if(postCategoryReply->error() == QNetworkReply::NoError){
+    if (postCategoryReply->error() == QNetworkReply::NoError) {
         QString contents = QString::fromUtf8(postCategoryReply->readAll());
         qDebug() << contents;
-    }
-    else
-    {
+    } else {
         QString error = postCategoryReply->errorString();
         qDebug() << error;
-        QMessageBox::about(this, "info", "Error: " + error);
+        QMessageBox::about(this, INFO, ERROR + error);
     }
 
     postCategoryReply->close();

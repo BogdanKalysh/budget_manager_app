@@ -7,10 +7,9 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QSharedPointer>
-//#include "user.h"
 
 
-namespace Ui {
+namespace Ui{
 class SignUpWindow;
 }
 
@@ -28,7 +27,6 @@ signals:
 private slots:
     void on_signUpButton_clicked();
     void on_backToLoginButton_clicked();
-
     void postUser();
 
 private:

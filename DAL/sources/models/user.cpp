@@ -1,12 +1,12 @@
 #include "user.h"
 
-User:: User(const int id, const QString &name, const QString &email, const QString &password, const int balance)
+User:: User(const int id, const QString &name, const QString &email, const QString &password)
 {
     this->setId(id);
     this->setName(name);
     this->setEmail(email);
     this->setPassword(password);
-    this->setBalance(balance);
+//    this->setBalance(balance);
 }
 
 int User::getId() const
@@ -29,42 +29,34 @@ QString User::getEmail() const
     return this->email;
 }
 
-int User::getBalance() const
-{
-    return this->balance;
-}
+//int User::getBalance() const
+//{
+//    return this->balance;
+//}
 
-QString User::setId(const int id)
+void User::setId(const int id)
 {
-    // TODO: Int validation logic
     this->id = id;
-    return "Success";
 }
 
-QString User::setName(const QString &name)
+void User::setName(const QString &name)
 {
-    // TODO: Name validation logic
     this->name = name;
-    return "Success";
 }
 
-QString User::setPassword(const QString &password)
+void User::setPassword(const QString &password)
 {
-    // TODO: Password validation logic
     this->password = password;
-    return "Success";
 }
 
-QString User::setEmail(const QString &email)
+void User::setEmail(const QString &email)
 {
-    // TODO: Email validation logic
     this->email = email;
-    return "Success";
 }
 
-QString User::setBalance(const int balance)
-{
-    // TODO: validation logic
-    this->balance = balance;
-    return "Success";
-}
+//QString User::setBalance(const int balance)
+//{
+//    // TODO: validation logic
+//    this->balance = balance;
+//    return "Success";
+//}

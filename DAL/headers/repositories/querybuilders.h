@@ -1,6 +1,5 @@
 #ifndef QUERYBUILDERS_H
 #define QUERYBUILDERS_H
-
 #include "constants.h"
 #include <QVector>
 #include <QPair>

@@ -1,22 +1,24 @@
 #include "categoryparser.h"
 #include "constants.h"
 
+using namespace models;
 
 Category CategoryParser::parse(QJsonObject json)
 {
-    int id = json.value(parser::ID).toInt();
-    QString name = json.value(parser::NAME).toString();
-    int type = json.value(parser::TYPE).toInt();
-    QColor color(json.value(parser::COLOR).toString());
-    int userId = json.value(parser::USER_ID).toInt();
-    return Category(id, name, (Type)type, color, userId);
-}
+    int id = json.value(ID).toInt();
+    QString name = json.value(NAME).toString();
+    QString type = json.value(TYPE).toString();
+    QColor color(json.value(COLOR).toString());
+    int userId = json.value(USER_ID).toInt();
 
+    return Category(id, name, type, color, userId);
+}
 
 QVector<Category> CategoryParser::parseVector(QJsonArray jsonArray)
 {
     QVector<Category> categories;
-    foreach(QJsonValue json, jsonArray)
+
+    for (auto json : jsonArray)
         categories.append(this->parse(json.toObject()));
 
     return categories;

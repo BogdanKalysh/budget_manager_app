@@ -4,7 +4,7 @@
 #include "category.h"
 #include "IJsonBuilder.h"
 
-class CategoryJsonBuilder : IJsonBuilder<Category>
+class CategoryJsonBuilder : public IJsonBuilder<Category>
 {
 public:
     QJsonObject buildJson(Category category) override;
