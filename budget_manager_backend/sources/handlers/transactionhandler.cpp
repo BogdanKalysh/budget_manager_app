@@ -68,11 +68,8 @@ void TransactionHandler::put(Poco::Net::HTTPServerRequest& request,
 void TransactionHandler::del(Poco::Net::HTTPServerRequest& request,
                       Poco::Net::HTTPServerResponse& response)
 {
-//    QJsonObject bodyObj = convertIstreamToJson(request.stream());
     QMap<QString,QString> uri_map = getParametrsFromUrl(Poco::URI(request.getURI()));
-//    int user_id = bodyObj.value("id").toInt();
     int id = uri_map[parser::ID].toInt();
-//    repository->deleteObject(user_id);
     repository->deleteObject(id);
 
     response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);

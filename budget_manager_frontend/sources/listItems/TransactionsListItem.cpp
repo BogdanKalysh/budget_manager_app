@@ -64,11 +64,9 @@ bool TransactionsItem::event(QEvent * e)
     case QEvent::HoverEnter:
         hoverEnter(static_cast<QHoverEvent*>(e));
         return true;
-        break;
     case QEvent::HoverLeave:
         hoverLeave(static_cast<QHoverEvent*>(e));
         return true;
-        break;
     default:
         break;
     }

@@ -174,11 +174,7 @@ void MainWindow::configWindowItems()
 
 qreal MainWindow::getCategoryTotalSum(QString categoryName, Type type)
 {
-    QString typestr;
-    if(type)
-        typestr = jsonbuilder::INCOME;
-    else
-        typestr = jsonbuilder::EXPENSE;
+    QString typestr = type ? jsonbuilder::INCOME : jsonbuilder::EXPENSE;
 
     qreal totalsum = 0;
 

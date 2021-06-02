@@ -102,10 +102,6 @@ void UserHandler::put(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServ
 void UserHandler::del(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response)
 {
     try {
-
-//    QJsonObject json = convertIstreamToJson(request.stream());
-//    int id = json.value(parser::ID).toInt();
-
     QMap<QString,QString> uri_map = getParametrsFromUrl(Poco::URI(request.getURI()));
     int id = uri_map[parser::ID].toInt();
 

@@ -71,7 +71,6 @@ void UserSettingsDialog::readCategories()
 
 void UserSettingsDialog::on_saveButton_clicked()
 {
-
     if(!ui->oldPasswordInput->text().isEmpty() || !ui->newPasswordInput->text().isEmpty() ){
         QString oldPasswordHash = QCryptographicHash::hash(ui->oldPasswordInput->text().toLocal8Bit(), QCryptographicHash::Sha224).toHex().data();
 
@@ -95,7 +94,7 @@ void UserSettingsDialog::updatePassword()
     QNetworkReply *getUserReply = qobject_cast<QNetworkReply*>(sender());
     QString contents = QString::fromUtf8(getUserReply->readAll());
 
-    if(contents != ""){
+    if(contents.isEmpty()){
         QRegularExpression passwordRegExp("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
 
         QString newName = ui->nameInputField->text();
@@ -125,7 +124,7 @@ void UserSettingsDialog::updateUser(User& newuser)
 {
     QRegularExpression emailRegExp("^[a-z0-9]([a-z0-9.]+[a-z0-9])?\\@[a-z0-9.-]+$");
 
-    if(newuser.getName() == "")
+    if(newuser.getName().isEmpty())
     {
         QMessageBox::about(this, "info", "Введіть ім'я");
     }

@@ -31,6 +31,9 @@ namespace jsonbuilder {
 
     const QString PIECHARTCOLOR = "#528bba";
 
+    const QString CONTENTTYPE = "Content-Type";
+    const QString APPLICATIONJSON = "application/json";
+
 }
 
 #endif // CONSTANTS_H
