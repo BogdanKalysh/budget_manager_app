@@ -96,7 +96,7 @@ void UserSettingsDialog::updatePassword()
     QNetworkReply *getUserReply = qobject_cast<QNetworkReply*>(sender());
     QString contents = QString::fromUtf8(getUserReply->readAll());
 
-    if (contents.isEmpty()) {
+    if (!contents.isEmpty()) {
         QRegularExpression passwordRegExp("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
 
         QString newName = ui->nameInputField->text();
