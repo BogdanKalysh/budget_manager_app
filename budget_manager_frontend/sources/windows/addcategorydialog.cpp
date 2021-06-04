@@ -10,7 +10,7 @@
 
 using namespace messagebox;
 
-AddCategoryDialog::AddCategoryDialog(int userId, QString type, QSharedPointer<QNetworkAccessManager> manager, QWidget *parent) :
+AddCategoryDialog::AddCategoryDialog(const int userId, const QString &type, const QSharedPointer<QNetworkAccessManager> &manager, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddCategoryDialog)
 {

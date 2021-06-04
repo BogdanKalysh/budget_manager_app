@@ -18,7 +18,7 @@ class SignUpWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit SignUpWindow(QSharedPointer<QNetworkAccessManager> manager, QWidget *parent = nullptr);
+    explicit SignUpWindow(const QSharedPointer<QNetworkAccessManager> &manager, QWidget *parent = nullptr);
     ~SignUpWindow();
 
 signals:

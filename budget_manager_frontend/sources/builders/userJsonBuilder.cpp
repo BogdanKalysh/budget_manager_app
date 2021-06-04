@@ -2,7 +2,7 @@
 #include "constants.h"
 
 
-QJsonObject UserJsonBuilder::buildJson(User user){
+QJsonObject UserJsonBuilder::buildJson(const User &user){
     QJsonObject jObj;
     jObj.insert(models::ID, QJsonValue::fromVariant(user.getId()));
     jObj.insert(models::NAME, QJsonValue::fromVariant(user.getName()));

@@ -4,7 +4,7 @@
 
 using namespace models;
 
-QJsonObject UserJsonBuilder::buildJson(User user){
+QJsonObject UserJsonBuilder::buildJson(const User &user){
     QJsonObject jObj;
 
     jObj.insert(ID, QJsonValue::fromVariant(user.getId()));

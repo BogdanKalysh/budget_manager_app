@@ -2,7 +2,7 @@
 #include "constants.h"
 
 
-QJsonObject CategoryJsonBuilder::buildJson(Category category){
+QJsonObject CategoryJsonBuilder::buildJson(const Category &category){
     QJsonObject jObj;
 
     jObj.insert(models::ID, QJsonValue::fromVariant(category.getId()));

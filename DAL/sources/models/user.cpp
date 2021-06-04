@@ -29,11 +29,6 @@ QString User::getEmail() const
     return this->email;
 }
 
-//int User::getBalance() const
-//{
-//    return this->balance;
-//}
-
 void User::setId(const int id)
 {
     this->id = id;
@@ -53,10 +48,3 @@ void User::setEmail(const QString &email)
 {
     this->email = email;
 }
-
-//QString User::setBalance(const int balance)
-//{
-//    // TODO: validation logic
-//    this->balance = balance;
-//    return "Success";
-//}

@@ -16,7 +16,7 @@ class AddCategoryDialog : public QDialog
     Q_OBJECT
 
 public:
-    AddCategoryDialog(int userId, QString type, QSharedPointer<QNetworkAccessManager> manager, QWidget *parent = nullptr);
+    AddCategoryDialog(const int userId, const QString &type, const QSharedPointer<QNetworkAccessManager> &manager, QWidget *parent = nullptr);
     ~AddCategoryDialog();
 
 public slots:

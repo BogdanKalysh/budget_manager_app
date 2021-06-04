@@ -7,7 +7,7 @@
 class CategoryJsonBuilder : public IJsonBuilder<Category>
 {
 public:
-    QJsonObject buildJson(Category category) override;
+    QJsonObject buildJson(const Category &category) override;
 };
 
 #endif // CATEGORYJSONBUILDER_H

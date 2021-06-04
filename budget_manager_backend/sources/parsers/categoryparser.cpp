@@ -3,7 +3,7 @@
 
 using namespace models;
 
-Category CategoryParser::parse(QJsonObject json)
+Category CategoryParser::parse(const QJsonObject &json)
 {
     int id = json.value(ID).toInt();
     QString name = json.value(NAME).toString();
@@ -14,7 +14,7 @@ Category CategoryParser::parse(QJsonObject json)
     return Category(id, name, type, color, userId);
 }
 
-QVector<Category> CategoryParser::parseVector(QJsonArray jsonArray)
+QVector<Category> CategoryParser::parseVector(const QJsonArray &jsonArray)
 {
     QVector<Category> categories;
 

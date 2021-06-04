@@ -2,7 +2,7 @@
 #include "constants.h"
 
 
-Transaction TransactionParser::parse(QJsonObject json)
+Transaction TransactionParser::parse(const QJsonObject &json)
 {
     int id = json.value(models::ID).toInt();
     int amount = json.value(models::AMOUNT).toInt();
@@ -17,7 +17,7 @@ Transaction TransactionParser::parse(QJsonObject json)
     return Transaction(id, amount, date, description, categoryId, categoryName, color, type);
 }
 
-QVector<Transaction> TransactionParser::parseVector(QJsonArray jsonArray)
+QVector<Transaction> TransactionParser::parseVector(const QJsonArray &jsonArray)
 {
     QVector<Transaction> transactions;
     for (const QJsonValue& json: jsonArray)

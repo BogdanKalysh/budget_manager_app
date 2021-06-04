@@ -12,7 +12,7 @@ Transaction::Transaction(const int id, const int amount, const QDate &date, cons
     this->setCategoryId(categoryId);
 }
 
-Transaction::Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId, QString categoryName, QColor color, QString type)
+Transaction::Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId, const QString &categoryName, const QColor &color, const QString &type)
     :Transaction(id, amount, date, description, categoryId)
 {
     this->setCategoryName(categoryName);
@@ -46,17 +46,17 @@ QString Transaction::getDescription() const
     return this->description;
 }
 
-QString Transaction::getCategoryName()
+QString Transaction::getCategoryName() const
 {
     return this->categoryName;
 }
 
-QColor Transaction::getColor()
+QColor Transaction::getColor() const
 {
     return this->color;
 }
 
-QString Transaction::getType()
+QString Transaction::getType() const
 {
     return this->type;
 }
@@ -97,7 +97,7 @@ void Transaction::setColor(const QColor &color)
     this->color = color;
 }
 
-void Transaction::setType(const QString type)
+void Transaction::setType(const QString &type)
 {
     this->type = type;
 }

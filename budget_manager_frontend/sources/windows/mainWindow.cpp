@@ -17,7 +17,7 @@
 
 using namespace messagebox;
 
-MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,  QWidget *parent)
+MainWindow::MainWindow(const User &user, const QSharedPointer<QNetworkAccessManager> &manager,  QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -171,7 +171,7 @@ void MainWindow::configWindowItems()
 }
 
 
-qreal MainWindow::getCategoryTotalSum(QString categoryName, QString type)
+qreal MainWindow::getCategoryTotalSum(const QString &categoryName, const QString &type)
 {
     qreal totalsum = 0;
 

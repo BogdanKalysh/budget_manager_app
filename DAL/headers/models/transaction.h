@@ -18,16 +18,16 @@ class Transaction
 
 public:
     Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId);
-    Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId,  QString categoryName, QColor color, QString type);
+    Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId,  const QString &categoryName, const QColor &color, const QString &type);
 
     int getId() const;
     int getAmount() const;
     int getCategoryId() const;
     QDate getDate() const;
     QString getDescription() const;
-    QString getCategoryName();
-    QColor getColor();
-    QString getType();
+    QString getCategoryName() const;
+    QColor getColor() const;
+    QString getType() const;
 
     void setId(const int id);
     void setAmount(const int amount);
@@ -36,7 +36,7 @@ public:
     void setCategoryId(const int categoryId);
     void setCategoryName(const QString &categoryName);
     void setColor(const QColor &color);
-    void setType(const QString type);
+    void setType(const QString &type);
 };
 
 #endif // TRANSACTION_H

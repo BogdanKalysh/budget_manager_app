@@ -1,6 +1,6 @@
 #include "querybuilders.h"
 
-QString insertQueryBuilder(QString table, QVector<QString> fields, QVector<QString> values)
+QString insertQueryBuilder(const QString &table, const QVector<QString> &fields, const QVector<QString> &values)
 {
     //          EXAMPLE QUERY
     //  INSERT INTO table (column1, column2, ...)
@@ -30,7 +30,7 @@ QString insertQueryBuilder(QString table, QVector<QString> fields, QVector<QStri
 }
 
 
-QString updateQueryBuilder(QPair<QString, int> tableCredentials, QVector<QString> fields, QVector<QString> values)
+QString updateQueryBuilder(const QPair<QString, int> &tableCredentials, const QVector<QString> &fields, const QVector<QString> &values)
 {
     //      EXAMPLE QUERY
     //  UPDATE table_name
@@ -55,7 +55,7 @@ QString updateQueryBuilder(QPair<QString, int> tableCredentials, QVector<QString
     return "";
 }
 
-QString deleteQueryBuilder(QPair<QString, int> tableCredentials)
+QString deleteQueryBuilder(const QPair<QString, int> &tableCredentials)
 {
     //      EXEMPLE QUERY
     // DELETE FROM table_name WHERE condition

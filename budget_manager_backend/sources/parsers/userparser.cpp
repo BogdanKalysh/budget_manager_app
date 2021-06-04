@@ -3,7 +3,7 @@
 
 using namespace models;
 
-User UserParser::parse(QJsonObject json)
+User UserParser::parse(const QJsonObject &json)
 {
     int id = json.value(ID).toInt();
     QString name = json.value(NAME).toString();
@@ -14,7 +14,7 @@ User UserParser::parse(QJsonObject json)
 }
 
 
-QVector<User> UserParser::parseVector(QJsonArray jsonArray)
+QVector<User> UserParser::parseVector(const QJsonArray &jsonArray)
 {
     QVector<User> users;
 

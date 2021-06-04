@@ -2,7 +2,7 @@
 #include "constants.h"
 
 
-User UserParser::parse(QJsonObject json)
+User UserParser::parse(const QJsonObject &json)
 {
     int id = json.value(models::ID).toInt();
     QString name = json.value(models::NAME).toString();
@@ -12,7 +12,7 @@ User UserParser::parse(QJsonObject json)
     return User(id, name, email, password);
 }
 
-QVector<User> UserParser::parseVector(QJsonArray jsonArray)
+QVector<User> UserParser::parseVector(const QJsonArray &jsonArray)
 {
     QVector<User> users;
     for (const QJsonValue& json: jsonArray)

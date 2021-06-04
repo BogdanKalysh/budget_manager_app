@@ -16,7 +16,7 @@ class TransactionsItem : public QDialog
     Q_OBJECT
 
 public:
-    TransactionsItem(Transaction transaction, QSharedPointer<QNetworkAccessManager> manager, QWidget *parent = nullptr);
+    TransactionsItem(const Transaction &transaction, const QSharedPointer<QNetworkAccessManager> &manager, QWidget *parent = nullptr);
 private:
     int id;
     QLabel *Description;

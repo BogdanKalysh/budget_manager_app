@@ -10,7 +10,7 @@ Category::Category()
     this->userId = -1;
 }
 
-Category::Category(int id, const QString &name, const QString &type, const QColor &color, int userId)
+Category::Category(const int id, const QString &name, const QString &type, const QColor &color, const int userId)
 {
     this->setId(id);
     this->setName(name);

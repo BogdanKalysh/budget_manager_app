@@ -21,12 +21,12 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,  QWidget *parent=nullptr);
+    MainWindow(const User &user, const QSharedPointer<QNetworkAccessManager> &manager,  QWidget *parent=nullptr);
     ~MainWindow();
 
 protected:
     void configWindowItems();
-    qreal getCategoryTotalSum(QString categoryName, QString type);
+    qreal getCategoryTotalSum(const QString &categoryName, const QString &type);
     void setUpUrls();
 
 public slots:

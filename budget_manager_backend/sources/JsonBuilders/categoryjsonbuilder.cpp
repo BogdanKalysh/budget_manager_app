@@ -4,7 +4,7 @@
 
 using namespace models;
 
-QJsonObject CategoryJsonBuilder::buildJson(Category category){
+QJsonObject CategoryJsonBuilder::buildJson(const Category &category){
     QJsonObject jObj;
 
     jObj.insert(ID, QJsonValue::fromVariant(category.getId()));

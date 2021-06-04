@@ -4,9 +4,9 @@
 #include <QHBoxLayout>
 #include <QJsonDocument>
 #include <QNetworkReply>
-#include <TransactionJsonBuilder.h>
+#include "transactionJsonBuilder.h"
 
-TransactionsItem::TransactionsItem(Transaction transaction, QSharedPointer<QNetworkAccessManager> manager, QWidget *parent) : QDialog(parent)
+TransactionsItem::TransactionsItem(const Transaction &transaction, const QSharedPointer<QNetworkAccessManager> &manager, QWidget *parent) : QDialog(parent)
 {
     this->id = transaction.getId();
     this->manager = manager;
@@ -57,21 +57,8 @@ void TransactionsItem::on_delButton_clicked()
     connect(delTranasactionReply, &QNetworkReply::finished, this, &TransactionsItem::emitTransactionDeleted);
 }
 
-bool TransactionsItem::event(QEvent * e)
+bool TransactionsItem::event(QEvent *e)
 {
-//    switch(e->type())
-//    {
-//    case QEvent::HoverEnter:
-//        hoverEnter(static_cast<QHoverEvent*>(e));
-//        return true;
-//    case QEvent::HoverLeave:
-//        hoverLeave(static_cast<QHoverEvent*>(e));
-//        return true;
-//    default:
-//        break;
-//    }
-//    return QWidget::event(e);
-
     if (e->type() == QEvent::HoverEnter) {
         hoverEnter(static_cast<QHoverEvent*>(e));
         return true;

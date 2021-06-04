@@ -20,14 +20,14 @@ HandlerFactory::HandlerFactory(){
 }
 
 Poco::Net::HTTPRequestHandler* HandlerFactory::createRequestHandler(
-    const Poco::Net::HTTPServerRequest& request)
+    const Poco::Net::HTTPServerRequest &request)
 {
     if (handlers[Poco::URI(request.getURI()).getPath()])
             return handlers[Poco::URI(request.getURI()).getPath()]->getCopy();
     return nullptr;
 }
 
-void HandlerFactory::addHandler(std::string uri, AbstractHandler* handler)
+void HandlerFactory::addHandler(const std::string &uri, AbstractHandler* handler)
 {
     handlers[uri] = handler;
 }

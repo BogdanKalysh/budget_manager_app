@@ -9,7 +9,6 @@ class User
     QString name;
     QString password;
     QString email;
-//    int balance;
 
 public:
     User(const int id, const QString &name, const QString &email, const QString &password);
@@ -18,13 +17,11 @@ public:
     QString getName() const;
     QString getPassword() const;
     QString getEmail() const;
-//    int getBalance() const;
 
     void setId(const int id);
     void setName(const QString &name);
     void setPassword(const QString &password);
     void setEmail(const QString &email);
-//    QString setBalance(const int balance);
 };
 
 #endif // USER_H

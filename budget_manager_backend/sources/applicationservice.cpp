@@ -30,16 +30,6 @@ public:
 };
 }
 
-//ApplicationService::ApplicationService()
-//{
-
-//}
-
-//ApplicationService::~ApplicationService()
-//{
-
-//}
-
 int ApplicationService::main(const std::vector<std::string>& args)
 {
     Poco::Net::HTTPServerParams::Ptr parameters = new Poco::Net::HTTPServerParams();

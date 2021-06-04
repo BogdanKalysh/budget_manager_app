@@ -11,7 +11,7 @@
 
 using namespace messagebox;
 
-UserSettingsDialog::UserSettingsDialog(User& user, QSharedPointer<QNetworkAccessManager> manager, QWidget *parent) :
+UserSettingsDialog::UserSettingsDialog(const User &user, const QSharedPointer<QNetworkAccessManager> &manager, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::UserSettingsDialog)
 {
@@ -119,7 +119,7 @@ void UserSettingsDialog::updatePassword()
     getUserReply->deleteLater();
 }
 
-void UserSettingsDialog::updateUser(User& newuser)
+void UserSettingsDialog::updateUser(const User &newuser)
 {
     QRegularExpression emailRegExp("^[a-z0-9]([a-z0-9.]+[a-z0-9])?\\@[a-z0-9.-]+$");
 

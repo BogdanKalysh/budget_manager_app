@@ -18,7 +18,7 @@ class UserSettingsDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit UserSettingsDialog(User& user, QSharedPointer<QNetworkAccessManager> manager, QWidget *parent = nullptr);
+    explicit UserSettingsDialog(const User &user, const QSharedPointer<QNetworkAccessManager> &manager, QWidget *parent = nullptr);
     ~UserSettingsDialog();
     User getUser();
 
@@ -29,7 +29,7 @@ public slots:
 private slots:
     void on_saveButton_clicked();
     void updatePassword();
-    void updateUser(User& user);
+    void updateUser(const User &user);
     void on_deleteCategoryButton_clicked();
     void finishedUpdateUser();
     void finishedDeleteCategory();

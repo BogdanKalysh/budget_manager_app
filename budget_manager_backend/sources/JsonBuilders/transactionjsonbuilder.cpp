@@ -4,7 +4,7 @@
 
 using namespace models;
 
-QJsonObject TransactionJsonBuilder::buildJson(Transaction transaction){
+QJsonObject TransactionJsonBuilder::buildJson(const Transaction &transaction){
     QJsonObject jObj;
 
     jObj.insert(ID, QJsonValue::fromVariant(transaction.getId()));

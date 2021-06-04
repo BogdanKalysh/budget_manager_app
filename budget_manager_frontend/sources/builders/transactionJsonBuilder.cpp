@@ -2,7 +2,7 @@
 #include "constants.h"
 
 
-QJsonObject TransactionJsonBuilder::buildJson(Transaction transaction){
+QJsonObject TransactionJsonBuilder::buildJson(const Transaction &transaction){
     QJsonObject jObj;
     jObj.insert(models::ID, QJsonValue::fromVariant(transaction.getId()));
     jObj.insert(models::AMOUNT, QJsonValue::fromVariant(transaction.getAmount()));

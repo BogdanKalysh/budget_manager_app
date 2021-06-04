@@ -13,7 +13,7 @@ class Category
 
 public:
     Category();
-    Category(int id, const QString &name, const QString &type, const QColor &color, int userId);
+    Category(const int id, const QString &name, const QString &type, const QColor &color, const int userId);
     Category (const Category &other);
 
     int getId() const;
