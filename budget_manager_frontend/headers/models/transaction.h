@@ -19,27 +19,28 @@ class Transaction
 
 public:
 
-    Transaction(int id, int amount, QString description, int categoryId); //creating new
-    Transaction(int id, int amount, QDate date, QString description, int categoryId); //updating old
-    Transaction(int id, int amount, QDate date, QString description, int categoryId, QString categoryName, QColor color, QString type); //getting from db
+    Transaction(const int id, const int amount, const QString &description, const int categoryId); //creating new
+    Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId); //updating old
+    Transaction(const int id, const int amount, const QDate &date, const QString &description,
+                const int categoryId, const QString &categoryName, const QColor &color,const QString &type); //getting from db
 
-    int getId();
-    int getAmount();
-    int getCategoryId();
-    QDate getDate();
-    QString getDescription();
-    QString getCategoryName();
-    QColor getColor();
-    QString getType();
+    int getId() const;
+    int getAmount() const;
+    int getCategoryId() const;
+    QDate getDate() const;
+    QString getDescription() const;
+    QString getCategoryName() const;
+    QColor getColor() const;
+    QString getType() const;
 
-    void setId(int id);
-    void setAmount(int amount);
-    void setDate(QDate date);
-    void setDescription(QString description);
-    void setCategoryId(int categoryId);
-    void setCategoryName(QString categoryName);
-    void setColor(QColor color);
-    void setType(QString type);
+    void setId(const int id);
+    void setAmount(const int amount);
+    void setDate(const QDate &date);
+    void setDescription(const QString &description);
+    void setCategoryId(const int categoryId);
+    void setCategoryName(const QString &categoryName);
+    void setColor(const QColor &color);
+    void setType(const QString &type);
 };
 
 #endif // TRANSACTION_H

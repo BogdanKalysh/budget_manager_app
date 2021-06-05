@@ -2,13 +2,15 @@
 #include "constants.h"
 #include <QJsonValue>
 
+using namespace models;
 
-QJsonObject UserJsonBuilder::buildJson(User user){
+QJsonObject UserJsonBuilder::buildJson(const User &user){
     QJsonObject jObj;
-    jObj.insert(parser::ID, QJsonValue::fromVariant(user.getId()));
-    jObj.insert(parser::NAME, QJsonValue::fromVariant(user.getName()));
-    jObj.insert(parser::EMAIL, QJsonValue::fromVariant(user.getEmail()));
-    jObj.insert(parser::PASSWORD, QJsonValue::fromVariant(user.getPassword()));
-    jObj.insert(parser::BALANCE, QJsonValue::fromVariant(user.getBalance()));
+
+    jObj.insert(ID, QJsonValue::fromVariant(user.getId()));
+    jObj.insert(NAME, QJsonValue::fromVariant(user.getName()));
+    jObj.insert(MAIL, QJsonValue::fromVariant(user.getEmail()));
+    jObj.insert(PASSWORD, QJsonValue::fromVariant(user.getPassword()));
+
     return jObj;
 }

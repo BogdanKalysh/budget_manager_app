@@ -10,8 +10,8 @@ class CategoryParser: public IJsonParser<Category>
 public:
     using ptr = std::shared_ptr<IJsonParser<Category>>;
 
-    Category parse(QJsonObject json) override;
-    QVector<Category> parseVector(QJsonArray jsonArray) override;
+    Category parse(const QJsonObject &json) override;
+    QVector<Category> parseVector(const QJsonArray &jsonArray) override;
 };
 
 #endif // CATEGORYPARSER_H

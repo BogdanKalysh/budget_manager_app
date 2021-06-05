@@ -2,18 +2,17 @@
 #include "constants.h"
 
 
-User UserParser::parse(QJsonObject json)
+User UserParser::parse(const QJsonObject &json)
 {
-    int id = json.value(jsonbuilder::ID).toInt();
-    QString name = json.value(jsonbuilder::NAME).toString();
-    QString email = json.value(jsonbuilder::EMAIL).toString();
-    QString password = json.value(jsonbuilder::PASSWORD).toString();
+    int id = json.value(models::ID).toInt();
+    QString name = json.value(models::NAME).toString();
+    QString email = json.value(models::MAIL).toString();
+    QString password = json.value(models::PASSWORD).toString();
 
     return User(id, name, email, password);
 }
 
-
-QVector<User> UserParser::parseVector(QJsonArray jsonArray)
+QVector<User> UserParser::parseVector(const QJsonArray &jsonArray)
 {
     QVector<User> users;
     for (const QJsonValue& json: jsonArray)

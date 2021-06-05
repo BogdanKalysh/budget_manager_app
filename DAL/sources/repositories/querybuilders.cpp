@@ -1,20 +1,20 @@
 #include "querybuilders.h"
 
-QString insertQueryBuilder(QString table, QVector<QString> fields, QVector<QString> values)
+QString insertQueryBuilder(const QString &table, const QVector<QString> &fields, const QVector<QString> &values)
 {
     //          EXAMPLE QUERY
     //  INSERT INTO table (column1, column2, ...)
     //  VALUES (value1, value2, ...)
 
-    if(fields.size() == values.size()) {
+    if (fields.size() == values.size()) {
         QString queryInsert = "INSERT INTO " + table + " (";
         QString queryValues = " VALUES (";
 
-        for(int i = 0; i < fields.size(); i++) {
+        for (int i = 0; i < fields.size(); i++) {
             queryInsert += fields[i];
             queryValues += "'" + values[i] + "'";
 
-            if(i != fields.size() - 1) {
+            if (i != fields.size() - 1) {
                 queryInsert += ", ";
                 queryValues += ", ";
             } else {
@@ -22,36 +22,40 @@ QString insertQueryBuilder(QString table, QVector<QString> fields, QVector<QStri
                 queryValues += ")";
             }
         }
+
         return queryInsert + queryValues;
     }
+
     return "";
 }
 
 
-QString updateQueryBuilder(QPair<QString, int> tableCredentials, QVector<QString> fields, QVector<QString> values)
+QString updateQueryBuilder(const QPair<QString, int> &tableCredentials, const QVector<QString> &fields, const QVector<QString> &values)
 {
     //      EXAMPLE QUERY
     //  UPDATE table_name
     //  SET column1 = value1, column2 = value2, ...
     //  WHERE condition
 
-    if(fields.size() == values.size()) {
+    if (fields.size() == values.size()) {
         QString queryUpdate = "UPDATE " + tableCredentials.first + " SET ";
 
-        for(int i = 0; i < fields.size(); i++){
+        for (int i = 0; i < fields.size(); i++) {
             queryUpdate += fields[i] + " = '" + values[i] + "'";
 
-            if(i != fields.size() - 1)
+            if (i != fields.size() - 1)
                 queryUpdate += ", ";
             else
                 queryUpdate += " WHERE id = " + QString::number(tableCredentials.second);
         }
+
         return queryUpdate;
     }
+
     return "";
 }
 
-QString deleteQueryBuilder(QPair<QString, int> tableCredentials)
+QString deleteQueryBuilder(const QPair<QString, int> &tableCredentials)
 {
     //      EXEMPLE QUERY
     // DELETE FROM table_name WHERE condition
@@ -61,16 +65,16 @@ QString deleteQueryBuilder(QPair<QString, int> tableCredentials)
 
 QSqlDatabase setUpDatabase()
 {
-//    QFile dbFile(dal::DBCONFIGPATH);
-    QFile dbFile("../../../../DAL/DB.txt");
+    QFile dbFile(dal::DBCONFIGPATH);
 
-    if(!dbFile.open(QIODevice::ReadOnly)) {
+    if (!dbFile.open(QIODevice::ReadOnly)) {
         qDebug() << "Error: Opening file DB.txt";
         return QSqlDatabase();
     }
 
     QTextStream in(&dbFile);
     QMap<QString, QString> dbConfig;
+
     while (!in.atEnd()) {
         QString line = in.readLine();
         QString field = "";
@@ -78,13 +82,13 @@ QSqlDatabase setUpDatabase()
 
         int len = line.length(), ind = 0;
         bool firstPart = true;
-        while(ind < len){
-            if(line[ind] == ':'){
+        while (ind < len) {
+            if (line[ind] == ':') {
                 ind++;
                 firstPart = false;
             }
 
-            if(firstPart)
+            if (firstPart)
                 field += line[ind];
             else
                 value += line[ind];
@@ -94,8 +98,8 @@ QSqlDatabase setUpDatabase()
 
        dbConfig[field] = value;
     }
-    dbFile.close();
 
+    dbFile.close();
 
     QSqlDatabase db = QSqlDatabase::addDatabase(dbConfig[dal::DB]);
 

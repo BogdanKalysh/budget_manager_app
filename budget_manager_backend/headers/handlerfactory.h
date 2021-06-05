@@ -18,11 +18,11 @@ private:
     std::shared_ptr <IParserManager> _parserManager;
     std::map <std::string, AbstractHandler*> handlers;
 
-    Poco::Net::HTTPRequestHandler* createRequestHandler(const Poco::Net::HTTPServerRequest& request) override;
+    Poco::Net::HTTPRequestHandler* createRequestHandler(const Poco::Net::HTTPServerRequest &request) override;
 public:
     HandlerFactory();
 
-    void addHandler(std::string uri, AbstractHandler* handler);
+    void addHandler(const std::string &uri, AbstractHandler* handler);
 };
 
 }

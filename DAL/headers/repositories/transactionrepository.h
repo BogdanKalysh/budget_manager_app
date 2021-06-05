@@ -1,6 +1,5 @@
 #ifndef TRANSACTIONREPOSITORY_H
 #define TRANSACTIONREPOSITORY_H
-
 #include "irepository.h"
 #include "transaction.h"
 

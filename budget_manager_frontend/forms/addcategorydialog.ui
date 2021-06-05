@@ -99,6 +99,10 @@ QLineEdit[text=&quot;&quot;]{
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>addCategoryButton</tabstop>
+  <tabstop>colorPicker</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

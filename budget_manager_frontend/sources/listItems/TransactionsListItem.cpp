@@ -4,9 +4,9 @@
 #include <QHBoxLayout>
 #include <QJsonDocument>
 #include <QNetworkReply>
-#include <TransactionJsonBuilder.h>
+#include "transactionJsonBuilder.h"
 
-TransactionsItem::TransactionsItem(Transaction transaction, QSharedPointer<QNetworkAccessManager> manager, QWidget *parent) : QDialog(parent)
+TransactionsItem::TransactionsItem(const Transaction &transaction, const QSharedPointer<QNetworkAccessManager> &manager, QWidget *parent) : QDialog(parent)
 {
     this->id = transaction.getId();
     this->manager = manager;
@@ -18,7 +18,7 @@ TransactionsItem::TransactionsItem(Transaction transaction, QSharedPointer<QNetw
     line->setFrameShape(QFrame::HLine);
     line->setFixedHeight(6);
     line->setLineWidth(10);
-    if (transaction.getType() == jsonbuilder::INCOME)
+    if (transaction.getType() == models::INCOME)
         line->setStyleSheet("*{background-color: green;\n border-radius: 3px;}");
     else
         line->setStyleSheet("*{background-color: tomato;\n border-radius: 3px;}");
@@ -51,34 +51,31 @@ void TransactionsItem::emitTransactionDeleted()
 
 void TransactionsItem::on_delButton_clicked()
 {
-    QNetworkRequest request = QNetworkRequest(QUrl(jsonbuilder::TRANSACTIONURL + "?" + jsonbuilder::ID + "=" + QString::number(id)));
+    QNetworkRequest request = QNetworkRequest(QUrl(urls::TRANSACTIONURL + "?" + models::ID + "=" + QString::number(id)));
     QNetworkReply* delTranasactionReply = manager->deleteResource(request);
 
     connect(delTranasactionReply, &QNetworkReply::finished, this, &TransactionsItem::emitTransactionDeleted);
 }
 
-bool TransactionsItem::event(QEvent * e)
+bool TransactionsItem::event(QEvent *e)
 {
-    switch(e->type())
-    {
-    case QEvent::HoverEnter:
+    if (e->type() == QEvent::HoverEnter) {
         hoverEnter(static_cast<QHoverEvent*>(e));
         return true;
-    case QEvent::HoverLeave:
+    } else if (e->type() == QEvent::HoverLeave) {
         hoverLeave(static_cast<QHoverEvent*>(e));
         return true;
-    default:
-        break;
     }
+
     return QWidget::event(e);
 }
 
-void TransactionsItem::hoverEnter(QHoverEvent * event)
+void TransactionsItem::hoverEnter(QHoverEvent *event)
 {
     delButton->setVisible(true);
 }
 
-void TransactionsItem::hoverLeave(QHoverEvent * event)
+void TransactionsItem::hoverLeave(QHoverEvent *event)
 {
     delButton->setVisible(false);
 }

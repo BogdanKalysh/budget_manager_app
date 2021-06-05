@@ -3,6 +3,7 @@
 #include <QJsonDocument>
 #include <Poco/Net/HTMLForm.h>
 #include <Poco/Net/NameValueCollection.h>
+
 QJsonObject AbstractHandler::convertIstreamToJson(std::istream &body)
 {
     std::string sBody;
@@ -19,9 +20,9 @@ QJsonObject AbstractHandler::convertIstreamToJson(std::istream &body)
 QMap<QString,QString> AbstractHandler::getParametrsFromUrl(const Poco::URI &uri)
 {
     QMap<QString,QString> map;
-    Poco::URI::QueryParameters queryParametrs =uri.getQueryParameters();
+    Poco::URI::QueryParameters queryParametrs = uri.getQueryParameters();
 
-    for(auto itr = queryParametrs.begin();itr!=queryParametrs.end();itr++){
+    for (auto itr = queryParametrs.begin();itr!=queryParametrs.end();itr++) {
         map.insert(QString::fromStdString(itr->first),QString::fromStdString(itr->second));
     }
 

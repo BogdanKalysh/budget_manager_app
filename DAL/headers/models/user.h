@@ -1,7 +1,7 @@
 #ifndef USER_H
 #define USER_H
-
 #include <QString>
+#include <constants.h>
 
 class User
 {
@@ -9,21 +9,19 @@ class User
     QString name;
     QString password;
     QString email;
-    int balance;
 
 public:
-    User(const int id, const QString &name, const QString &email, const QString &password, const int balance);
+    User(const int id, const QString &name, const QString &email, const QString &password);
+
     int getId() const;
     QString getName() const;
     QString getPassword() const;
     QString getEmail() const;
-    int getBalance() const;
 
-    QString setId(const int id);
-    QString setName(const QString &name);
-    QString setPassword(const QString &password);
-    QString setEmail(const QString &email);
-    QString setBalance(const int balance);
+    void setId(const int id);
+    void setName(const QString &name);
+    void setPassword(const QString &password);
+    void setEmail(const QString &email);
 };
 
 #endif // USER_H

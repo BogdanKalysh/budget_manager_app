@@ -33,7 +33,6 @@ SOURCES += \
     sources/repositories/categoryrepository.cpp \
     sources/repositories/transactionrepository.cpp \
     sources/repositories/userrepository.cpp \
-    sources/repositories/irepository.cpp \
     sources/repositories/querybuilders.cpp \
 
 HEADERS += \
@@ -45,7 +44,7 @@ HEADERS += \
     headers/repositories/querybuilders.h \
     headers/repositories/transactionrepository.h \
     headers/repositories/userrepository.h \
-    headers/repositories/irepository.h \
+    headers/repositories/irepository.h
 
 # Default rules for deployment.
 unix {

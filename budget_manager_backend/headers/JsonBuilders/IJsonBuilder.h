@@ -7,7 +7,7 @@ template <typename  T>
 class IJsonBuilder
 {
 public:
-    virtual QJsonObject buildJson(T obj) = 0;
+    virtual QJsonObject buildJson(const T &obj) = 0;
 };
 
 #endif // IJSONBUILDER_H

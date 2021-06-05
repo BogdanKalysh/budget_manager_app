@@ -1,6 +1,5 @@
 #ifndef USERREPOSITORY_H
 #define USERREPOSITORY_H
-
 #include "irepository.h"
 #include "user.h"
 

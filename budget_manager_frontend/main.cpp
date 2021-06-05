@@ -1,4 +1,3 @@
-#include "mainWindow.h"
 #include "loginWindow.h"
 #include <QApplication>
 #include <QSharedPointer>

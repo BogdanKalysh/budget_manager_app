@@ -3,8 +3,7 @@ CREATE TABLE users (
 	mail TEXT NOT NULL UNIQUE, 
 	password TEXT NOT NULL, 
 	created_on DATE DEFAULT CURRENT_TIMESTAMP, 
-	name VARCHAR(64) NOT NULL, 
-	balance INT 
+	name VARCHAR(64) NOT NULL
 );
 
 CREATE TYPE transaction_type AS ENUM ('income', 'expense');

@@ -16,7 +16,7 @@ class TransactionsItem : public QDialog
     Q_OBJECT
 
 public:
-    TransactionsItem(Transaction transaction, QSharedPointer<QNetworkAccessManager> manager, QWidget *parent = nullptr);
+    TransactionsItem(const Transaction &transaction, const QSharedPointer<QNetworkAccessManager> &manager, QWidget *parent = nullptr);
 private:
     int id;
     QLabel *Description;
@@ -25,11 +25,9 @@ private:
     QPushButton *delButton;
     QSharedPointer<QNetworkAccessManager> manager;
 
-//    void enterEvent(QEvent *);
-//    void leaveEvent(QEvent *);
-    bool event(QEvent * e);
-    void hoverEnter(QHoverEvent * event);
-    void hoverLeave(QHoverEvent * event);
+    bool event(QEvent *e);
+    void hoverEnter(QHoverEvent *event);
+    void hoverLeave(QHoverEvent *event);
 
     void emitTransactionDeleted();
 private slots:

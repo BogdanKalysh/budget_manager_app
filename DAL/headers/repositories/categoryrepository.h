@@ -1,9 +1,9 @@
 #ifndef CATEGORYREPOSITORY_H
 #define CATEGORYREPOSITORY_H
-
 #include "irepository.h"
 #include "category.h"
 #include <QColor>
+
 class CategoryRepository : public IRepository<Category>
 {
 public:

@@ -8,8 +8,8 @@
 class TransactionParser: public IJsonParser<Transaction>
 {
 public:
-    Transaction parse(QJsonObject json) override;
-    QVector<Transaction> parseVector(QJsonArray jsonArray) override;
+    Transaction parse(const QJsonObject &json) override;
+    QVector<Transaction> parseVector(const QJsonArray &jsonArray) override;
 };
 
 #endif // TRANSACTIONPARSER_H

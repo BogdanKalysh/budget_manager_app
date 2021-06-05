@@ -12,19 +12,19 @@ class User
 
 public:
     User();
-    User(QString email, QString password);
-    User(int id, QString name, QString email, QString password);
+    User(const QString &email, const QString &password);
+    User(const int id, const QString &name, const QString &email, const QString &password);
 
-    int getId();
-    QString getName();
-    QString getPassword();
-    QString getEmail();
+    int getId() const;
+    QString getName() const;
+    QString getPassword() const;
+    QString getEmail() const;
 
-    void setId(int id);
-    void setName(QString name);
-    void setPassword(QString password);
-    void setEmail(QString email);
-    void setUserId(int userId);
+    void setId(const int id);
+    void setName(const QString &name);
+    void setPassword(const QString &password);
+    void setEmail(const QString &email);
+    void setUserId(const int userId);
 };
 
 
