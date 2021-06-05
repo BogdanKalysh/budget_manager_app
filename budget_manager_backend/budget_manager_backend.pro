@@ -17,11 +17,13 @@ INCLUDEPATH += \
     $$PWD/sources/dbManager \
     $$PWD/sources/JsonBuilders \
     $$PWD/sources/ParserManager \
+    $$PWD/sources/tests\
     $$PWD/headers/parsers \
     $$PWD/headers/handlers \
     $$PWD/headers/dbManager \
     $$PWD/headers/JsonBuilders \
-    $$PWD/headers/ParserManager
+    $$PWD/headers/ParserManager\
+    $$PWD/headers/tests\
 
 HEADERS += \
     headers/dbManager/idbmanager.h \
@@ -42,7 +44,8 @@ HEADERS += \
     headers/JsonBuilders/categoryjsonbuilder.h \
     headers/JsonBuilders/transactionjsonbuilder.h \
     headers/JsonBuilders/userjsonbuilder.h \
-    headers/logger.h
+    headers/logger.h\
+
 
 SOURCES += \
     main.cpp \
@@ -61,6 +64,7 @@ SOURCES += \
     sources/JsonBuilders/transactionjsonbuilder.cpp \
     sources/JsonBuilders/userjsonbuilder.cpp \
     sources/JsonBuilders/categoryjsonbuilder.cpp \
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

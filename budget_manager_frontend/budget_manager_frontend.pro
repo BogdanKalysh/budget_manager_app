@@ -18,6 +18,7 @@ INCLUDEPATH += \
     $$PWD/sources/parsers \
     $$PWD/sources/listItems \
     $$PWD/sources/windows \
+    $$PWD/sources/tests\
     $$PWD/headers \
     $$PWD/headers/models \
     $$PWD/headers/builders \
@@ -25,7 +26,8 @@ INCLUDEPATH += \
     $$PWD/headers/listItems \
     $$PWD/headers/windows \
     $$PWD/forms \
-    $$PWD/resources
+    $$PWD/resources\
+    $$PWD/headers/tests\
 
 DEPENDPATH += \
     $$PWD/mainWindow \
