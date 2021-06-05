@@ -1,4 +1,8 @@
 #include "querybuilders.h"
+#include <Poco/Crypto/CipherKey.h>
+#include <Poco/Crypto/Cipher.h>
+#include <Poco/Crypto/CipherFactory.h>
+
 
 QString insertQueryBuilder(const QString &table, const QVector<QString> &fields, const QVector<QString> &values)
 {
@@ -63,6 +67,8 @@ QString deleteQueryBuilder(const QPair<QString, int> &tableCredentials)
     return "DELETE FROM " + tableCredentials.first + " WHERE id = " + QString::number(tableCredentials.second);
 }
 
+using namespace Poco::Crypto;
+
 QSqlDatabase setUpDatabase()
 {
     QFile dbFile(dal::DBCONFIGPATH);
@@ -72,37 +78,53 @@ QSqlDatabase setUpDatabase()
         return QSqlDatabase();
     }
 
+    CipherFactory& factory = CipherFactory::defaultFactory();
+    Cipher* pCipher = factory.createCipher(CipherKey(dal::AES.toStdString(), dal::KEY.toStdString()));
+
     QTextStream in(&dbFile);
+
+    QString dbConfigContent = pCipher->decryptString(in.readAll().toStdString(), Cipher::ENC_BASE64).c_str();
+    dbFile.close();
+
     QMap<QString, QString> dbConfig;
 
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        QString field = "";
-        QString value = "";
+    QString field = "";
+    QString value = "";
+    bool firstPart = true;
 
-        int len = line.length(), ind = 0;
-        bool firstPart = true;
-        while (ind < len) {
-            if (line[ind] == ':') {
-                ind++;
-                firstPart = false;
-            }
+    for(int i = 0; i <= dbConfigContent.length(); i++){
 
-            if (firstPart)
-                field += line[ind];
-            else
-                value += line[ind];
-
-            ind++;
+        if(i == dbConfigContent.length() || dbConfigContent[i] == '\n'){
+            dbConfig[field] = value;
+            qDebug() << field << value;
+            field = "";
+            value = "";
+            firstPart = true;
+            continue;
         }
 
-       dbConfig[field] = value;
+        if(dbConfigContent[i] == '\r')
+            continue;
+
+        if(dbConfigContent[i] == ':'){
+            firstPart = false;
+            continue;
+        }
+
+        if(firstPart)
+            field += dbConfigContent[i];
+        else
+            value += dbConfigContent[i];
+
     }
 
     dbFile.close();
 
     QSqlDatabase db = QSqlDatabase::addDatabase(dbConfig[dal::DB]);
-
+    qDebug() << dbConfig[dal::HOST];
+    qDebug() << dbConfig[dal::DBNAME];
+    qDebug() << dbConfig[dal::USER];
+    qDebug() << dbConfig[dal::USER_PASSWORD];
     db.setHostName(dbConfig[dal::HOST]);
     db.setDatabaseName(dbConfig[dal::DBNAME]);
     db.setUserName(dbConfig[dal::USER]);

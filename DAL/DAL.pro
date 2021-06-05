@@ -2,8 +2,8 @@ QT += gui core sql
 
 TEMPLATE = lib
 CONFIG += staticlib
-
 CONFIG += c++11
+
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -52,3 +52,11 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
+
+
+LIBS += -LC:/msys64/mingw64/bin/ \
+    -llibPocoCrypto.dll
+
+
+INCLUDEPATH += C:/msys64/mingw64/include
+DEPENDPATH += C:/msys64/mingw64/include
