@@ -3,8 +3,6 @@
 #include "querybuilders.h"
 #include <memory>
 
-using namespace std;
-
 template <typename T>
 class IRepository
 {

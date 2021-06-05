@@ -33,7 +33,7 @@ public:
 int ApplicationService::main(const std::vector<std::string>& args)
 {
     Poco::Net::HTTPServerParams::Ptr parameters = new Poco::Net::HTTPServerParams();
-    parameters->setTimeout(10000);
+    parameters->setTimeout(100000);
     parameters->setMaxQueued(100);
     parameters->setMaxThreads(1);
 
