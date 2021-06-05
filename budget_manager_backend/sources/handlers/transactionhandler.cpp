@@ -27,7 +27,7 @@ void TransactionHandler::get(HTTPServerRequest& request, HTTPServerResponse& res
         QString query = QString("SELECT %1.*, %2.%3, %2.%4, %2.%5 FROM %2 INNER JOIN "
                             "%1 ON %2.%6 = %1.%7 WHERE %2.%8 = " + user_id +" AND %1.%9 >= '"
                             + start_date + "'::%9 AND %1.%9 <= '" + end_date + "'::%9 ORDER BY %1.%6 DESC")
-                            .arg(TRANSACTION, CATEGORY, NAME, COLOR, TYPE, ID, CATEGORY_ID, USER_ID, DATE);
+                            .arg(TRANSACTION, CATEGORY, NAME, COLOR, TYPE, ID, CATEGORY_ID, USER_ID, models::DATE);
 
         QVector<Transaction> transactions = repository->select(query);
         TransactionJsonBuilder transactionJsonBuilder;

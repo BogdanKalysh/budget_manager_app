@@ -10,6 +10,8 @@ namespace dal {
     const QString USER_PASSWORD = "PASSWORD";
     const QString DBNAME = "DBNAME";
     const QString DBCONFIGPATH = "../DAL/DB.txt";
+    const QString KEY = "budget_manager";
+    const QString AES = "aes-256-ecb";
 //    const QString DBCONFIGPATH = "../../../../DAL/DB.txt";
 }
 
@@ -17,8 +19,6 @@ namespace models{
     const QString USERS = "users";
     const QString CATEGORY = "category";
     const QString TRANSACTION = "transaction";
-    const QString KEY = "budget_manager";
-    const QString AES = "aes-256-ecb";
 
     const QString ID = "id";
     const QString NAME = "name";
