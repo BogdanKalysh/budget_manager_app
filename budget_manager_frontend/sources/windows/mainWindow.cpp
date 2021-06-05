@@ -7,6 +7,7 @@
 #include "legendlistitem.h"
 #include "constants.h"
 #include "addcategorydialog.h"
+#include "usersettingsdialog.h"
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QJsonArray>
@@ -14,7 +15,9 @@
 #include <QJsonObject>
 #include <QMessageBox>
 
-MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,  QWidget *parent)
+using namespace messagebox;
+
+MainWindow::MainWindow(const User &user, const QSharedPointer<QNetworkAccessManager> &manager,  QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -27,7 +30,7 @@ MainWindow::MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,
     chartView = new QChartView();
     ui->pieChart->addWidget(chartView, 0);
 
-    sumAmountLabel = new QLabel("", chartView);
+    sumAmountLabel = new QLabel("0", chartView);
     ui->userName->setText(user.getName());
 
     configWindowItems();
@@ -50,17 +53,19 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 void MainWindow::updateTransactions()
 {
-    QString getTransactionsQuery = jsonbuilder::TRANSACTIONURL + "?" + jsonbuilder::USER_ID + "=" +
-            QString::number(user.getId()) + "&" + jsonbuilder::START_DATE + "=" + fromDateTransactions.toString("yyyy-MM-dd") +
-            "&" + jsonbuilder::END_DATE + "=" + toDateTransactions.toString("yyyy-MM-dd");
+    QString getTransactionsQuery = urls::TRANSACTIONURL + "?" + models::USER_ID + "=" +
+            QString::number(user.getId()) + "&" + models::START_DATE + "=" + fromDateTransactions.toString("yyyy-MM-dd") +
+            "&" + models::END_DATE + "=" + toDateTransactions.toString("yyyy-MM-dd");
     QNetworkReply *transactionsReply = manager->get(QNetworkRequest(QUrl(getTransactionsQuery)));
+
     connect(transactionsReply, &QNetworkReply::readyRead, this, &MainWindow::readTransactions);
 }
 
 void MainWindow::updateCategories()
 {
-    QString getCategoriesQuery = jsonbuilder::CATEGORYURL + "?" + jsonbuilder::USER_ID + "=" + QString::number(user.getId());
+    QString getCategoriesQuery = urls::CATEGORYURL + "?" + models::USER_ID + "=" + QString::number(user.getId());
     QNetworkReply *categoriesReply = manager->get(QNetworkRequest(QUrl(getCategoriesQuery)));
+
     connect(categoriesReply, &QNetworkReply::readyRead, this, &MainWindow::readCategories);
 }
 
@@ -69,7 +74,7 @@ void MainWindow::readCategories()
 {
     QNetworkReply *categoriesReply = qobject_cast<QNetworkReply*>(sender());
 
-    if(categoriesReply){
+    if (categoriesReply) {
         QString categoriesStr = categoriesReply->readAll();
         QJsonDocument jsonResponse = QJsonDocument::fromJson(categoriesStr.toUtf8());
         QJsonArray json_array = jsonResponse.array();
@@ -80,11 +85,11 @@ void MainWindow::readCategories()
 
     ui->categoryComboBox->clear();
 
-    for (Category& cat: categories){
-        if(cat.getType() == ui->incomeRadioButton->isChecked()){
-            ui->categoryComboBox->addItem(cat.getName(), cat.getId());
-        }else if(!cat.getType() == ui->expenceRadioButton->isChecked()){
-            ui->categoryComboBox->addItem(cat.getName(), cat.getId());
+    for (Category &category: categories) {
+        if (category.getType() == models::INCOME && ui->incomeRadioButton->isChecked()) {
+            ui->categoryComboBox->addItem(category.getName(), category.getId());
+        } else if (category.getType() == models::EXPENSE && ui->expenceRadioButton->isChecked()) {
+            ui->categoryComboBox->addItem(category.getName(), category.getId());
         }
     }
 
@@ -99,7 +104,7 @@ void MainWindow::readTransactions()
 {
     QNetworkReply *transactionsReply = qobject_cast<QNetworkReply*>(sender());
 
-    if(transactionsReply){
+    if (transactionsReply) {
         QString transactionsStr = transactionsReply->readAll();
         QJsonDocument jsonResponse = QJsonDocument::fromJson(transactionsStr.toUtf8());
         QJsonArray json_array = jsonResponse.array();
@@ -119,18 +124,13 @@ void MainWindow::finishedPostTransactions()
 {
     QNetworkReply *postTranasactionReply = qobject_cast<QNetworkReply*>(sender());
 
-    if(postTranasactionReply->error() == QNetworkReply::NoError){
-        QString contents = QString::fromUtf8(postTranasactionReply->readAll());
-        qDebug() << contents;
-    }
-    else
-    {
+    if (postTranasactionReply->error() != QNetworkReply::NoError) {
         QString error = postTranasactionReply->errorString();
         qDebug() << error;
         QMessageBox::about(this, "info", "Error: " + error);
+    } else {
+        updateTransactions();
     }
-
-    updateTransactions();
 
     postTranasactionReply->close();
     postTranasactionReply->deleteLater();
@@ -145,16 +145,12 @@ void MainWindow::configWindowItems()
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->chart()->legend()->setVisible(false);
     chartView->chart()->setBackgroundVisible(false);
-//    chartView->chart()->legend()->setAlignment(Qt::AlignBottom);
-//    chartView->chart()->legend()->set
 
     sumAmountLabel->setStyleSheet("font-size: 33px; color:white;");
 
-    QPixmap settingsPixMap(jsonbuilder::SETTINGSICONPATH);
-    QPixmap userPixMap(jsonbuilder::USERICONPATH);
+    QPixmap userPixMap(resourcepath::USERICONPATH);
     int w(40), h(40);
-    ui->settingsIcon->setPixmap(settingsPixMap.scaled(w, h, Qt::KeepAspectRatio));
-    ui->userIcon->setPixmap(userPixMap.scaled(w, h, Qt::KeepAspectRatio));
+    ui->userIcon->setPixmap(userPixMap.scaled(w, h, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     ui->amountInputLine->setValidator(new QIntValidator(0, 1000000000, this));
 
@@ -167,17 +163,20 @@ void MainWindow::configWindowItems()
     ui->fromDateEdit->setDate(fromDateTransactions);
     ui->toDateEdit->setDate(toDateTransactions);
 
+    connect(ui->amountInputLine, &QLineEdit::textChanged, [=]{ style()->polish(ui->amountInputLine); });
+    connect(ui->descriptionInputLine, &QLineEdit::textChanged, [=]{ style()->polish(ui->descriptionInputLine); });
+
     updateTransactions();
     updateCategories();
 }
 
 
-qreal MainWindow::getCategoryTotalSum(QString categoryName)
+qreal MainWindow::getCategoryTotalSum(const QString &categoryName, const QString &type)
 {
     qreal totalsum = 0;
 
-    for(Transaction &transac : transactions){
-        if(transac.getCategoryName() == categoryName)
+    for (Transaction &transac : transactions) {
+        if (transac.getCategoryName() == categoryName && transac.getType() == type)
             totalsum += transac.getAmount();
     }
 
@@ -188,26 +187,27 @@ void MainWindow::updatePiechart()
 {
     int amountSum(0);
     series->clear();
-    if(transactions.size() != 0){
-        for(Category& cat: categories){
-            if(cat.getType() == ui->incomesLegendRadioButton->isChecked()){
-                amountSum += getCategoryTotalSum(cat.getName());
-                QPieSlice *slice = series->append(cat.getName(), getCategoryTotalSum(cat.getName()));
+
+    if (transactions.size() != 0) {
+        for (Category &category : categories) {
+            if ((category.getType() == models::INCOME) == ui->incomesLegendRadioButton->isChecked()) {
+                amountSum += getCategoryTotalSum(category.getName(), category.getType());
+                QPieSlice *slice = series->append(category.getName(), getCategoryTotalSum(category.getName(),category.getType()));
                 slice->setBorderWidth(0);
                 slice->setPen(Qt::NoPen);
-                slice->setColor(QColor(cat.getColor()));
+                slice->setColor(QColor(category.getColor()));
             }
         }
     }
 
-    if(series->isEmpty()){
+    if (amountSum == 0) {
         QPieSlice *slice = series->append("0", 1);
         slice->setBorderWidth(0);
         slice->setPen(Qt::NoPen);
-        slice->setColor(QColor(jsonbuilder::PIECHARTCOLOR));
+        slice->setColor(QColor(colors::PIECHARTCOLOR));
     }
 
-    if(ui->expencesLegendRadioButton->isChecked() && amountSum != 0)
+    if (ui->expencesLegendRadioButton->isChecked() && amountSum != 0)
         sumAmountLabel->setText("-" + QString::number(amountSum) + " ₴");
     else
         sumAmountLabel->setText(QString::number(amountSum) + " ₴");
@@ -223,23 +223,24 @@ void MainWindow::updatePiechart()
 void MainWindow::updateList()
 {
     ui->TransactionsList->clear();
-    for (Transaction &transaction : transactions)
-    {
-        QListWidgetItem* item = new QListWidgetItem( ui->TransactionsList );
-        TransactionsItem *transactionsItem = new TransactionsItem(transaction);
 
-        item->setSizeHint(transactionsItem->sizeHint());
+    for (Transaction &transaction : transactions) {
+        QListWidgetItem *item = new QListWidgetItem( ui->TransactionsList );
+        TransactionsItem *transactionsItem = new TransactionsItem(transaction, manager);
+
+        item->setSizeHint(QSize(0, 55));
         ui->TransactionsList->setItemWidget(item, transactionsItem);
+
+        connect(transactionsItem, &TransactionsItem::transactionDeleted, this, &MainWindow::updateTransactions);
     }
 }
 
 void MainWindow::updateLegend()
 {
     ui->legendList->clear();
-    for (Category &category : categories)
-    {
-        if (category.getType() == ui->incomesLegendRadioButton->isChecked())
-        {
+
+    for (Category &category : categories) {
+        if ((category.getType() == models::INCOME) == ui->incomesLegendRadioButton->isChecked()) {
             QListWidgetItem* item = new QListWidgetItem( ui->legendList );
             LegendListItem *categoryItem = new LegendListItem(category);
 
@@ -249,24 +250,21 @@ void MainWindow::updateLegend()
     }
 }
 
-
 void MainWindow::on_addTransactionButton_clicked()
 {
     int amount = ui->amountInputLine->text().toInt();
     QString description = ui->descriptionInputLine->text();
     int categoryId = ui->categoryComboBox->currentData().toInt();
 
-    if(amount == 0 || description == "" || categoryId == 0){
-        QMessageBox::about(this, "info", "Заповніть всі поля");
-    }
-    else
-    {
+    if (amount == 0 || description == "" || categoryId == 0) {
+        QMessageBox::about(this, INFO, FILLIN);
+    } else {
         QSharedPointer<IJsonBuilder<Transaction>> builder (new TransactionJsonBuilder);
         QJsonDocument jsonDoc(builder->buildJson(Transaction (0, amount, description, categoryId)));
         QByteArray byteData = jsonDoc.toJson();
 
-        QNetworkRequest request = QNetworkRequest(QUrl(jsonbuilder::TRANSACTIONURL));
-        request.setRawHeader("Content-Type", "application/json");
+        QNetworkRequest request = QNetworkRequest(QUrl(urls::TRANSACTIONURL));
+        request.setRawHeader(urls::CONTENTTYPE.toUtf8(), urls::APPLICATIONJSON.toUtf8());
         QNetworkReply* postTranasactionReply = manager->post(request, byteData);
         connect(postTranasactionReply, &QNetworkReply::finished, this, &MainWindow::finishedPostTransactions);
 
@@ -278,18 +276,20 @@ void MainWindow::on_addTransactionButton_clicked()
 void MainWindow::on_incomeRadioButton_clicked()
 {
     ui->categoryComboBox->clear();
-    for (Category& cat: categories){
-        if(cat.getType())
-            ui->categoryComboBox->addItem(cat.getName(), cat.getId());
+
+    for (Category& category: categories) {
+        if (category.getType() == models::INCOME)
+            ui->categoryComboBox->addItem(category.getName(), category.getId());
     }
 }
 
 void MainWindow::on_expenceRadioButton_clicked()
 {
     ui->categoryComboBox->clear();
-    for (Category& cat: categories){
-        if(!cat.getType())
-            ui->categoryComboBox->addItem(cat.getName(), cat.getId());
+
+    for (Category& category: categories) {
+        if (category.getType() == models::EXPENSE)
+            ui->categoryComboBox->addItem(category.getName(), category.getId());
     }
 }
 
@@ -307,10 +307,9 @@ void MainWindow::on_toDateEdit_dateChanged(const QDate &date)
 
 void MainWindow::on_addCategoryButton_clicked()
 {
-    AddCategoryDialog categoryDialog(user.getId(), Type(ui->expenceRadioButton->isChecked()), manager);
+    AddCategoryDialog categoryDialog(user.getId(), ui->incomeRadioButton->isChecked() ? models::INCOME : models::EXPENSE, manager);
     categoryDialog.setModal(true);
     categoryDialog.exec();
-
     updateCategories();
 }
 
@@ -324,4 +323,17 @@ void MainWindow::on_expencesLegendRadioButton_clicked()
 {
     updatePiechart();
     updateLegend();
+}
+
+void MainWindow::on_userName_clicked()
+{
+        UserSettingsDialog usersettings(user, manager);
+        usersettings.exec();
+
+        user = usersettings.getUser();
+
+        ui->userName->setText(user.getName());
+
+        updateCategories();
+        updateTransactions();
 }

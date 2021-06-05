@@ -1,8 +1,6 @@
-#include "mainWindow.h"
 #include "loginWindow.h"
 #include <QApplication>
 #include <QSharedPointer>
-
 
 
 int main(int argc, char *argv[])

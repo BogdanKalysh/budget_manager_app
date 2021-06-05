@@ -12,7 +12,7 @@ Transaction::Transaction(const int id, const int amount, const QDate &date, cons
     this->setCategoryId(categoryId);
 }
 
-Transaction::Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId, QString categoryName, QColor color, QString type)
+Transaction::Transaction(const int id, const int amount, const QDate &date, const QString &description, const int categoryId, const QString &categoryName, const QColor &color, const QString &type)
     :Transaction(id, amount, date, description, categoryId)
 {
     this->setCategoryName(categoryName);
@@ -46,71 +46,58 @@ QString Transaction::getDescription() const
     return this->description;
 }
 
-QString Transaction::getCategoryName()
+QString Transaction::getCategoryName() const
 {
     return this->categoryName;
 }
 
-QColor Transaction::getColor()
+QColor Transaction::getColor() const
 {
     return this->color;
 }
 
-QString Transaction::getType()
+QString Transaction::getType() const
 {
     return this->type;
 }
 
 
-QString Transaction::setId(const int id)
+void Transaction::setId(const int id)
 {
-    // TODO: Int validation logic
     this->id = id;
-    return "Success";
 }
 
-QString Transaction::setAmount(const int amount)
+void Transaction::setAmount(const int amount)
 {
-    // TODO: Validation logic; It may be realized with the help of QIntValidator
     this->amount = amount;
-    return "Success";
 }
 
-QString Transaction::setDate(const QDate &date)
+void Transaction::setDate(const QDate &date)
 {
-    // TODO: Validation logic; It may be realized with the help of QDate::isValid
     this->date = date;
-    return "Success";
 }
 
-QString Transaction::setDescription(const QString &description)
+void Transaction::setDescription(const QString &description)
 {
-    // TODO: Validation logic
     this->description = description;
-    return "Success";
 }
 
-QString Transaction::setCategoryId(const int categoryId)
+void Transaction::setCategoryId(const int categoryId)
 {
-    // TODO: Validation logic; It may be realized with the help of QIntValidator
     this->categoryId = categoryId;
-    return "Success";
 }
 
-QString Transaction::setCategoryName(const QString &categoryName)
+void Transaction::setCategoryName(const QString &categoryName)
 {
     this->categoryName = categoryName;
-    return "Success";
 }
 
-QString Transaction::setColor(const QColor &color)
+void Transaction::setColor(const QColor &color)
 {
     this->color = color;
-    return "Success";
 }
 
-QString Transaction::setType(const QString type)
+void Transaction::setType(const QString &type)
 {
     this->type = type;
-    return "Success";
 }

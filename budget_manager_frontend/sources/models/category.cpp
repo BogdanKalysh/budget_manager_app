@@ -1,15 +1,17 @@
 #include "category.h"
 
+using namespace models;
+
 Category::Category()
 {
     // Attention! Not valid data!
     this->id = -1;
     this->name = QString();
-    this->type = income;
+    this->type = INCOME;
     this->color = QColor();
 }
 
-Category::Category(int id, QString name, Type type, QColor color, int userId)
+Category::Category(const int id, const QString &name, const QString &type, const QColor &color, const int userId)
 {
     this->id = id;
     this->name = name;
@@ -27,52 +29,52 @@ Category::Category(const Category &other)
 }
 
 
-int Category::getId()
+int Category::getId() const
 {
     return this->id;
 }
 
-int Category::getUserId()
+int Category::getUserId() const
 {
     return this->userId;
 }
 
-QString Category::getName()
+QString Category::getName() const
 {
     return this->name;
 }
 
-Type Category::getType()
+QString Category::getType() const
 {
     return this->type;
 }
 
-QColor Category::getColor()
+QColor Category::getColor() const
 {
     return this->color;
 }
 
-void Category::setId(int id)
+void Category::setId(const int id)
 {
     this->id = id;
 }
 
-void Category::setName(QString name)
+void Category::setName(const QString &name)
 {
     this->name = name;
 }
 
-void Category::setType(Type type)
+void Category::setType(const QString &type)
 {
     this->type = type;
 }
 
-void Category::setColor(QColor color)
+void Category::setColor(const QColor &color)
 {
     this->color = color;
 }
 
-void Category::setUserId(int userId)
+void Category::setUserId(const int userId)
 {
     this->userId = userId;
 }

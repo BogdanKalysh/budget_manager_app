@@ -1,24 +1,25 @@
 #include "categoryrepository.h"
 
-using namespace dal;
+using namespace models;
+
 QVector<Category> CategoryRepository::select(const QString &query)
 {
     QVector<Category> categories;
     QSqlDatabase db = setUpDatabase();
 
-    if(db.open()){
+    if (db.open()) {
         QSqlQuery result(query);
 
         while(result.next()){
-
             categories.push_back(Category(
                                 result.value(ID).toInt(),
                                 result.value(NAME).toString(),
-                                (Type)(result.value(TYPE) == INCOME),
+                                result.value(TYPE).toString(),
                                 QColor(result.value(COLOR).toString()),
-                                result.value(USER_ID).toInt()
-                                ));
+                                result.value(USER_ID).toInt()));
         }
+
+        db.close();
     } else {
         qDebug() << db.lastError();
     }
@@ -30,7 +31,7 @@ bool CategoryRepository::update(const Category &object)
 {
     QSqlDatabase db = setUpDatabase();
 
-    if(db.open()) {
+    if (db.open()) {
         QSqlQuery query;
 
         QVector<QString> fields;
@@ -38,17 +39,19 @@ bool CategoryRepository::update(const Category &object)
 
         QVector<QString> values;
         values << object.getName()
-               << (object.getType() == 0?INCOME:EXPENSE)
-               << QColor(object.getColor()).name(QColor::NameFormat::HexRgb);
+               << object.getType()
+               << object.getColor().name();
 
-        query.exec(updateQueryBuilder(qMakePair(CATEGORY, object.getId()), fields, values));
+        if (query.exec(updateQueryBuilder(qMakePair(CATEGORY, object.getId()), fields, values))) {
+            db.close();
+            return true;
+        }
+
+        qDebug() << query.lastError();
         db.close();
-
-        return true;
-    } else {
-        qDebug() << db.lastError();
     }
 
+    qDebug() << db.lastError();
     return false;
 }
 
@@ -56,7 +59,7 @@ bool CategoryRepository::add(const Category &object)
 {
     QSqlDatabase db = setUpDatabase();
 
-    if(db.open()) {
+    if (db.open()) {
         QSqlQuery query;
 
         QVector<QString> fields;
@@ -64,25 +67,20 @@ bool CategoryRepository::add(const Category &object)
 
         QVector<QString> values;
         values << object.getName()
-               << (object.getType() == 0?INCOME:EXPENSE)
+               << object.getType()
                << object.getColor().name()
                << QString::number(object.getUserId());
 
-        if(query.exec(insertQueryBuilder(CATEGORY, fields, values))){
+        if (query.exec(insertQueryBuilder(CATEGORY, fields, values))) {
             db.close();
             return true;
         }
-        else
-        {
-            qDebug() << query.lastError();
-            db.close();
-            return false;
-        }
 
-    } else {
-        qDebug() << db.lastError();
+        qDebug() << query.lastError();
+        db.close();
     }
 
+    qDebug() << db.lastError();
     return false;
 }
 
@@ -90,16 +88,18 @@ bool CategoryRepository::deleteObject(const int id)
 {
     QSqlDatabase db = setUpDatabase();
 
-    if(db.open()){
+    if (db.open()) {
         QSqlQuery query;
 
-        query.exec(deleteQueryBuilder(qMakePair(CATEGORY, id)));
-        db.close();
+        if(query.exec(deleteQueryBuilder(qMakePair(CATEGORY, id)))) {
+            db.close();
+            return true;
+        }
 
-        return true;
-    } else {
-        qDebug() << db.lastError();
+        qDebug() << query.lastError();
+        db.close();
     }
 
+    qDebug() << db.lastError();
     return false;
 }

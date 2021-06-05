@@ -3,8 +3,7 @@ CREATE TABLE users (
 	mail TEXT NOT NULL UNIQUE, 
 	password TEXT NOT NULL, 
 	created_on DATE DEFAULT CURRENT_TIMESTAMP, 
-	name VARCHAR(64) NOT NULL, 
-	balance INT 
+	name VARCHAR(64) NOT NULL
 );
 
 CREATE TYPE transaction_type AS ENUM ('income', 'expense');
@@ -16,7 +15,7 @@ CREATE TABLE category(
 	type transaction_type NOT NULL,
 	color VARCHAR(9) NOT NULL, 
 
-	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
 CREATE TABLE transaction(
@@ -26,6 +25,6 @@ CREATE TABLE transaction(
 	date DATE NOT NULL DEFAULT CURRENT_TIMESTAMP, 
 	description TEXT,
 
-	FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+	FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 

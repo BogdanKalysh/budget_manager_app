@@ -10,7 +10,7 @@
 class UserJsonBuilder: public IJsonBuilder<User>
 {
 public:
-    QJsonObject buildJson(User user) override;
+    QJsonObject buildJson(const User &user) override;
 };
 
 #endif // USERJSONBUILDER_H

@@ -1,16 +1,15 @@
 #include "transactionrepository.h"
 
-using namespace dal;
+using namespace models;
 
 QVector<Transaction> TransactionRepository::select(const QString &query)
 {
     QVector<Transaction> transactions;
     QSqlDatabase db = setUpDatabase();
-
-    if(db.open()){
+    if (db.open()) {
         QSqlQuery result(query);
 
-        while(result.next()) {
+        while (result.next()) {
             transactions.push_back(Transaction(
                                 result.value(ID).toInt(),
                                 result.value(AMOUNT).toInt(),
@@ -19,9 +18,9 @@ QVector<Transaction> TransactionRepository::select(const QString &query)
                                 result.value(CATEGORY_ID).toInt(),
                                 result.value(NAME).toString(),
                                 QColor(result.value(COLOR).toString()),
-                                result.value(TYPE).toString()
-                                ));
-           }
+                                result.value(TYPE).toString()));
+        }
+
         db.close();
     } else {
         qDebug() << db.lastError();
@@ -30,14 +29,11 @@ QVector<Transaction> TransactionRepository::select(const QString &query)
     return transactions;
 }
 
-
-
-
 bool TransactionRepository::update(const Transaction &object)
 {
     QSqlDatabase db = setUpDatabase();
 
-    if(db.open()) {
+    if (db.open()) {
         QSqlQuery query;
 
         QVector<QString> fields;
@@ -49,13 +45,16 @@ bool TransactionRepository::update(const Transaction &object)
                << object.getDescription()
                << object.getDate().toString();
 
-        query.exec(updateQueryBuilder(qMakePair(TRANSACTION, object.getId()), fields, values));
+        if (query.exec(updateQueryBuilder(qMakePair(TRANSACTION, object.getId()), fields, values))) {
+            db.close();
+            return true;
+        }
+
+        qDebug() << query.lastError();
         db.close();
-        return true;
-    } else {
-        qDebug() << db.lastError();
     }
 
+    qDebug() << db.lastError();
     return false;
 }
 
@@ -63,7 +62,7 @@ bool TransactionRepository::add(const Transaction &object)
 {
     QSqlDatabase db = setUpDatabase();
 
-    if(db.open()) {
+    if (db.open()) {
         QSqlQuery query;
 
         QVector<QString> fields;
@@ -74,14 +73,16 @@ bool TransactionRepository::add(const Transaction &object)
                << QString::number(object.getAmount())
                << object.getDescription();
 
-        query.exec(insertQueryBuilder(TRANSACTION, fields, values));
-        db.close();
+        if (query.exec(insertQueryBuilder(TRANSACTION, fields, values))) {
+            db.close();
+            return true;
+        }
 
-        return true;
-    } else {
-        qDebug() << db.lastError();
+        qDebug() << query.lastError();
+        db.close();
     }
 
+    qDebug() << db.lastError();
     return false;
 }
 
@@ -89,16 +90,18 @@ bool TransactionRepository::deleteObject(const int id)
 {
     QSqlDatabase db = setUpDatabase();
 
-    if(db.open()) {
+    if (db.open()) {
         QSqlQuery query;
 
-        query.exec(deleteQueryBuilder(qMakePair(TRANSACTION, id)));
-        db.close();
+        if (query.exec(deleteQueryBuilder(qMakePair(TRANSACTION, id)))) {
+            db.close();
+            return true;
+        }
 
-        return true;
-    } else {
-        qDebug() << db.lastError();
+        qDebug() << query.lastError();
+        db.close();
     }
 
+    qDebug() << db.lastError();
     return false;
 }

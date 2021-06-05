@@ -1,6 +1,6 @@
 #include "transactionhandler.h"
 #include "transactionjsonbuilder.h"
-#include <Poco/URI.h>
+
 
 TransactionHandler::TransactionHandler(std::shared_ptr<IDBManager> dbManager, std::shared_ptr<IParserManager> parserManager)
 {
@@ -15,78 +15,100 @@ AbstractHandler *TransactionHandler::getCopy()
     return new TransactionHandler(_dbManager, _parserManager);
 }
 
-void TransactionHandler::get(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response)
+void TransactionHandler::get(HTTPServerRequest& request, HTTPServerResponse& response)
 {    
-    QMap<QString,QString> uri_map =getParametrsFromUrl(Poco::URI(request.getURI()));
+    try {
+        QMap<QString,QString> uri_map = getParametrsFromUrl(Poco::URI(request.getURI()));
 
-    QString user_id = QString(uri_map[parser::USER_ID].toStdString().c_str());
-    QString start_date = QString(uri_map[parser::START_DATE].toStdString().c_str());
-    QString end_date = QString(uri_map[parser::END_DATE].toStdString().c_str());
+        QString user_id = uri_map.constFind(USER_ID).value();
+        QString start_date = uri_map.constFind(START_DATE).value();
+        QString end_date = uri_map.constFind(END_DATE).value();
 
-    QString select = "SELECT transaction.*, category.name, category.color, category.type FROM category INNER JOIN "
-                     "transaction ON category.id = transaction.category_id WHERE category.user_id = "+ user_id +
-                     " AND transaction.date >= '"+start_date+"'::date AND transaction.date <= '"+end_date+"'::date ORDER BY transaction.id DESC";
+        QString query = QString("SELECT %1.*, %2.%3, %2.%4, %2.%5 FROM %2 INNER JOIN "
+                            "%1 ON %2.%6 = %1.%7 WHERE %2.%8 = " + user_id +" AND %1.%9 >= '"
+                            + start_date + "'::%9 AND %1.%9 <= '" + end_date + "'::%9 ORDER BY %1.%6 DESC")
+                            .arg(TRANSACTION, CATEGORY, NAME, COLOR, TYPE, ID, CATEGORY_ID, USER_ID, DATE);
 
-    QVector<Transaction> transactions = repository->select(select);
-    TransactionJsonBuilder transactionJsonBuilder;
-    QJsonArray jsonArr;
-    for(const auto &transaction : transactions)
-    {
-        jsonArr.append(transactionJsonBuilder.buildJson(transaction));
+        QVector<Transaction> transactions = repository->select(query);
+        TransactionJsonBuilder transactionJsonBuilder;
+        QJsonArray jsonArr;
+
+        for (const auto &transaction : transactions) {
+            jsonArr.append(transactionJsonBuilder.buildJson(transaction));
+        }
+
+        QJsonDocument doc;
+        doc.setArray(jsonArr);
+        QString jsonString = doc.toJson();
+
+        response.setContentType(APPLICATIONJSON.toStdString());
+
+        response.setStatus(HTTPServerResponse::HTTP_OK);
+        std::ostream& ostr = response.send();
+        ostr<< jsonString.toStdString();
+    } catch(...) {
+        response.setStatus(HTTPServerResponse::HTTP_BAD_GATEWAY);
     }
-    QJsonDocument doc;
-    doc.setArray(jsonArr);
-    QString jsonString = doc.toJson();
-    response.setContentType("application/json");
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-    std::ostream& ostr = response.send();
-    ostr<< jsonString.toStdString();
 }
 
-void TransactionHandler::post(Poco::Net::HTTPServerRequest& request,
-                       Poco::Net::HTTPServerResponse& response)
+void TransactionHandler::post(HTTPServerRequest& request, HTTPServerResponse& response)
 {
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    Transaction transaction = parser->parse(bodyObj);
-    repository->add(transaction);
+    try{
+        QJsonObject bodyObj = convertIstreamToJson(request.stream());
+        Transaction transaction = parser->parse(bodyObj);
+        repository->add(transaction);
 
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+        response.setStatus(HTTPServerResponse::HTTP_OK);
+    } catch (...) {
+        response.setStatus(HTTPServerResponse::HTTP_BAD_GATEWAY);
+    }
+
     response.send();
 }
 
-void TransactionHandler::put(Poco::Net::HTTPServerRequest& request,
-                      Poco::Net::HTTPServerResponse& response)
+void TransactionHandler::put(HTTPServerRequest& request, HTTPServerResponse& response)
 {
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    Transaction transaction = parser->parse(bodyObj);
-    repository->update(transaction);
+    try{
+        QJsonObject bodyObj = convertIstreamToJson(request.stream());
+        Transaction transaction = parser->parse(bodyObj);
+        repository->update(transaction);
 
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+        response.setStatus(HTTPServerResponse::HTTP_OK);
+    } catch (...) {
+        response.setStatus(HTTPServerResponse::HTTP_BAD_GATEWAY);
+    }
+
     response.send();
 }
 
-void TransactionHandler::del(Poco::Net::HTTPServerRequest& request,
-                      Poco::Net::HTTPServerResponse& response)
+void TransactionHandler::del(HTTPServerRequest& request, HTTPServerResponse& response)
 {
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    int user_id = bodyObj.value("id").toInt();
-    repository->deleteObject(user_id);
+    try{
+        QMap<QString,QString> uri_map = getParametrsFromUrl(Poco::URI(request.getURI()));
+        int id = uri_map[ID].toInt();
 
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
+        repository->deleteObject(id);
+
+        response.setStatus(HTTPServerResponse::HTTP_OK);
+    } catch (...) {
+        response.setStatus(HTTPServerResponse::HTTP_BAD_GATEWAY);
+    }
+
     response.send();
 }
 
-void TransactionHandler::handleRequest(
-    Poco::Net::HTTPServerRequest& request,
-    Poco::Net::HTTPServerResponse& response){
-
-    if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_GET){
-           get(request, response);
-    }else if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_POST){
+void TransactionHandler::handleRequest(HTTPServerRequest& request, HTTPServerResponse& response)
+{
+    if (request.getMethod() == HTTPRequest::HTTP_GET){
+        get(request, response);
+    } else if(request.getMethod() == HTTPRequest::HTTP_POST) {
         post(request, response);
-    }else if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_PUT){
+    } else if(request.getMethod() == HTTPRequest::HTTP_PUT) {
         put(request, response);
-    }else if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_DELETE){
+    } else if(request.getMethod() == HTTPRequest::HTTP_DELETE) {
         del(request, response);
+    } else {
+        response.setStatus(HTTPServerResponse::HTTP_BAD_REQUEST);
+        response.send();
     }
 }

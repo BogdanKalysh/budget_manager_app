@@ -21,12 +21,12 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(User user, QSharedPointer<QNetworkAccessManager> manager,  QWidget *parent=nullptr);
+    MainWindow(const User &user, const QSharedPointer<QNetworkAccessManager> &manager,  QWidget *parent=nullptr);
     ~MainWindow();
 
 protected:
     void configWindowItems();
-    qreal getCategoryTotalSum(QString categoryName);
+    qreal getCategoryTotalSum(const QString &categoryName, const QString &type);
     void setUpUrls();
 
 public slots:
@@ -46,12 +46,10 @@ private slots:
     void on_fromDateEdit_dateChanged(const QDate &date);
     void on_toDateEdit_dateChanged(const QDate &date);
     void resizeEvent(QResizeEvent *event);
-
     void on_addCategoryButton_clicked();
-
     void on_incomesLegendRadioButton_clicked();
-
     void on_expencesLegendRadioButton_clicked();
+    void on_userName_clicked();
 
 private:
     Ui::MainWindow *ui;

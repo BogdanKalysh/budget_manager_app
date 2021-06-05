@@ -7,7 +7,7 @@
 class TransactionJsonBuilder: public IJsonBuilder<Transaction>
 {
 public:
-    QJsonObject buildJson(Transaction transaction) override;
+    QJsonObject buildJson(const Transaction &transaction) override;
 };
 
 #endif // TRANSACTIONJSONBUILDER_H

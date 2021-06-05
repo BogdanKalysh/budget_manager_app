@@ -3,56 +3,56 @@
 User:: User(){
 }
 
-User:: User(QString email, QString password)
+User:: User(const QString &email, const QString &password)
 {
     this->email = email;
     this->password = password;
 }
 
-User:: User(int id, QString name, QString email, QString password):User(email, password)
+User:: User(const int id, const QString &name, const QString &email, const QString &password):User(email, password)
 {
     this->id = id;
     this->name = name;
 }
 
 
-int User::getId()
+int User::getId() const
 {
     return this->id;
 }
 
-QString User::getName()
+QString User::getName() const
 {
     return this->name;
 }
 
-QString User::getPassword()
+QString User::getPassword() const
 {
     return this->password;
 }
 
-QString User::getEmail()
+QString User::getEmail() const
 {
     return this->email;
 }
 
 
-void User::setId(int id)
+void User::setId(const int id)
 {
     this->id = id;
 }
 
-void User::setName(QString name)
+void User::setName(const QString &name)
 {
     this->name = name;
 }
 
-void User::setEmail(QString email)
+void User::setEmail(const QString &email)
 {
     this->email = email;
 }
 
-void User::setPassword(QString password)
+void User::setPassword(const QString &password)
 {
     this->password = password;
 }

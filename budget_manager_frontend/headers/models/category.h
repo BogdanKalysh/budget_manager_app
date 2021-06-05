@@ -9,25 +9,25 @@ class Category
 {
     int id;
     QString name;
-    Type type;
+    QString type;
     QColor color;
     int userId;
 public:
     Category();
-    Category(int id, QString name, Type type, QColor color, int userId);
+    Category(const int id, const QString &name, const QString &type, const QColor &color, const int userId);
     Category (const Category &other);
 
-    int getId();
-    int getUserId();
-    QString getName();
-    Type getType();
-    QColor getColor();
+    int getId() const;
+    int getUserId() const;
+    QString getName() const;
+    QString getType() const;
+    QColor getColor() const;
 
-    void setId(int id);
-    void setName(QString name);
-    void setType(Type type);
-    void setColor(QColor color);
-    void setUserId(int userId);
+    void setId(const int id);
+    void setName(const QString &name);
+    void setType(const QString &type);
+    void setColor(const QColor &color);
+    void setUserId(const int userId);
 };
 
 #endif // CATEGORY_H

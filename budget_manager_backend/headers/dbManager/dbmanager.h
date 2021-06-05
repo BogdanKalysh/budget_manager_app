@@ -5,7 +5,6 @@
 
 class DBManager : public IDBManager
 {
-
 public:
     IRepository<User> *getUserRepository() override;
     IRepository<Category> *getCategoryRepository() override;

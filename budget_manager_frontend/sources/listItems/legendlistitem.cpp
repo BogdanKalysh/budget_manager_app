@@ -3,7 +3,7 @@
 #include <QHBoxLayout>
 
 
-LegendListItem::LegendListItem(Category category, QWidget *parent) : QDialog(parent)
+LegendListItem::LegendListItem(const Category &category, QWidget *parent) : QDialog(parent)
 {
     colorCircle = new QFrame;
     colorCircle->setFrameShape(QFrame::HLine);

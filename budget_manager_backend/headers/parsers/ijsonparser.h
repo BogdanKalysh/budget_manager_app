@@ -12,9 +12,8 @@ template <typename  T>
 class IJsonParser
 {
 public:
-//    using parsPtr = std::shared_ptr<IJsonParser<T>>;
-    virtual T parse(QJsonObject json) = 0;
-    virtual QVector<T> parseVector(QJsonArray jsonArray) = 0;
+    virtual T parse(const QJsonObject &json) = 0;
+    virtual QVector<T> parseVector(const QJsonArray &jsonArray) = 0;
 };
 
 #endif // IJSONPARSER_H

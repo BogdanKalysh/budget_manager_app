@@ -9,8 +9,8 @@ class TransactionParser: public IJsonParser<Transaction>
 public:
     using ptr = std::shared_ptr<IJsonParser<Transaction>>;
 
-    Transaction parse(QJsonObject json) override;
-    QVector<Transaction> parseVector(QJsonArray jsonArray) override;
+    Transaction parse(const QJsonObject &json) override;
+    QVector<Transaction> parseVector(const QJsonArray &jsonArray) override;
 };
 
 

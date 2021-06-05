@@ -9,8 +9,8 @@ class UserParser: public IJsonParser<User>
 public:
     using ptr = std::shared_ptr<IJsonParser<User>>;
 
-    User parse(QJsonObject json) override;
-    QVector<User> parseVector(QJsonArray jsonArray) override;
+    User parse(const QJsonObject &json) override;
+    QVector<User> parseVector(const QJsonArray &jsonArray) override;
 };
 
 #endif // USERPARSER_H

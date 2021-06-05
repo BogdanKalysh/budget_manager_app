@@ -16,82 +16,93 @@ AbstractHandler *CategoryHandler::getCopy()
 }
 
 
-void CategoryHandler::get(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
-    try {
-    QMap<QString,QString> map = getParametrsFromUrl(Poco::URI(request.getURI()));
-    int user_id;
-
-    user_id = std::stoi(map[dal::USER_ID].toStdString());
-
-    QString query(QString("SELECT * FROM %1 WHERE user_id = %2 ORDER BY %3 ASC").
-                  arg(dal::CATEGORY, QString::number(user_id), dal::ID));
-
-    QVector<Category> categories = repository->select(query);
-    CategoryJsonBuilder categoryJsonBuilder;
-    QJsonArray jsonArr;
-
-    for (const auto &category : categories){
-        jsonArr.append(categoryJsonBuilder.buildJson(category));
-    }
-
-    QJsonDocument doc;
-    doc.setArray(jsonArr);
-    QString jsonString = doc.toJson();
-
-    response.setContentType("application/json");
-
-    std::ostream& ostr = response.send();
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-    ostr<< jsonString.toStdString();
-    }
-    catch (...) {
-        response.setStatus(Poco::Net::HTTPServerResponse::HTTP_BAD_GATEWAY);
-    }
-}
-
-void CategoryHandler::put(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-
-    Category category = parser->parse(bodyObj);
-
-    repository->update(category);
-
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-    response.send();
-}
-
-
-void CategoryHandler::post(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-
-    Category category = parser->parse(bodyObj);
-
-    repository->add(category);
-
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-    response.send();
-}
-
-void CategoryHandler::del(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response){
-    QJsonObject bodyObj = convertIstreamToJson(request.stream());
-    Category category = parser->parse(bodyObj);
-
-    repository->deleteObject(category.getId());
-
-    response.setStatus(Poco::Net::HTTPServerResponse::HTTP_OK);
-    response.send();
-}
-
-void CategoryHandler::handleRequest(Poco::Net::HTTPServerRequest &request, Poco::Net::HTTPServerResponse &response)
+void CategoryHandler::get(HTTPServerRequest& request, HTTPServerResponse& response)
 {
-    if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_GET){
-        get(request, response);
-    }else if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_POST){
-        post(request, response);
-    }else if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_PUT){
-        put(request, response);
-    }else if(request.getMethod() == Poco::Net::HTTPRequest::HTTP_DELETE){
-        del(request, response);
+    try {
+        QMap<QString,QString> uri_map = getParametrsFromUrl(Poco::URI(request.getURI()));
+
+        QString query(QString("SELECT * FROM %1 WHERE %2 = %3 ORDER BY %4 ASC").
+                      arg(CATEGORY, USER_ID, uri_map[USER_ID], ID));
+
+        QVector<Category> categories = repository->select(query);
+        CategoryJsonBuilder categoryJsonBuilder;
+        QJsonArray jsonArr;
+
+        for (const auto &category : categories) {
+            jsonArr.append(categoryJsonBuilder.buildJson(category));
+        }
+
+        QJsonDocument doc;
+        doc.setArray(jsonArr);
+        QString jsonString = doc.toJson();
+
+        response.setContentType(APPLICATIONJSON.toStdString());
+
+        response.setStatus(HTTPServerResponse::HTTP_OK);
+        std::ostream& ostr = response.send();
+        ostr<< jsonString.toStdString();
+    } catch (...) {
+        response.setStatus(HTTPServerResponse::HTTP_BAD_GATEWAY);
     }
 }
 
+void CategoryHandler::post(HTTPServerRequest& request, HTTPServerResponse& response)
+{
+    try{
+        QJsonObject bodyObj = convertIstreamToJson(request.stream());
+        Category category = parser->parse(bodyObj);
+        repository->add(category);
+
+        response.setStatus(HTTPServerResponse::HTTP_OK);
+    } catch (...) {
+        response.setStatus(HTTPServerResponse::HTTP_BAD_GATEWAY);
+    }
+
+    response.send();
+}
+
+void CategoryHandler::put(HTTPServerRequest& request, HTTPServerResponse& response)
+{
+    try{
+        QJsonObject bodyObj = convertIstreamToJson(request.stream());
+        Category category = parser->parse(bodyObj);
+        repository->update(category);
+
+        response.setStatus(HTTPServerResponse::HTTP_OK);
+    } catch (...) {
+        response.setStatus(HTTPServerResponse::HTTP_BAD_GATEWAY);
+    }
+
+    response.send();
+}
+
+void CategoryHandler::del(HTTPServerRequest& request, HTTPServerResponse& response)
+{
+    try{
+        QMap<QString,QString> uri_map = getParametrsFromUrl(Poco::URI(request.getURI()));
+        int id = uri_map[ID].toInt();
+        repository->deleteObject(id);
+
+        response.setStatus(HTTPServerResponse::HTTP_OK);
+    } catch (...) {
+        response.setStatus(HTTPServerResponse::HTTP_BAD_GATEWAY);
+    }
+
+    response.send();
+}
+
+void CategoryHandler::handleRequest(HTTPServerRequest &request, HTTPServerResponse &response)
+{
+    if (request.getMethod() == HTTPRequest::HTTP_GET) {
+        get(request, response);
+    } else if(request.getMethod() == HTTPRequest::HTTP_POST) {
+        post(request, response);
+    } else if(request.getMethod() == HTTPRequest::HTTP_PUT) {
+        put(request, response);
+    } else if(request.getMethod() == HTTPRequest::HTTP_DELETE) {
+        del(request, response);
+    } else {
+        response.setStatus(HTTPServerResponse::HTTP_BAD_REQUEST);
+        response.send();
+    }
+}
