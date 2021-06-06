@@ -44,8 +44,8 @@ HEADERS += \
     headers/JsonBuilders/categoryjsonbuilder.h \
     headers/JsonBuilders/transactionjsonbuilder.h \
     headers/JsonBuilders/userjsonbuilder.h \
-    headers/logger.h\
-    headers/tests/testquerybuilders.h
+    headers/logger.h \
+    headers/tests/testquerybuilder.h
 
 
 SOURCES += \
@@ -65,7 +65,7 @@ SOURCES += \
     sources/JsonBuilders/transactionjsonbuilder.cpp \
     sources/JsonBuilders/userjsonbuilder.cpp \
     sources/JsonBuilders/categoryjsonbuilder.cpp \
-    sources/tests/testquerybuilders.cpp \
+    sources/tests/testquerybuilder.cpp
 
 
 
@@ -81,10 +81,12 @@ INCLUDEPATH += \
     ../DAL/headers \
     ../DAL/headers/models \
     ../DAL/headers/repositories \
+    ../DAL/headers/querybuilder
 DEPENDPATH += \
     ../DAL/headers \
     ../DAL/headers/models \
-    ../DAL/headers/repositories
+    ../DAL/headers/repositories \
+    ../DAL/headers/querybuilder
 
 
 

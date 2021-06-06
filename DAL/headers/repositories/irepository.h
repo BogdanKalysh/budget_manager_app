@@ -1,6 +1,7 @@
 #ifndef IREPOSITORY_H
 #define IREPOSITORY_H
-#include "querybuilders.h"
+#include "querybuilder.h"
+#include "setupdatabase.h"
 #include <memory>
 
 template <typename T>

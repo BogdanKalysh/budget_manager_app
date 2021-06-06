@@ -45,7 +45,7 @@ bool TransactionRepository::update(const Transaction &object)
                << object.getDescription()
                << object.getDate().toString();
 
-        if (query.exec(updateQueryBuilder(qMakePair(TRANSACTION, object.getId()), fields, values))) {
+        if (query.exec(this->queryBuilder.updateQuery(qMakePair(TRANSACTION, object.getId()), fields, values))) {
             db.close();
             return true;
         }
@@ -73,7 +73,7 @@ bool TransactionRepository::add(const Transaction &object)
                << QString::number(object.getAmount())
                << object.getDescription();
 
-        if (query.exec(insertQueryBuilder(TRANSACTION, fields, values))) {
+        if (query.exec(this->queryBuilder.insertQuery(TRANSACTION, fields, values))) {
             db.close();
             return true;
         }
@@ -93,7 +93,7 @@ bool TransactionRepository::deleteObject(const int id)
     if (db.open()) {
         QSqlQuery query;
 
-        if (query.exec(deleteQueryBuilder(qMakePair(TRANSACTION, id)))) {
+        if (query.exec(this->queryBuilder.deleteQuery(qMakePair(TRANSACTION, id)))) {
             db.close();
             return true;
         }

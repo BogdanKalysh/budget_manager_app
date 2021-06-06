@@ -42,7 +42,7 @@ bool CategoryRepository::update(const Category &object)
                << object.getType()
                << object.getColor().name();
 
-        if (query.exec(updateQueryBuilder(qMakePair(CATEGORY, object.getId()), fields, values))) {
+        if (query.exec(this->queryBuilder.updateQuery(qMakePair(CATEGORY, object.getId()), fields, values))) {
             db.close();
             return true;
         }
@@ -71,7 +71,7 @@ bool CategoryRepository::add(const Category &object)
                << object.getColor().name()
                << QString::number(object.getUserId());
 
-        if (query.exec(insertQueryBuilder(CATEGORY, fields, values))) {
+        if (query.exec(this->queryBuilder.insertQuery(CATEGORY, fields, values))) {
             db.close();
             return true;
         }
@@ -91,7 +91,7 @@ bool CategoryRepository::deleteObject(const int id)
     if (db.open()) {
         QSqlQuery query;
 
-        if(query.exec(deleteQueryBuilder(qMakePair(CATEGORY, id)))) {
+        if(query.exec(this->queryBuilder.deleteQuery(qMakePair(CATEGORY, id)))) {
             db.close();
             return true;
         }
