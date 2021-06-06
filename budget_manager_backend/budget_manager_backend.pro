@@ -45,7 +45,8 @@ HEADERS += \
     headers/JsonBuilders/transactionjsonbuilder.h \
     headers/JsonBuilders/userjsonbuilder.h \
     headers/logger.h\
-    headers/tests/testquerybuilders.h
+    headers/tests/testquerybuilders.h \
+    headers/tests/testuserrepository.h
 
 
 SOURCES += \
@@ -66,6 +67,7 @@ SOURCES += \
     sources/JsonBuilders/userjsonbuilder.cpp \
     sources/JsonBuilders/categoryjsonbuilder.cpp \
     sources/tests/testquerybuilders.cpp \
+    sources/tests/testuserrepository.cpp \
 
 
 # Default rules for deployment.

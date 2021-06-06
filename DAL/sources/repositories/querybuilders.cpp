@@ -96,7 +96,6 @@ QSqlDatabase setUpDatabase()
 
         if(i == dbConfigContent.length() || dbConfigContent[i] == '\n'){
             dbConfig[field] = value;
-            qDebug() << field << value;
             field = "";
             value = "";
             firstPart = true;
@@ -128,3 +127,4 @@ QSqlDatabase setUpDatabase()
 
     return db;
 }
+

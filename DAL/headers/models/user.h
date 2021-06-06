@@ -24,4 +24,7 @@ public:
     void setEmail(const QString &email);
 };
 
+bool operator==(const User &left, const User &right);
+bool operator!=(const User &left, const User &right);
+
 #endif // USER_H

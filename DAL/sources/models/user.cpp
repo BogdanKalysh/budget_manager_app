@@ -48,3 +48,13 @@ void User::setEmail(const QString &email)
 {
     this->email = email;
 }
+
+bool operator==(const User &left, const User &right)
+{
+    return (left.getEmail() == right.getEmail() && left.getName() == right.getName() && left.getPassword() == right.getPassword());
+}
+
+bool operator!=(const User &left, const User &right)
+{
+    return !(left.getEmail() == right.getEmail() && left.getName() == right.getName() && left.getPassword() == right.getPassword());
+}
