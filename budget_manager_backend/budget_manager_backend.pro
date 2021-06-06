@@ -1,4 +1,4 @@
-QT += gui sql
+QT += gui sql testlib
 
 CONFIG += c++11
 TEMPLATE = app
@@ -45,6 +45,7 @@ HEADERS += \
     headers/JsonBuilders/transactionjsonbuilder.h \
     headers/JsonBuilders/userjsonbuilder.h \
     headers/logger.h\
+    headers/tests/testquerybuilders.h
 
 
 SOURCES += \
@@ -64,6 +65,7 @@ SOURCES += \
     sources/JsonBuilders/transactionjsonbuilder.cpp \
     sources/JsonBuilders/userjsonbuilder.cpp \
     sources/JsonBuilders/categoryjsonbuilder.cpp \
+    sources/tests/testquerybuilders.cpp \
 
 
 # Default rules for deployment.

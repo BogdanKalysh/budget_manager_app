@@ -121,10 +121,6 @@ QSqlDatabase setUpDatabase()
     dbFile.close();
 
     QSqlDatabase db = QSqlDatabase::addDatabase(dbConfig[dal::DB]);
-    qDebug() << dbConfig[dal::HOST];
-    qDebug() << dbConfig[dal::DBNAME];
-    qDebug() << dbConfig[dal::USER];
-    qDebug() << dbConfig[dal::USER_PASSWORD];
     db.setHostName(dbConfig[dal::HOST]);
     db.setDatabaseName(dbConfig[dal::DBNAME]);
     db.setUserName(dbConfig[dal::USER]);
