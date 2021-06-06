@@ -12,6 +12,9 @@ public:
     bool update(const Transaction &object) override;
     bool add(const Transaction &object) override;
     bool deleteObject(const int id) override;
+
+protected:
+    QueryBuilder queryBuilder;
 };
 
 #endif // TRANSACTIONREPOSITORY_H

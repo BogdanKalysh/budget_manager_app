@@ -16,6 +16,9 @@ DEPENDPATH += \
     $$PWD/headers/models \
     $$PWD/sources/repositories \
     $$PWD/headers/repositories \
+    $$PWD/headers/querybuilder \
+    $$PWD/sources/querybuilder \
+
 
 INCLUDEPATH += \
     $$PWD/sources \
@@ -24,6 +27,8 @@ INCLUDEPATH += \
     $$PWD/headers/models \
     $$PWD/sources/repositories \
     $$PWD/headers/repositories \
+    $$PWD/headers/querybuilder \
+    $$PWD/sources/querybuilder \
 
 
 SOURCES += \
@@ -31,9 +36,11 @@ SOURCES += \
     sources/models/transaction.cpp \
     sources/models/user.cpp \
     sources/repositories/categoryrepository.cpp \
+    sources/repositories/setupdatabase.cpp \
     sources/repositories/transactionrepository.cpp \
     sources/repositories/userrepository.cpp \
-    sources/repositories/querybuilders.cpp \
+    sources/querybuilder/querybuilder.cpp \
+
 
 HEADERS += \
     headers/constants.h \
@@ -41,10 +48,11 @@ HEADERS += \
     headers/models/transaction.h \
     headers/models/user.h \
     headers/repositories/categoryrepository.h \
-    headers/repositories/querybuilders.h \
+    headers/repositories/setupdatabase.h \
     headers/repositories/transactionrepository.h \
     headers/repositories/userrepository.h \
-    headers/repositories/irepository.h
+    headers/repositories/irepository.h \
+    headers/querybuilder/querybuilder.h \
 
 # Default rules for deployment.
 unix {

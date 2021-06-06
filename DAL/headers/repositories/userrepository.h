@@ -3,6 +3,7 @@
 #include "irepository.h"
 #include "user.h"
 
+
 class UserRepository : public IRepository<User>
 {
 public:
@@ -12,6 +13,9 @@ public:
     bool update(const User &object) override;
     bool add(const User &object) override;
     bool deleteObject(const int id) override;
+
+protected:
+    QueryBuilder queryBuilder;
 };
 
 #endif // USERREPOSITORY_H

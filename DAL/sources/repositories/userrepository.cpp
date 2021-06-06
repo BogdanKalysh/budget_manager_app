@@ -42,7 +42,7 @@ bool UserRepository::update(const User &object)
                << object.getPassword()
                << object.getName();
 
-        if (query.exec(updateQueryBuilder(qMakePair(USERS, object.getId()), fields, values))) {
+        if (query.exec(this->queryBuilder.updateQuery(qMakePair(USERS, object.getId()), fields, values))) {
             db.close();
             return true;
         }
@@ -70,7 +70,7 @@ bool UserRepository::add(const User &object)
                << object.getPassword()
                << object.getName();
 
-        if (query.exec(insertQueryBuilder(USERS, fields, values))) {
+        if (query.exec(this->queryBuilder.insertQuery(USERS, fields, values))) {
             db.close();
             return true;
         }
@@ -90,7 +90,7 @@ bool UserRepository::deleteObject(const int id)
     if (db.open()) {
         QSqlQuery query;
 
-        if (query.exec(deleteQueryBuilder(qMakePair(USERS, id)))) {
+        if (query.exec(this->queryBuilder.deleteQuery(qMakePair(USERS, id)))) {
             db.close();
             return true;
         }

@@ -13,6 +13,9 @@ public:
     bool update(const Category &object) override;
     bool add(const Category &object) override;
     bool deleteObject(const int id) override;
+
+protected:
+    QueryBuilder queryBuilder;
 };
 
 #endif // CATEGORYREPOSITORY_H
