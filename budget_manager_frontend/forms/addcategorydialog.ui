@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddCategoryDialog</class>
+ <widget class="QDialog" name="AddCategoryDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>418</width>
+    <height>179</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>418</width>
+    <height>179</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>418</width>
+    <height>179</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Додавання категорії</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+	color:rgb(218, 218, 218);
+}
+
+QDialog{
+	background: qlineargradient(spread:pad, x1:0, y1:0.960227, x2:1, y2:0, stop:0 rgba(13, 189, 217, 255), stop:1 rgba(0, 75, 230, 255))
+}
+
+#addCategoryButton{
+ height: 50px;
+ width: 110px;
+ border-radius: 25px;
+ background: transparent;
+ border: 1px solid white;
+ font-size: 20px;
+}
+
+#addCategoryButton::hover{
+ background: rgb(88, 153, 255);
+ border-style: none;
+}
+
+QLineEdit{
+ 	border: 1px solid rgba(255,255,255,0.3);
+ 	background: rgba(0,0,0,0.1);
+ 	height: 50px;
+ 	border-radius: 25px;
+ 	font-size: 20px;
+ 	padding: 0 20px;
+	color: rgb(218, 218, 218);
+}
+
+QLineEdit[text=&quot;&quot;]{
+	color: rgba(255,255,255,0.6);
+}
+
+#colorPicker{
+	height:35px;
+	width:35px;
+	background:black;
+	border:1px solid silver;
+}</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QPushButton" name="colorPicker">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="categoryNameInput">
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
+     <property name="placeholderText">
+      <string>Назва категорії</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="addCategoryButton">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Додати</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>addCategoryButton</tabstop>
+  <tabstop>colorPicker</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
