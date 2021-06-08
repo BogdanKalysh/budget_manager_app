@@ -1,4 +1,4 @@
-QT += gui sql
+QT += gui sql testlib
 
 CONFIG += c++11
 TEMPLATE = app
@@ -24,8 +24,13 @@ INCLUDEPATH += \
     $$PWD/headers/JsonBuilders \
     $$PWD/headers/ParserManager\
     $$PWD/headers/tests\
+    $$PWD/sources/tests/JsonBuilders\
+    $$PWD/sources/tests/parsers\
+    $$PWD/headers/tests/JsonBuilders\
+    $$PWD/headers/tests/parsers\
 
 HEADERS += \
+    headers/JsonBuilders/userjsonbuilder.h \
     headers/dbManager/idbmanager.h \
     headers/handlers/abstracthandler.h \
     headers/parserManager/iparsermanager.h \
@@ -43,8 +48,13 @@ HEADERS += \
     headers/JsonBuilders/IJsonBuilder.h \
     headers/JsonBuilders/categoryjsonbuilder.h \
     headers/JsonBuilders/transactionjsonbuilder.h \
-    headers/JsonBuilders/userjsonbuilder.h \
-    headers/logger.h\
+    headers/logger.h \
+    headers/tests/JsonBuilders/testcategoryjsonbuilder.h \
+    headers/tests/JsonBuilders/testtransactionjsonbuilder.h \
+    headers/tests/JsonBuilders/testuserjsonbuilder.h \
+    headers/tests/parsers/testcategoryparser.h \
+    headers/tests/parsers/testtransactionparser.h \
+    headers/tests/parsers/testuserparser.h
 
 
 SOURCES += \
@@ -64,6 +74,12 @@ SOURCES += \
     sources/JsonBuilders/transactionjsonbuilder.cpp \
     sources/JsonBuilders/userjsonbuilder.cpp \
     sources/JsonBuilders/categoryjsonbuilder.cpp \
+    sources/tests/JsonBuilders/testcategoryjsonbuilder.cpp \
+    sources/tests/JsonBuilders/testuserjsonbuilder.cpp \
+    sources/tests/JsonBuilders/testtransactionjsonbuilder.cpp \
+    sources/tests/parsers/testcategoryparser.cpp \
+    sources/tests/parsers/testtransactionparser.cpp \
+    sources/tests/parsers/testuserparser.cpp
 
 
 # Default rules for deployment.
