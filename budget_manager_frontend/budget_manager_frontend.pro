@@ -35,8 +35,10 @@ DEPENDPATH += \
 
 
 HEADERS += \
+    headers/tests/testloginwindow.h \
     headers/tests/testsignupwindow.h \
     headers/tests/testtransactionsitem.h \
+    headers/tests/testusersettingswindow.h \
     headers/windows/addcategorydialog.h \
     headers/listItems/TransactionsListItem.h \
     headers/builders/IJsonBuilder.h \
@@ -60,6 +62,9 @@ HEADERS += \
 
 
 SOURCES += \
+    headers/tests/testusersettingswindow.cpp \
+    sources/tests/testloginwindow.cpp \
+    sources/tests/testloginwindow.cpp \
     sources/tests/testsignupwindow.cpp \
     sources/tests/testtransactionsitem.cpp \
     sources/listItems/legendlistitem.cpp \
