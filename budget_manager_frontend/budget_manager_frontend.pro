@@ -62,7 +62,7 @@ HEADERS += \
 
 
 SOURCES += \
-    headers/tests/testusersettingswindow.cpp \
+    sources/tests/testusersettingswindow.cpp \
     sources/tests/testloginwindow.cpp \
     sources/tests/testloginwindow.cpp \
     sources/tests/testsignupwindow.cpp \

@@ -38,7 +38,8 @@ public slots:
     void updatePiechart();
     void updateList();
     void updateLegend();
-
+    void setEmail(QString email);
+    void setPassword(QString password);
 private slots:
     void on_addTransactionButton_clicked();
     void on_incomeRadioButton_clicked();

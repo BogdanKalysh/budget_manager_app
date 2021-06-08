@@ -45,6 +45,15 @@ void LoginWindow::on_loginButton_clicked()
     connect(getUserReply, &QIODevice::readChannelFinished, this, &LoginWindow::onResult);
 }
 
+void LoginWindow::setEmail(QString email){
+    ui->email_line->clear();
+    ui->email_line->insert(email);
+}
+
+void LoginWindow::setPassword(QString password){
+    ui->password_line->clear();
+    ui->password_line->insert(password);
+}
 
 void LoginWindow::on_signUpLoginButton_clicked()
 {

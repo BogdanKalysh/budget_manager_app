@@ -7,10 +7,11 @@
 #include "mainWindow.h"
 #include "signUpWindow.h"
 #include <QSharedPointer>
-
+#include "testloginwindow.h"
 
 namespace Ui {
 class LoginWindow;
+class testloginwindow;
 }
 
 class LoginWindow : public QMainWindow
@@ -27,11 +28,15 @@ private slots:
     void onResult();
 
 private:
+    void setEmail(QString email);
+    void setPassword(QString password);
+    friend class testloginwindow;
     Ui::LoginWindow *ui;
     MainWindow *mainWindow;
     SignUpWindow *signUpWindow;
     QSharedPointer<QNetworkAccessManager> manager;
     User user;
+
 };
 
 #endif // LOGINWINDOW_H

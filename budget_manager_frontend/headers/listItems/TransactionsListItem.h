@@ -11,6 +11,7 @@
 #include <QNetworkAccessManager>
 #include <QPushButton>
 
+
 class TransactionsItem : public QDialog
 {
     Q_OBJECT
@@ -24,7 +25,7 @@ private:
     QLabel *sum;
     QPushButton *delButton;
     QSharedPointer<QNetworkAccessManager> manager;
-
+    friend class testtransactionitem;
     bool event(QEvent *e);
     void hoverEnter(QHoverEvent *event);
     void hoverLeave(QHoverEvent *event);
