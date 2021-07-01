@@ -7,11 +7,13 @@
 #include "categoryhandler.h"
 #include "transactionhandler.h"
 #include "constants.h"
+#include "mocdbmanager.h"
 
 namespace handlers
 {
 HandlerFactory::HandlerFactory(){
-    _dbManager.reset(new DBManager);
+    _dbManager.reset(new MocDBManager);
+    //_dbManager.reset(new DBManager);
     _parserManager.reset(new ParserManager);
 
     addHandler(USERPATH.toStdString(), new UserHandler(_dbManager, _parserManager));

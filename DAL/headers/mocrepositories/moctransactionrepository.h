@@ -1,0 +1,17 @@
+#ifndef MOCTRANSACTIONREPOSITORY_H
+#define MOCTRANSACTIONREPOSITORY_H
+#include "irepository.h"
+#include "transaction.h"
+
+class MocTransactionRepository : public IRepository<Transaction>
+{
+public:
+    using ptr = std::shared_ptr<IRepository<Transaction>>;
+
+    QVector<Transaction> select(const QString &query) override;
+    bool update(const Transaction &object) override;
+    bool add(const Transaction &object) override;
+    bool deleteObject(const int id) override;
+};
+
+#endif // TRANSACTIONREPOSITORY_H

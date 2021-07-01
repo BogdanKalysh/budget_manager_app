@@ -53,7 +53,8 @@ HEADERS += \
     headers/parsers/categoryparser.h \
     headers/parsers/transactionparser.h\
     headers/listItems/legendlistitem.h \
-    headers/windows/usersettingsdialog.h
+    headers/windows/usersettingsdialog.h\
+    headers/tests/testMainWindow.h \
 
 
 SOURCES += \
@@ -73,7 +74,8 @@ SOURCES += \
     sources/parsers/userparser.cpp \
     sources/windows/signUpWindow.cpp \
     sources/builders/transactionJsonBuilder.cpp \
-    sources/windows/usersettingsdialog.cpp
+    sources/windows/usersettingsdialog.cpp\
+    sources/tests/testMainWindow.cpp \
 
 FORMS += \
     forms/addcategorydialog.ui \

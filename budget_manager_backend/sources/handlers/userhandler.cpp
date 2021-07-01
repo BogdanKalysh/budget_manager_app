@@ -24,14 +24,12 @@ void UserHandler::get(HTTPServerRequest &request, HTTPServerResponse &response)
         QString password = uri_map.constFind(PASSWORD).value();
 
         QString query = "SELECT * FROM users WHERE " + MAIL + "='" + mail+ "'AND " + PASSWORD + "='" +password + "';";
-
+        qDebug()<<mail;
         QVector<User> users = repository->select(query);
         UserJsonBuilder builder;
-
         if (!users.isEmpty()) {
             QJsonObject jsonObject = builder.buildJson(users.first());
             QString jsonString = QJsonDocument(jsonObject).toJson(QJsonDocument::Compact);
-
             response.setStatus(HTTPServerResponse::HTTP_OK);
             response.setContentType("application/json");
 
@@ -52,7 +50,7 @@ void UserHandler::post(HTTPServerRequest &request, HTTPServerResponse &response)
     try {
         QJsonObject json = convertIstreamToJson(request.stream());
         User user = parser->parse(json);
-
+        qDebug()<<user.getEmail();
         QVector<User> users = repository->select("SELECT * FROM users WHERE "+ MAIL + "='" + user.getEmail() + "';" );
         if (users.empty()) {
             repository->add(user);
@@ -62,6 +60,7 @@ void UserHandler::post(HTTPServerRequest &request, HTTPServerResponse &response)
         }
     } catch (...) {
         response.setStatus(HTTPServerResponse::HTTP_BAD_GATEWAY);
+
     }
 
     response.send();

@@ -27,6 +27,7 @@ INCLUDEPATH += \
 
 HEADERS += \
     headers/dbManager/idbmanager.h \
+    headers/dbManager/mocdbmanager.h \
     headers/handlers/abstracthandler.h \
     headers/parserManager/iparsermanager.h \
     headers/parserManager/parsermanager.h \
@@ -48,6 +49,7 @@ HEADERS += \
 
 
 SOURCES += \
+    sources/dbManager/mocdbmanager.cpp \
     main.cpp \
     sources/handlers/abstracthandler.cpp \
     sources/logger.cpp \
@@ -78,10 +80,12 @@ INCLUDEPATH += \
     ../DAL/headers \
     ../DAL/headers/models \
     ../DAL/headers/repositories \
+    ../DAL/headers/mocrepositories \
 DEPENDPATH += \
     ../DAL/headers \
     ../DAL/headers/models \
-    ../DAL/headers/repositories
+    ../DAL/headers/repositories\
+    ../DAL/headers/mocrepositories \
 
 
 

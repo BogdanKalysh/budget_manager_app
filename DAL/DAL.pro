@@ -16,6 +16,8 @@ DEPENDPATH += \
     $$PWD/headers/models \
     $$PWD/sources/repositories \
     $$PWD/headers/repositories \
+    $$PWD/sources/mocrepositories \
+    $$PWD/headers/mocrepositories \
 
 INCLUDEPATH += \
     $$PWD/sources \
@@ -24,6 +26,8 @@ INCLUDEPATH += \
     $$PWD/headers/models \
     $$PWD/sources/repositories \
     $$PWD/headers/repositories \
+    $$PWD/sources/mocrepositories \
+    $$PWD/headers/mocrepositories \
 
 
 SOURCES += \
@@ -34,6 +38,9 @@ SOURCES += \
     sources/repositories/transactionrepository.cpp \
     sources/repositories/userrepository.cpp \
     sources/repositories/querybuilders.cpp \
+    sources/mocrepositories/moccategoryrepository.cpp \
+    sources/mocrepositories/moctransactionrepository.cpp \
+    sources/mocrepositories/mocuserrepository.cpp \
 
 HEADERS += \
     headers/constants.h \
@@ -44,7 +51,10 @@ HEADERS += \
     headers/repositories/querybuilders.h \
     headers/repositories/transactionrepository.h \
     headers/repositories/userrepository.h \
-    headers/repositories/irepository.h
+    headers/repositories/irepository.h\
+    headers/mocrepositories/moctransactionrepository.h \
+    headers/mocrepositories/mocuserrepository.h \
+    headers/mocrepositories/moccategoryrepository.h \
 
 # Default rules for deployment.
 unix {
